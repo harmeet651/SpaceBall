@@ -2,39 +2,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class shpereMove : MonoBehaviour {
+public class PlayerController : MonoBehaviour {
 
     public KeyCode moveL;
     public KeyCode moveR;
     public KeyCode moveSlow;
     public float horizVel = 0;
-    public int laneNum = 2;
-    public string controlLocked = "n";
-    Vector3 start, BackToStart;
+
+    private int laneNum = 2;                // current lane
+    private bool controlLocked = false;     // whether the ball is already moving in a horizontal direction
+    private Rigidbody rigidbody; 
 
     void Start () {
-        //start = transform.position;
+        // Save a reference to the rigidbody object
+        rigidbody = GetComponent<Rigidbody>(); 
 	}
 	
 	void Update () {
-        GetComponent<Rigidbody>().velocity = new Vector3(horizVel, 0, 4);
-        if (Input.GetKeyDown(moveL) && (laneNum > 1) && (controlLocked == "n"))
+        rigidbody.velocity = new Vector3(horizVel, 0, 4);
+
+        if (Input.GetKeyDown(moveL) && (laneNum > 1) && (controlLocked == false))
         {
             horizVel = -2;
             StartCoroutine(stopSlide());
             laneNum = laneNum - 1;
-            controlLocked = "y";
+            controlLocked = true;
         }
-        if (Input.GetKeyDown(moveR) && (laneNum < 3) && (controlLocked == "n"))
+        if (Input.GetKeyDown(moveR) && (laneNum < 3) && (controlLocked == false))
         {
             horizVel = 2;
             StartCoroutine(stopSlide());
             laneNum = laneNum + 1;
-            controlLocked = "y";
+            controlLocked = true;
         }
-        if(Input.GetKey(moveSlow) && controlLocked=="n")
+        if(Input.GetKey(moveSlow) && controlLocked == false)
         {
-            GetComponent<Rigidbody>().velocity = new Vector3(horizVel, 0, 0.5f);
+            rigidbody.velocity = new Vector3(horizVel, 0, 0.5f);
         }
     }
 
@@ -42,7 +45,7 @@ public class shpereMove : MonoBehaviour {
 {
     yield return new WaitForSeconds(.5f);
     horizVel = 0;
-    controlLocked = "n";
+    controlLocked = false;
 }
 
     private void OnCollisionEnter(Collision collision)
@@ -78,11 +81,11 @@ public class shpereMove : MonoBehaviour {
         }
         if(other.gameObject.tag=="enterPipe2")
         {
-            GetComponent<Rigidbody>().velocity= new Vector3(horizVel, 0, 80);
+            rigidbody.velocity= new Vector3(horizVel, 0, 80);
         }
         if (other.gameObject.tag == "exitPipe2")
         {
-            GetComponent<Rigidbody>().velocity = new Vector3(horizVel, 0, 4);
+            rigidbody.velocity = new Vector3(horizVel, 0, 4);
         }
     }
 }

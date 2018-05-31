@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class pipeMove : MonoBehaviour {
+public class PipeController : MonoBehaviour {
 
     public float speed= 1.5f;
 
