@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (other.gameObject.tag=="goBack")
         {
+           // transform.position = Vector3.Lerp()
             transform.position = new Vector3(1, 0.8f, 5);
         }
         if (other.gameObject.tag == "goBackLeft")
