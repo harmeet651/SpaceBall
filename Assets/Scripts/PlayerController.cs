@@ -9,50 +9,27 @@ public class PlayerController : MonoBehaviour {
     public KeyCode moveSlow;
     public float horizVel = 0;
 
-    private int laneNum = 2;                // current lane
-    private bool controlLocked = false;     // whether the ball is already moving in a horizontal direction
-    private Rigidbody rigidbody; 
+   private new Rigidbody rigidbody; 
 
     void Start () {
         // Save a reference to the rigidbody object
         rigidbody = GetComponent<Rigidbody>(); 
+
+
 	}
 	
 	void Update () {
         rigidbody.velocity = new Vector3(horizVel, 0, 4);
-
-        if (Input.GetKeyDown(moveL) && (laneNum > 1) && (controlLocked == false))
-        {
-            horizVel = -2;
-            StartCoroutine(stopSlide());
-            laneNum = laneNum - 1;
-            controlLocked = true;
-        }
-        if (Input.GetKeyDown(moveR) && (laneNum < 3) && (controlLocked == false))
-        {
-            horizVel = 2;
-            StartCoroutine(stopSlide());
-            laneNum = laneNum + 1;
-            controlLocked = true;
-        }
-        if(Input.GetKey(moveSlow) && controlLocked == false)
-        {
-            rigidbody.velocity = new Vector3(horizVel, 0, 0.5f);
-        }
     }
 
-     IEnumerator stopSlide()
-{
-    yield return new WaitForSeconds(.5f);
-    horizVel = 0;
-    controlLocked = false;
-}
+
 
     private void OnCollisionEnter(Collision collision)
     {
         
     }
 
+    // For adjusting the player's position to the center of the lane
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag=="goBack")
@@ -87,5 +64,20 @@ public class PlayerController : MonoBehaviour {
         {
             rigidbody.velocity = new Vector3(horizVel, 0, 4);
         }
+    }
+
+    public void MoveLeft()
+    {
+		horizVel = -2;
+    }
+
+    public void MoveRight()
+    {
+		horizVel = 2;
+    }
+
+    public void MoveSlow()
+    {
+        rigidbody.velocity = new Vector3(horizVel, 0, 0.5f);
     }
 }
