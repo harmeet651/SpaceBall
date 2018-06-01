@@ -11,8 +11,8 @@ public class MainController : MonoBehaviour {
 	public KeyCode moveR;
 	public KeyCode moveSlow;
 
-    public GameObject player;
-    public PlayerController playerController; 
+    private GameObject player;
+    private PlayerController playerController; 
 
     private int currentLane;                // current lane
 	private int numLanes;                   // number of lanes
@@ -42,7 +42,7 @@ public class MainController : MonoBehaviour {
 			playerController.MoveRight();
             controlLocked = true; 
             StartCoroutine(stopSlide());
-            currentLane = currentLane - 1;
+            currentLane = currentLane + 1;
 		}
 		if (Input.GetKey(moveSlow) && controlLocked == false)
 		{
