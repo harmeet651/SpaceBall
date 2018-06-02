@@ -53,7 +53,7 @@ public class MainController : MonoBehaviour {
     // Disable left/right movements for a set time
 	IEnumerator stopSlide()
 	{
-		yield return new WaitForSeconds(.5f);
+		yield return new WaitForSeconds(.25f);
 		playerController.horizVel = 0;
 		controlLocked = false;
 	}
