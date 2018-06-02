@@ -20,25 +20,6 @@ public class PlayerController : MonoBehaviour {
 	
 	void Update () {
         rigidbody.velocity = new Vector3(horizVel, 0, 4);
-
-        if (Input.GetKeyDown(moveL) && (laneNum > 0) && (controlLocked == false))
-        {
-            horizVel = -2;
-            StartCoroutine(stopSlide());
-            laneNum = laneNum - 1;
-            controlLocked = true;
-        }
-        if (Input.GetKeyDown(moveR) && (laneNum < 4) && (controlLocked == false))
-        {
-            horizVel = 2;
-            StartCoroutine(stopSlide());
-            laneNum = laneNum + 1;
-            controlLocked = true;
-        }
-        if(Input.GetKey(moveSlow) && controlLocked == false)
-        {
-            rigidbody.velocity = new Vector3(horizVel, 0, 0.5f);
-        }
     }
 
 
