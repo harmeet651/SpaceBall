@@ -7,10 +7,9 @@ public class PlayerController : MonoBehaviour {
     public KeyCode moveL;
     public KeyCode moveR;
     public KeyCode moveSlow;
-    private float horizontalTranslateSpeed = 0.06f;
     private float horizSpeed = 4.0f;
     private float horizVelocity = 0;
-    private float forwardSpeed = 4.0f;
+    private float forwardSpeed = 5.0f;
     private float forwardSlowSpeed = 0.5f;
 
     private int numLanes; 
@@ -20,29 +19,25 @@ public class PlayerController : MonoBehaviour {
     private bool isMovingHorizontal = false; 
 
     private int currentLane;    // current lane
-	private int targetLane;     // target lane to move to
-    private float targetXPos;   // target x position
+	private int targetLane;     // target lane of horizontal move
+    private float targetXPos;   // target x position of horizontal move
 
     void Start () {
         // Save a reference to the rigidbody object
         rigidbody = GetComponent<Rigidbody>();
 
+        // Save a reference to the main GameController object
 		gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
 
+        // Retrieve the number of lanes in this game from GameController
 		numLanes = gameController.numLanes;
 
 		// Ball always starts at the center lane
 		currentLane = (numLanes / 2) + 1;
-
-		Debug.Log("numLanes=" + numLanes + ", currentLane=" + currentLane);
 	}
 	
 	void Update () {
-        rigidbody.velocity = new Vector3(horizVelocity, 0, forwardSpeed);
-
-        Debug.Log("Player pos=" + transform.position);
-
-        // Check if the ball is moving by player inputs (swipe left/right)
+        // If the ball is moving, check if movement is complete
         if (isMovingHorizontal) {
             CheckMoveComplete();
         }
@@ -52,26 +47,23 @@ public class PlayerController : MonoBehaviour {
             float targetXPos = gameController.GetLaneCenterXPos(currentLane);
 
             // Check x position and adjust accordingly
-            float offsetFromCenter = transform.position.x - targetXPos;
+            float offsetFromCenter = transform.position.x - targetXPos; 
 
-            // If the player crossed the border between lanes
+            // If the player crossed the boundary between lanes
             if ((Mathf.Abs(offsetFromCenter) > 0.5) && (currentLane != 1) && (currentLane != numLanes)) {
-                if (offsetFromCenter > 0.5) {
-                    Debug.Log("currentLane++");
-                    currentLane++; 
-                }
-
-                else {
-                    Debug.Log("currentLane--");
-                    currentLane--;
-                }
-            }
+                // Switch lane to either left or right
+                if (offsetFromCenter > 0.5) currentLane++; 
+                else currentLane--;
+            } 
 
             else {
+                // Move the x position of the player towards the center of the lane
                 horizVelocity = -offsetFromCenter * 4;
             }
         }
-	}
+
+        rigidbody.velocity = new Vector3(horizVelocity, 0, forwardSpeed);
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -90,10 +82,9 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    // Move the player to the left lane
     public void MoveLeft()
     {
-        Debug.Log("MoveLeft()"); 
-
         if ((currentLane > 1) && !isMovingHorizontal) {
             isMovingHorizontal = true;
             horizVelocity = -horizSpeed; 
@@ -102,10 +93,9 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    // Move the player to the right lane
     public void MoveRight()
     {
-        Debug.Log("MoveLeft()");
-		
         if ((currentLane < numLanes) && !isMovingHorizontal) {
             isMovingHorizontal = true;
             horizVelocity = horizSpeed; 
@@ -114,6 +104,7 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    // If the player is in the process of moving, check if lane shifting is complete
     public void CheckMoveComplete()
     {
 		// Moving left
@@ -135,11 +126,13 @@ public class PlayerController : MonoBehaviour {
 		}
     }
 
+    // When mov
     public void OnHorizontalMoveComplete()
     {
 		isMovingHorizontal = false;
 		currentLane = targetLane;
         horizVelocity = 0;
+        transform.position = new Vector3(targetXPos, transform.position.y, transform.position.z); 
 	}
 
     public void MoveSlow()
