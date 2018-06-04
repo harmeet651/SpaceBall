@@ -15,6 +15,7 @@ public class GameController : MonoBehaviour {
     private PlayerController playerController;
 
     public int numLanes = 5;                   // number of lanes
+    public int score = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -40,5 +41,10 @@ public class GameController : MonoBehaviour {
 
     public float GetLaneCenterXPos(int laneNum) {
         return (float)(laneNum - (numLanes / 2 + 1));
+    }
+
+    public void ChangeScore(int change)
+    {
+        score += change; 
     }
 }
