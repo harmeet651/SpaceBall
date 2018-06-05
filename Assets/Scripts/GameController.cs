@@ -17,10 +17,13 @@ public class GameController : MonoBehaviour {
     public int numLanes = 5;                   // number of lanes
     public int score = 0;
 
+
 	// Use this for initialization
 	void Start () {
         player = GameObject.FindWithTag("Player");
         playerController = player.GetComponent<PlayerController>(); 
+
+
 	}
 	
 	// Update is called once per frame
@@ -37,6 +40,8 @@ public class GameController : MonoBehaviour {
 		{
 			playerController.MoveSlow();
 		}
+
+	
 	}
 
     public float GetLaneCenterXPos(int laneNum) {
