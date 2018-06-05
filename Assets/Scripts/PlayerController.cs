@@ -67,6 +67,12 @@ public class PlayerController : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
+
+		//author:arpit; change: added a death collider for player with traps
+		if (collision.gameObject.tag == "death") {
+			Destroy (gameObject);
+		
+		}
     }
 
     // For adjusting the player's position to the center of the lane
