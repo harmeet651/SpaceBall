@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class RewardController : MonoBehaviour
 {
-    private GameObject gameControllerObject;
-    private GameController gameController;
+    private GameObject gameControllerObj;
+    private ScoreManager scoreManager;
 
     public int rewardAmount; 
     public bool isSpinning; 
@@ -13,8 +13,8 @@ public class RewardController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        gameControllerObject = GameObject.FindWithTag("GameController");
-        gameController = gameControllerObject.GetComponent<GameController>();
+        gameControllerObj = GameObject.FindWithTag("GameController");
+        scoreManager = gameControllerObj.GetComponent<ScoreManager>();
     }
 
     // Update is called once per frame
@@ -30,7 +30,7 @@ public class RewardController : MonoBehaviour
     {
         if (col.gameObject.tag == "Player")
         {
-            gameController.AddScore(rewardAmount);
+            scoreManager.AddScore(rewardAmount);
             Destroy(gameObject);
         }
     }

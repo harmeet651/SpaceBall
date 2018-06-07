@@ -33,7 +33,6 @@ public class GameController : MonoBehaviour {
     // Canvas
     public GameObject gameCanvas;
     public GameObject gameOverCanvas;
-    public Text scoreText;
 
 	// Use this for initialization
 	void Start () {
@@ -114,17 +113,6 @@ public class GameController : MonoBehaviour {
      */
     public float GetLaneCenterXPos(int laneNum) {
         return (float)(laneNum - centerLane);
-    }
-
-    /*
-     * Change score by passed amount
-     */
-    public void AddScore(int amount)
-    {
-        score += amount;
-
-        // Update score display in screen
-        scoreText.text = "Score " + score.ToString();
     }
 
     /*

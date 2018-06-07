@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour {
     public KeyCode moveSlow;
     private float horizSpeed = 10.0f;
     private float horizVelocity = 0;
-    private float forwardSpeed = 13.0f;
+    private float forwardSpeed = 12.0f;
     private float forwardSlowSpeed = 0.5f;
 
     private int numLanes;       // number of lanes
@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour {
     private int currentLane;    // current lane
 	private int targetLane;     // target lane of horizontal move
     private float targetXPos;   // target x position of horizontal move
+
+	public Transform explodeObj;	//effect after collision with trap
 
     void Start () {
         // Save a reference to the rigidbody object
@@ -58,20 +60,23 @@ public class PlayerController : MonoBehaviour {
             } 
 
             else {
-                if (isLaneLockEnabled)
-                {
-                    // Move the x position of the player towards the center of the lane
-                    horizVelocity = -offsetFromCenter * 4;
-                }
-
-                else
-                {
-                    horizVelocity = 0; 
-                }
+                // Move the x position of the player towards the center of the lane
+                horizVelocity = -offsetFromCenter * 4;
             }
         }
-        
+
         rigidbody.velocity = new Vector3(horizVelocity, 0, forwardSpeed);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+
+		//author:arpit; change: added a death collider for player with traps
+		if (collision.gameObject.tag == "death") {
+			Destroy (gameObject);
+			Instantiate (explodeObj, transform.position, explodeObj.rotation);
+		
+		}
     }
 
     void LateUpdate()
@@ -149,4 +154,22 @@ public class PlayerController : MonoBehaviour {
     {
         rigidbody.velocity = new Vector3(0, 0, forwardSlowSpeed);
     }
+
+    // Getter for forward moving speed
+    public float GetSpeed()
+    {
+        return forwardSpeed; 
+    }
+
+	// Setter for forward moving speed
+	public void SetSpeed(float speed)
+	{
+        forwardSpeed = speed; 
+	}
+
+	//this piece of code is useless and is just used to log whether the speed of the player actually increases
+	public float SendSpeed()
+	{
+		return forwardSpeed;
+	}
 }

@@ -656,7 +656,7 @@ GameObject:
   - component: {fileID: 750433773}
   m_Layer: 5
   m_Name: Text
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -872,7 +872,7 @@ GameObject:
   - component: {fileID: 919069455}
   m_Layer: 5
   m_Name: Game Over Canvas
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1184,7 +1184,7 @@ GameObject:
   - component: {fileID: 1162876950}
   m_Layer: 5
   m_Name: Score Text
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1219,7 +1219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1228,10 +1228,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -1239,7 +1239,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 'Score
+
+'
 --- !u!222 &1162876951
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1553,7 +1555,7 @@ GameObject:
   - component: {fileID: 1463133935}
   m_Layer: 5
   m_Name: Game Canvas
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1750,6 +1752,7 @@ MonoBehaviour:
   moveL: 97
   moveR: 100
   moveSlow: 108
+  explodeObj: {fileID: 0}
 --- !u!1001 &1541329305
 Prefab:
   m_ObjectHideFlags: 0
@@ -1869,6 +1872,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1827008202}
   - component: {fileID: 1827008201}
+  - component: {fileID: 1827008203}
   m_Layer: 0
   m_Name: Game
   m_TagString: GameController
@@ -1911,7 +1915,6 @@ MonoBehaviour:
     type: 2}
   gameCanvas: {fileID: 1463133934}
   gameOverCanvas: {fileID: 919069454}
-  scoreText: {fileID: 1162876950}
 --- !u!4 &1827008202
 Transform:
   m_ObjectHideFlags: 0
@@ -1925,6 +1928,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1827008203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1827008200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4f384ab2ba5c4726b9e88854144c3fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreText: {fileID: 1162876950}
 --- !u!1 &1846731172
 GameObject:
   m_ObjectHideFlags: 0
@@ -1937,7 +1952,7 @@ GameObject:
   - component: {fileID: 1846731174}
   m_Layer: 5
   m_Name: Translucent Background
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
