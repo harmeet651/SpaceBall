@@ -51,8 +51,10 @@ public class GameController : MonoBehaviour {
         zPos += 10;
         PlaceFullFloor(zPos, 0);
         zPos += 10;
-        PlaceBackAndForthRamp(3, zPos, 0, 5);
-        zPos += 15; 
+        PlaceFloorByLanes(new int[] { 2, 3, 4 }, zPos, 0); 
+        zPos += 10;
+        PlaceFloorByLanes(new int[] { 2, 3, 4 }, zPos, 0);
+        zPos += 10;
         PlaceFullFloor(zPos, 0);
         zPos += 10;
         PlaceFullFloor(zPos, 0);
@@ -68,8 +70,6 @@ public class GameController : MonoBehaviour {
         zPos += 10;
         PlaceFullFloor(zPos, 1);
         zPos += 10;
-        PlaceBackAndForthRamp(2, zPos, 1, 5);
-        zPos += 15;
         PlaceFullFloor(zPos, 1);
         zPos += 10;
         PlaceFullFloor(zPos, 1);

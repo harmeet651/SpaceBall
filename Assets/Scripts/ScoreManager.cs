@@ -23,12 +23,11 @@ public class ScoreManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	}
+        playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>(); 
-        
 		//if player reaches the score needed to move to next level level up
 		if (score >= scoreToNextLevel)
 			LevelUp ();

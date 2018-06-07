@@ -70,12 +70,13 @@ public class PlayerController : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-
-		//author:arpit; change: added a death collider for player with traps
 		if (collision.gameObject.tag == "death") {
-			Destroy (gameObject);
+
+            // Deactivate the Player GameObject
+            gameObject.SetActive(false); 
+
+            // Create explosion effect
 			Instantiate (explodeObj, transform.position, explodeObj.rotation);
-		
 		}
     }
 

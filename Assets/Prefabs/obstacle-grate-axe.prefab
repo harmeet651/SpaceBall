@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4906238928136374}
   - component: {fileID: 33253996620068230}
   - component: {fileID: 23798329742133382}
-  - component: {fileID: 65144930947320292}
   - component: {fileID: 64856811159139608}
   m_Layer: 0
   m_Name: GreatAxe
@@ -42,7 +41,7 @@ GameObject:
   - component: {fileID: 23001112224486540}
   m_Layer: 0
   m_Name: GreatAxeRing
-  m_TagString: Untagged
+  m_TagString: death
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -61,7 +60,7 @@ GameObject:
   - component: {fileID: 114744924842234140}
   m_Layer: 0
   m_Name: obstacle-grate-axe
-  m_TagString: Untagged
+  m_TagString: death
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -220,18 +219,6 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: b9cb6abd86b0af442b58106bea0f3ebe, type: 3}
---- !u!65 &65144930947320292
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1158543149574174}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 5.097966, y: 5.2166767, z: 0.7896662}
-  m_Center: {x: 0, y: -2.0181832, z: 0.000000044703484}
 --- !u!65 &65449512906129930
 BoxCollider:
   m_ObjectHideFlags: 1
