@@ -148,4 +148,17 @@ public class PlayerController : MonoBehaviour {
     {
         rigidbody.velocity = new Vector3(0, 0, forwardSlowSpeed);
     }
+
+
+	//author:Arpit;method used to send velocity to Score.cs and update it based on score
+	public void SetSpeed(float modifier)
+	{
+		forwardSpeed = 5.0f + modifier;
+	}
+
+	//this piece of code is useless and is just used to log whether the speed of the player actually increases
+	public float SendSpeed()
+	{
+		return forwardSpeed;
+	}
 }
