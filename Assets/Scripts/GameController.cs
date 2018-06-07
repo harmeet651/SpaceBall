@@ -28,7 +28,12 @@ public class GameController : MonoBehaviour {
     public GameObject rampPrefab; 
     public GameObject greatAxePrefab;
     public GameObject bladeTrapLeftPrefab;
-    public GameObject bladeTrapRightPrefab; 
+    public GameObject bladeTrapRightPrefab;
+    public GameObject axeTrapPrefab;
+    public GameObject trapNeedlePrefab;
+
+    // Explosion object
+    public Transform explodeObj; 
 
     // Canvas
     public GameObject gameCanvas;
@@ -51,22 +56,38 @@ public class GameController : MonoBehaviour {
         zPos += 10;
         PlaceFullFloor(zPos, 0);
         zPos += 10;
-        PlaceFloorByLanes(new int[] { 2, 3, 4 }, zPos, 0); 
+        PlaceFullFloor(zPos, 0);
+        PlaceAxeTrap(1, zPos, 0);
+        zPos += 10;
+        PlaceFullFloor(zPos, 0);
+        PlaceAxeTrap(5, zPos, 0);
+        zPos += 10;
+        PlaceLeftAndRightRamp(2, zPos, 0, 2); 
+        zPos += 10;
+        PlaceFullFloor(zPos, 0);
+        zPos += 10;
+        PlaceFullFloor(zPos, 0);
+        zPos += 10;
+        PlaceObstacleGreatAxe(zPos, 0); 
+        PlaceFullFloor(zPos, 0);
+        zPos += 10;
+        PlaceFullFloor(zPos, 0);
+        zPos += 10;
+        PlaceFullFloor(zPos, 0);
         zPos += 10;
         PlaceFloorByLanes(new int[] { 2, 3, 4 }, zPos, 0);
         zPos += 10;
-        PlaceFullFloor(zPos, 0);
+        PlaceFloorByLanes(new int[] { 3, 4 }, zPos, 0);
         zPos += 10;
-        PlaceFullFloor(zPos, 0);
+        PlaceFloorByLanes(new int[] { 4 }, zPos, 0);
         zPos += 10;
-        PlaceUpAndDownRamp(3, zPos, -1, 2); 
+        PlaceUpAndDownRamp(4, zPos, 0, 1);
         zPos += 10;
-        PlaceFullFloor(zPos, 1);
+        PlaceFloorByLanes(new int[] { 4 }, zPos, 1);
         zPos += 10;
-        PlaceFullFloor(zPos, 1);
+        PlaceFloorByLanes(new int[] { 3, 4 }, zPos, 1);
         zPos += 10;
-        PlaceObstacleGreatAxe(zPos, 1); 
-        PlaceFullFloor(zPos, 1);
+        PlaceFloorByLanes(new int[] { 2, 3, 4 }, zPos, 1);
         zPos += 10;
         PlaceFullFloor(zPos, 1);
         zPos += 10;
@@ -83,7 +104,30 @@ public class GameController : MonoBehaviour {
         PlaceLeftAndRightRamp(3, zPos, 1, 2);
         zPos += 10;
         PlaceFloorByLanes(new int[] { 5 }, zPos, 1);
-        zPos += 10; 
+        zPos += 10;
+        PlaceFullFloor(zPos, 1);
+        zPos += 10;
+        PlaceFullFloor(zPos, 1);
+        zPos += 10;
+        PlaceFullFloor(zPos, 1);
+        zPos += 10;
+        PlaceAxeTrap(1, zPos, 1);
+        PlaceAxeTrap(5, zPos, 1);
+        PlaceFullFloor(zPos, 1);
+        zPos += 10;
+        PlaceFullFloor(zPos, 1);
+        zPos += 10;
+        PlaceAxeTrap(3, zPos, 1);
+        PlaceFullFloor(zPos, 1);
+        zPos += 10;
+        PlaceFullFloor(zPos, 1);
+        zPos += 10;
+        PlaceAxeTrap(1, zPos, 1);
+        PlaceAxeTrap(5, zPos, 1);
+        PlaceFullFloor(zPos, 1);
+        zPos += 10;
+        PlaceFullFloor(zPos, 1);
+        zPos += 10;
 
         for (int z = 10; z < 40; z += 10) {
             int lane = Mathf.RoundToInt(Random.Range(1.0f, 5.0f));
@@ -119,7 +163,7 @@ public class GameController : MonoBehaviour {
      * Instantiate a prefab into a GameObject
      */
     GameObject InstantiatePrefab(GameObject prefab) {
-        GameObject instance = Instantiate(prefab, prefab.transform.position, Quaternion.identity) as GameObject;
+        GameObject instance = Instantiate(prefab, prefab.transform.position, prefab.transform.rotation) as GameObject;
       
         return instance; 
     }
@@ -219,17 +263,7 @@ public class GameController : MonoBehaviour {
         rampController.isMovingLeftAndRight = true;
         rampController.moveAmount = moveAmount;
     }
-
-    /*
-     * Place a "Great Axe" obstacle
-     */
-    private void PlaceObstacleGreatAxe(int z, int altitude)
-    {
-        GameObject greatAxe = InstantiatePrefab(greatAxePrefab);
-
-        greatAxe.transform.Translate(new Vector3(0, altitude, z)); 
-    }
-
+    
     /*
      * Place a "Left Trap Blade" obstacle
      */
@@ -251,10 +285,45 @@ public class GameController : MonoBehaviour {
     }
 
     /*
+     * Place a "Great Axe" obstacle
+     */
+    private void PlaceObstacleGreatAxe(int z, int altitude)
+    {
+        GameObject greatAxe = InstantiatePrefab(greatAxePrefab);
+
+        greatAxe.transform.Translate(new Vector3(0, altitude, z));
+    }
+
+    /*
+     * Place an "Axe Trap" obstacle
+     */
+    private void PlaceAxeTrap(int lane, int z, int altitude)
+    {
+        GameObject axeTrap = InstantiatePrefab(axeTrapPrefab);
+        
+        axeTrap.transform.Translate(new Vector3(lane - centerLane, altitude, z));
+    }
+
+    /*
+     * Place a "Trap Needle" obstacle
+     */
+    private void PlaceTrapNeedle(int lane, int z, int altitude)
+    {
+
+    }
+
+    /*
      * Game over event handler
      */
     public void GameOver() {
-        gameOverCanvas.SetActive(true); 
+        // Deactivate the Player GameObject
+        player.SetActive(false);
+
+        // Display canvas for game over
+        gameOverCanvas.SetActive(true);
+
+        // Create explosion effect
+        Instantiate(explodeObj, player.transform.position, explodeObj.rotation);
     }
 
 }

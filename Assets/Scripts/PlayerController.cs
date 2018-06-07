@@ -23,8 +23,6 @@ public class PlayerController : MonoBehaviour {
 	private int targetLane;     // target lane of horizontal move
     private float targetXPos;   // target x position of horizontal move
 
-	public Transform explodeObj;	//effect after collision with trap
-
     void Start () {
         // Save a reference to the rigidbody object
         rigidbody = GetComponent<Rigidbody>();
@@ -60,8 +58,11 @@ public class PlayerController : MonoBehaviour {
             } 
 
             else {
-                // Move the x position of the player towards the center of the lane
-                horizVelocity = -offsetFromCenter * 4;
+                if (isLaneLockEnabled)
+                {
+                    // Move the x position of the player towards the center of the lane
+                    horizVelocity = -offsetFromCenter * 4;
+                }
             }
         }
 
@@ -71,12 +72,7 @@ public class PlayerController : MonoBehaviour {
     private void OnCollisionEnter(Collision collision)
     {
 		if (collision.gameObject.tag == "death") {
-
-            // Deactivate the Player GameObject
-            gameObject.SetActive(false); 
-
-            // Create explosion effect
-			Instantiate (explodeObj, transform.position, explodeObj.rotation);
+            gameController.GameOver(); 
 		}
     }
 
