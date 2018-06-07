@@ -13,7 +13,7 @@ public class TileManager : MonoBehaviour {
 	private Transform playerTransform;
 
 	//spawn of tile updation variable
-	private float spawnZ = 0.0f;
+	private float spawnZ = -5.0f;
 
 	//length of each tile in the prefab; each of the prefab in folder lanes is of length 20 units
 	private float tileLength = 20.0f;
@@ -21,14 +21,31 @@ public class TileManager : MonoBehaviour {
 	//how many tiles we want to see at any time in the background at one time
 	private int amnTilesOnScreen = 10;
 
+	//list of active game tiles
+	private List<GameObject> activeTiles;
+
+	//safe to destroy tiles after these units so player does not fall into empty space
+	private float safeToDelete = 25.0f;
+
+	//flag to save index to prefab
+	private int lastPrefabIndex=0;
+
+
+
 	// Use this for initialization
 	void Start () {
+		
+		//instantiate active tiles
+		activeTiles = new List<GameObject>();
 
 		playerTransform=GameObject.FindGameObjectWithTag("Player").transform;
 		//spawn tiles upto amount specified in var amnTilesOnScreen
 		for (int i=0; i < amnTilesOnScreen; i++) {
-			SpawnTile ();
-		
+			//for the first 2 tiles just create starter tiles
+			if (i < 2)
+				SpawnTile (0);	// 0 is the index assigned in unity to starter tile
+			else
+				SpawnTile ();	//now create the random ones
 		}
 
 
@@ -38,8 +55,10 @@ public class TileManager : MonoBehaviour {
 	void Update () {
 
 
-		if (playerTransform.position.z > (spawnZ - amnTilesOnScreen * tileLength)) {
-			SpawnTile ();
+		if (playerTransform.position.z - safeToDelete > (spawnZ - amnTilesOnScreen * tileLength)) {
+			SpawnTile ();	
+			DeleteTile ();
+
 		}
 	}
 	//method to spawn a tile 
@@ -48,8 +67,12 @@ public class TileManager : MonoBehaviour {
 		GameObject Obj;
 
 		//create the tile on screen
-		Obj = Instantiate (tilePrefabs [0]) as GameObject;
 
+		if (prefabIndex == -1)
+			Obj = Instantiate (tilePrefabs [RandomPrefabIndex ()]) as GameObject;
+		else
+			Obj = Instantiate (tilePrefabs[prefabIndex]) as GameObject;
+		
 		//tag it as a child to 'TileManager' prefab
 		Obj.transform.SetParent (transform);
 		Obj.transform.position = Vector3.forward*spawnZ;
@@ -57,6 +80,33 @@ public class TileManager : MonoBehaviour {
 		//update the length of the generated tiles
 		spawnZ += tileLength;
 
+		//add tile to list of active tiles
+		activeTiles.Add(Obj);
 		
+	}
+	//method to destroy a tile
+	private void DeleteTile()
+	{
+		Destroy (activeTiles [0]);
+		activeTiles.RemoveAt (0);
+	}
+
+	//method to ensure we randomly generate tiles and do not repeat the same tile back to back
+	private int RandomPrefabIndex()
+	{
+		if (tilePrefabs.Length <= 1)	//if the length is 1; which means we have generated 0 or 1 tile then return 0 which corresponds to starter tile
+			return 0;
+		
+		int randIndex = lastPrefabIndex;	
+
+		//if we generate the same index as that of last prefab tile, keep looping untill we generate a different one
+		while (randIndex == lastPrefabIndex) {
+			randIndex = Random.Range (0, tilePrefabs.Length);
+
+		}
+		//update the last index and return its index to generate the corresponding tile
+		lastPrefabIndex = randIndex;
+
+		return randIndex;
 	}
 }
