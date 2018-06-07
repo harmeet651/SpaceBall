@@ -37,9 +37,12 @@ public class RampController : MonoBehaviour {
         // Back and forth ramp
         if (isMovingBackAndForth)
         {
-            speed = 5.0f; 
+            speed = 5.0f;
 
-            transform.position = new Vector3(transform.position.x, transform.position.y, beginPos.z + Mathf.PingPong(Time.time * speed, moveAmount));
+            float pingpongDistance = Mathf.PingPong(Time.time * speed, moveAmount);
+            float newZOffset = beginPos.z + pingpongDistance;
+
+            transform.position = new Vector3(transform.position.x, transform.position.y, newZOffset);
         }
         
         // Left and right moving ramp

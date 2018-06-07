@@ -74,8 +74,12 @@ public class PlayerController : MonoBehaviour {
         rigidbody.velocity = new Vector3(horizVelocity, 0, forwardSpeed);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    void LateUpdate()
     {
+        if (transform.position.y < -5)
+        {
+            gameController.GameOver();
+        }
     }
 
     // Move the player to the left lane

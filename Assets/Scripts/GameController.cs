@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour {
     private PlayerController playerController;
 
     public int numLanes = 5;                   // number of lanes
+    private int centerLane; 
     public int score = 0;
 
     // Prefab objects
@@ -25,6 +26,9 @@ public class GameController : MonoBehaviour {
     public GameObject obstacleCylinderPrefab;
     public GameObject rewardCubePrefab;
     public GameObject rampPrefab; 
+    public GameObject greatAxePrefab;
+    public GameObject bladeTrapLeftPrefab;
+    public GameObject bladeTrapRightPrefab; 
 
     // Canvas
     public GameObject gameCanvas;
@@ -36,8 +40,10 @@ public class GameController : MonoBehaviour {
         player = GameObject.FindWithTag("Player");
         playerController = player.GetComponent<PlayerController>();
 
-        int zPos = -20; 
+        centerLane = numLanes / 2 + 1;
 
+        int zPos = -20;
+        
         PlaceFullFloor(zPos, 0);
         zPos += 10; 
         PlaceFullFloor(zPos, 0);
@@ -46,8 +52,19 @@ public class GameController : MonoBehaviour {
         zPos += 10;
         PlaceFullFloor(zPos, 0);
         zPos += 10;
-        PlaceUpAndDownRamp(3, zPos, 0, 1); 
+        PlaceBackAndForthRamp(3, zPos, 0, 5);
+        zPos += 15; 
+        PlaceFullFloor(zPos, 0);
         zPos += 10;
+        PlaceFullFloor(zPos, 0);
+        zPos += 10;
+        PlaceUpAndDownRamp(3, zPos, -1, 2); 
+        zPos += 10;
+        PlaceFullFloor(zPos, 1);
+        zPos += 10;
+        PlaceFullFloor(zPos, 1);
+        zPos += 10;
+        PlaceObstacleGreatAxe(zPos, 1); 
         PlaceFullFloor(zPos, 1);
         zPos += 10;
         PlaceFullFloor(zPos, 1);
@@ -57,6 +74,8 @@ public class GameController : MonoBehaviour {
         PlaceFullFloor(zPos, 1);
         zPos += 10;
         PlaceFullFloor(zPos, 1);
+        PlaceObstacleBladeTrapLeft(zPos, 1);
+        PlaceObstacleBladeTrapRight(zPos, 1); 
         zPos += 10;
         PlaceFullFloor(zPos, 1);
         zPos += 10;
@@ -94,7 +113,7 @@ public class GameController : MonoBehaviour {
      * Return the center position of a lane
      */
     public float GetLaneCenterXPos(int laneNum) {
-        return (float)(laneNum - (numLanes / 2 + 1));
+        return (float)(laneNum - centerLane);
     }
 
     /*
@@ -112,13 +131,13 @@ public class GameController : MonoBehaviour {
      * Instantiate a prefab into a GameObject
      */
     GameObject InstantiatePrefab(GameObject prefab) {
-        GameObject instance = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
+        GameObject instance = Instantiate(prefab, prefab.transform.position, Quaternion.identity) as GameObject;
       
         return instance; 
     }
 
     /*
-     * Place a full set of floor blocks at given z position, and altitude 
+     * Place a full set of floor blocks
      */
     private void PlaceFullFloor(int beginZ, int altitude) {
         for (int lane = 1; lane <= 5; lane++)
@@ -128,7 +147,7 @@ public class GameController : MonoBehaviour {
     }
 
     /*
-     * Place set of floor blocks at given lanes, z position, and altitude
+     * Place set of floor blocks
      */
     private void PlaceFloorByLanes(int[] lanes, int beginZ, int altitude)
     {
@@ -139,7 +158,7 @@ public class GameController : MonoBehaviour {
     }
 
     /*
-     * Place a specific floor lane block at a given lane, z position, and altitude
+     * Place a specific floor block
      */
     private void PlaceFloorByLane(int lane, int beginZ, int altitude)
     {
@@ -150,60 +169,102 @@ public class GameController : MonoBehaviour {
         else floorPrefab = centerLanePrefab;
 
         GameObject floorInstance = InstantiatePrefab(floorPrefab);
-        floorInstance.transform.Translate(new Vector3(lane - 3, altitude - 0.5f, beginZ + 5.0f));
+        floorInstance.transform.Translate(new Vector3(lane - centerLane, altitude - 0.5f, beginZ));
     }
 
     /*
-     * Place a reward cube at a given lane, z position, and altitude
+     * Place a reward cube
      */
     private void PlaceRewardCube(int lane, int beginZ, int altitude) {
         GameObject rewardCube = InstantiatePrefab(rewardCubePrefab);
 
-        rewardCube.transform.Translate(new Vector3(lane - (int)(numLanes / 2 + 1), .2f + altitude, beginZ));
+        rewardCube.transform.Translate(new Vector3(lane - centerLane, .2f + altitude, beginZ));
     }
     
     /*
-     * Place a cylinder obstacle at a given lane, z position, and altitude
+     * Place a cylinder obstacle
      */
     private void PlaceObstacleCylinder(int lane, int beginZ, int altitude) {
         GameObject cylinder = InstantiatePrefab(obstacleCylinderPrefab);
 
-        cylinder.transform.Translate(new Vector3(lane - (int)(numLanes / 2 + 1), altitude, beginZ));
+        cylinder.transform.Translate(new Vector3(lane - centerLane, altitude, beginZ));
     }
 
+    /*
+     * Place a ramp going up and down (y-axis)
+     */
     private void PlaceUpAndDownRamp(int lane, int beginZ, int bottomAltitude, int moveAmount)
     {
         GameObject ramp = InstantiatePrefab(rampPrefab);
         
-        ramp.transform.Translate(new Vector3(lane - 3, bottomAltitude, beginZ + 5.0f));
+        ramp.transform.Translate(new Vector3(lane - centerLane, bottomAltitude, beginZ));
         
         RampController rampController = ramp.GetComponent<RampController>();
         rampController.isMovingUpAndDown = true;
         rampController.moveAmount = moveAmount; 
     }
 
+    /*
+     * Place a ramp going back and forth (z-axis)
+     */
     private void PlaceBackAndForthRamp(int lane, int beginZ, int altitude, int moveAmount)
     {
         GameObject ramp = InstantiatePrefab(rampPrefab);
         
-        ramp.transform.Translate(new Vector3(lane - 3, altitude, beginZ + 5.0f));
+        ramp.transform.Translate(new Vector3(lane - centerLane, altitude, beginZ));
 
         RampController rampController = ramp.GetComponent<RampController>();
         rampController.isMovingBackAndForth = true;
         rampController.moveAmount = moveAmount;
     }
 
+    /*
+     * Place a ramp going left and right (x-axis)
+     */
     private void PlaceLeftAndRightRamp(int beginLane, int beginZ, int altitude, int moveAmount)
     {
         GameObject ramp = InstantiatePrefab(rampPrefab);
         
-        ramp.transform.Translate(new Vector3(beginLane - 3, altitude, beginZ + 5.0f));
+        ramp.transform.Translate(new Vector3(beginLane - centerLane, altitude, beginZ));
 
         RampController rampController = ramp.GetComponent<RampController>();
         rampController.isMovingLeftAndRight = true;
         rampController.moveAmount = moveAmount;
     }
 
+    /*
+     * Place a "Great Axe" obstacle
+     */
+    private void PlaceObstacleGreatAxe(int z, int altitude)
+    {
+        GameObject greatAxe = InstantiatePrefab(greatAxePrefab);
+
+        greatAxe.transform.Translate(new Vector3(0, altitude, z)); 
+    }
+
+    /*
+     * Place a "Left Trap Blade" obstacle
+     */
+    private void PlaceObstacleBladeTrapLeft(int z, int altitude)
+    {
+        GameObject bladeTrapLeft = InstantiatePrefab(bladeTrapLeftPrefab);
+
+        bladeTrapLeft.transform.Translate(new Vector3(0, altitude, z)); 
+    }
+    
+    /*
+     * Place a "Right Trap Blade" obstacle
+     */
+    private void PlaceObstacleBladeTrapRight(int z, int altitude)
+    {
+        GameObject bladeTrapRight = InstantiatePrefab(bladeTrapRightPrefab);
+
+        bladeTrapRight.transform.Translate(new Vector3(0, altitude, z));
+    }
+
+    /*
+     * Game over event handler
+     */
     public void GameOver() {
         gameOverCanvas.SetActive(true); 
     }
