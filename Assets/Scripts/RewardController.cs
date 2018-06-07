@@ -28,13 +28,16 @@ public class RewardController : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        Debug.Log("OnTriggerEnter()");
-        Debug.Log(col.gameObject.tag);
-
         if (col.gameObject.tag == "Player")
         {
-            gameController.ChangeScore(rewardAmount);
+            gameController.AddScore(rewardAmount);
             Destroy(gameObject);
         }
+    }
+
+    // Destroyer
+    void OnBecameInvisible()
+    {
+        Destroy(gameObject);
     }
 }

@@ -7,16 +7,17 @@ public class PlayerController : MonoBehaviour {
     public KeyCode moveL;
     public KeyCode moveR;
     public KeyCode moveSlow;
-    private float horizSpeed = 4.0f;
+    private float horizSpeed = 10.0f;
     private float horizVelocity = 0;
-    private float forwardSpeed = 5.0f;
+    private float forwardSpeed = 13.0f;
     private float forwardSlowSpeed = 0.5f;
 
-    private int numLanes; 
+    private int numLanes;       // number of lanes
 
     private new Rigidbody rigidbody; 
     private GameController gameController;
-    private bool isMovingHorizontal = false; 
+    private bool isMovingHorizontal = false;
+    private bool isLaneLockEnabled = true; 
 
     private int currentLane;    // current lane
 	private int targetLane;     // target lane of horizontal move
@@ -57,35 +58,24 @@ public class PlayerController : MonoBehaviour {
             } 
 
             else {
-                // Move the x position of the player towards the center of the lane
-                horizVelocity = -offsetFromCenter * 4;
+                if (isLaneLockEnabled)
+                {
+                    // Move the x position of the player towards the center of the lane
+                    horizVelocity = -offsetFromCenter * 4;
+                }
+
+                else
+                {
+                    horizVelocity = 0; 
+                }
             }
         }
-
+        
         rigidbody.velocity = new Vector3(horizVelocity, 0, forwardSpeed);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-
-		//author:arpit; change: added a death collider for player with traps
-		if (collision.gameObject.tag == "death") {
-			Destroy (gameObject);
-		
-		}
-    }
-
-    // For adjusting the player's position to the center of the lane
-    void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.tag=="enterPipe2")
-        {
-            rigidbody.velocity= new Vector3(0, 0, 80);
-        }
-        if (other.gameObject.tag == "exitPipe2")
-        {
-            rigidbody.velocity = new Vector3(0, 0, 4);
-        }
     }
 
     // Move the player to the left lane
@@ -132,7 +122,17 @@ public class PlayerController : MonoBehaviour {
 		}
     }
 
-    // When mov
+    public void EnableLaneLock()
+    {
+        isLaneLockEnabled = true; 
+    }
+
+    public void DisableLaneLock()
+    {
+        isLaneLockEnabled = false; 
+    }
+
+    // Clean up after horizontal move has been complete
     public void OnHorizontalMoveComplete()
     {
 		isMovingHorizontal = false;
