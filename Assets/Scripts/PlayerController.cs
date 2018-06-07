@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour {
 	private int targetLane;     // target lane of horizontal move
     private float targetXPos;   // target x position of horizontal move
 
+	public Transform explodeObj;	//effect after collision with trap
+
     void Start () {
         // Save a reference to the rigidbody object
         rigidbody = GetComponent<Rigidbody>();
@@ -71,6 +73,7 @@ public class PlayerController : MonoBehaviour {
 		//author:arpit; change: added a death collider for player with traps
 		if (collision.gameObject.tag == "death") {
 			Destroy (gameObject);
+			Instantiate (explodeObj, transform.position, explodeObj.rotation);
 		
 		}
     }
