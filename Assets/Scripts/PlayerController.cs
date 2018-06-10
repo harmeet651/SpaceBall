@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour {
     private new Rigidbody rigidbody; 
     private GameController gameController;
     private bool isMovingHorizontal = false; 
+	private bool isLaneLockEnabled = true; 
+
 
     private int currentLane;    // current lane
 	private int targetLane;     // target lane of horizontal move
@@ -58,10 +60,13 @@ public class PlayerController : MonoBehaviour {
                 else currentLane--;
             } 
 
-            else {
-                // Move the x position of the player towards the center of the lane
-                horizVelocity = -offsetFromCenter * 4;
-            }
+			else {
+				if (isLaneLockEnabled)
+				{
+					// Move the x position of the player towards the center of the lane
+					horizVelocity = -offsetFromCenter * 4;
+				}
+			}
         }
 
         rigidbody.velocity = new Vector3(horizVelocity, 0, forwardSpeed);
@@ -150,6 +155,15 @@ public class PlayerController : MonoBehaviour {
     }
 
 
+	public void EnableLaneLock()
+	{
+		isLaneLockEnabled = true; 
+	}
+
+	public void DisableLaneLock()
+	{
+		isLaneLockEnabled = false; 
+	}
 	//author:Arpit;method used to send velocity to Score.cs and update it based on score
 	public void SetSpeed(float modifier)
 	{
