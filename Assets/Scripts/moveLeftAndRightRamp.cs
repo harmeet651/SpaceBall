@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class moveLeftAndRightRamp : MonoBehaviour {
 
-    public float speed= 1.5f;
+    public float speed= 0.2f;
 	private bool isPlayerOnRamp;
 
 	private GameObject player; 

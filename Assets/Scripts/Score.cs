@@ -36,7 +36,7 @@ public class Score : MonoBehaviour {
 		score += Time.deltaTime;
 
 		//truncate score to integer and convert to string to pass to 'Score-Canvas' component in Unity
-		scoreText.text = ((int)score).ToString ();
+		//scoreText.text = ((int)score).ToString ();
 
 	}
 

@@ -21,7 +21,7 @@ public class ObstacleController : MonoBehaviour {
     {
         if (col.gameObject.tag == "Player")
         {
-            gameController.GameOver(); 
+            //gameController.GameOver(); 
         }
     }
 

@@ -16,6 +16,6 @@ public class moveUpAndDownRamp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(transform.position.x, Mathf.PingPong(Time.time * speed, 5)-0.0f, transform.position.z);
+        transform.position = new Vector3(transform.position.x, Mathf.PingPong(Time.time * speed, 5)-2.0f, transform.position.z);
     }
 }
