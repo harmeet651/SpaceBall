@@ -56,6 +56,6 @@ public class Score : MonoBehaviour {
 
 		//this piece of code is useless and is just used to log whether the player speed actually increases
 		float flag = GetComponent<PlayerController> ().SendSpeed ();
-		Debug.Log (flag);
+		//Debug.Log (flag);
 	}
 }
