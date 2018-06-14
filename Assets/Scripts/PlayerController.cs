@@ -171,7 +171,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	//this piece of code is useless and is just used to log whether the speed of the player actually increases
-	public float SendSpeed()
+	public float GetSpeed()
 	{
 		return forwardSpeed;
 	}

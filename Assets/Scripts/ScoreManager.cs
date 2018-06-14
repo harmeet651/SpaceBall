@@ -60,7 +60,7 @@ public class ScoreManager : MonoBehaviour {
 		playerController.SetSpeed(playerController.GetSpeed() + 1.0f);
 
 		//this piece of code is useless and is just used to log whether the player speed actually increases
-		float flag = playerController.SendSpeed ();
+		float flag = playerController.GetSpeed();
 		Debug.Log (flag);
 	}
 }
