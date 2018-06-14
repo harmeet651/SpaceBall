@@ -9,19 +9,22 @@ public class PlayerController : MonoBehaviour {
     public KeyCode moveSlow;
     private float horizSpeed = 10.0f;
     private float horizVelocity = 0;
-    private float forwardSpeed = 12.0f;
+    private float forwardSpeed = 5.0f;
     private float forwardSlowSpeed = 0.5f;
 
-    private int numLanes;       // number of lanes
+    private int numLanes; 
 
     private new Rigidbody rigidbody; 
     private GameController gameController;
-    private bool isMovingHorizontal = false;
-    private bool isLaneLockEnabled = true; 
+    private bool isMovingHorizontal = false; 
+	private bool isLaneLockEnabled = true; 
+
 
     private int currentLane;    // current lane
 	private int targetLane;     // target lane of horizontal move
     private float targetXPos;   // target x position of horizontal move
+
+	public Transform explodeObj;	//effect after collision with trap
 
     void Start () {
         // Save a reference to the rigidbody object
@@ -57,13 +60,13 @@ public class PlayerController : MonoBehaviour {
                 else currentLane--;
             } 
 
-            else {
-                if (isLaneLockEnabled)
-                {
-                    // Move the x position of the player towards the center of the lane
-                    horizVelocity = -offsetFromCenter * 4;
-                }
-            }
+			else {
+				if (isLaneLockEnabled)
+				{
+					// Move the x position of the player towards the center of the lane
+					horizVelocity = -offsetFromCenter * 4;
+				}
+			}
         }
 
         rigidbody.velocity = new Vector3(horizVelocity, 0, forwardSpeed);
@@ -71,16 +74,25 @@ public class PlayerController : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
+
+		//author:arpit; change: added a death collider for player with traps
 		if (collision.gameObject.tag == "death") {
-            gameController.GameOver(); 
+			Destroy (gameObject);
+			Instantiate (explodeObj, transform.position, explodeObj.rotation);
+		
 		}
     }
 
-    void LateUpdate()
+    // For adjusting the player's position to the center of the lane
+    void OnTriggerEnter(Collider other)
     {
-        if (transform.position.y < -5)
+        if(other.gameObject.tag=="enterPipe2")
         {
-            gameController.GameOver();
+            rigidbody.velocity= new Vector3(0, 0, 80);
+        }
+        if (other.gameObject.tag == "exitPipe2")
+        {
+            rigidbody.velocity = new Vector3(0, 0, 4);
         }
     }
 
@@ -128,17 +140,7 @@ public class PlayerController : MonoBehaviour {
 		}
     }
 
-    public void EnableLaneLock()
-    {
-        isLaneLockEnabled = true; 
-    }
-
-    public void DisableLaneLock()
-    {
-        isLaneLockEnabled = false; 
-    }
-
-    // Clean up after horizontal move has been complete
+    // When mov
     public void OnHorizontalMoveComplete()
     {
 		isMovingHorizontal = false;
@@ -152,16 +154,20 @@ public class PlayerController : MonoBehaviour {
         rigidbody.velocity = new Vector3(0, 0, forwardSlowSpeed);
     }
 
-    // Getter for forward moving speed
-    public float GetSpeed()
-    {
-        return forwardSpeed; 
-    }
 
-	// Setter for forward moving speed
-	public void SetSpeed(float speed)
+	public void EnableLaneLock()
 	{
-        forwardSpeed = speed; 
+		isLaneLockEnabled = true; 
+	}
+
+	public void DisableLaneLock()
+	{
+		isLaneLockEnabled = false; 
+	}
+	//author:Arpit;method used to send velocity to Score.cs and update it based on score
+	public void SetSpeed(float modifier)
+	{
+		forwardSpeed = 5.0f + modifier;
 	}
 
 	//this piece of code is useless and is just used to log whether the speed of the player actually increases

@@ -7,7 +7,7 @@ public class CameraController : MonoBehaviour {
     private GameObject player;
 
     // Distance between the player and the camera
-    private Vector3 offset;
+    private Vector3 offset; 
 
 	// Use this for initialization
 	void Start () {
@@ -25,6 +25,6 @@ public class CameraController : MonoBehaviour {
     // LateUpdate is called after Update each frame
     void LateUpdate()
     {
-        transform.position = new Vector3(transform.position.x, player.transform.position.y + offset.y, player.transform.position.z + offset.z);
+        transform.position = new Vector3(0, player.transform.position.y + offset.y, player.transform.position.z + offset.z);
     }
 }

@@ -13,6 +13,6 @@ public class PipeController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		transform.position = new Vector3(Mathf.PingPong(Time.time * speed, 4)-2, transform.position.y, transform.position.z);
+		transform.position = new Vector3(Mathf.PingPong(Time.time * speed, 2), transform.position.y, transform.position.z);
 	}
 }
