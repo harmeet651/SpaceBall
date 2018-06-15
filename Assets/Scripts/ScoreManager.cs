@@ -57,7 +57,7 @@ public class ScoreManager : MonoBehaviour {
 		difficultyLevel++;
 
 		//fetch the forward velocity of player from 'PlayerController' and update it 
-		playerController.SetSpeed(playerController.GetSpeed() + 1.0f);
+		playerController.AddSpeed(1.5f);
 
 		//this piece of code is useless and is just used to log whether the player speed actually increases
 		float flag = playerController.GetSpeed();
