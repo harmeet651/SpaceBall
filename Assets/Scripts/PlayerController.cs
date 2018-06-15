@@ -89,19 +89,18 @@ public class PlayerController : MonoBehaviour
 			Instantiate(explodeObj, transform.position, explodeObj.rotation);
 
 		}
+        if(collision.gameObject.tag=="speedAddRampToBall")
+        {
+            forwardSlowSpeed = 1.5f;
+        }
+        else
+        {
+            forwardSlowSpeed = 0.5f;
+        }
 	}
 
-	// For adjusting the player's position to the center of the lane
 	void OnTriggerEnter(Collider other)
 	{
-		if (other.gameObject.tag == "enterPipe2")
-		{
-			rigidbody.velocity = new Vector3(0, 0, 80);
-		}
-		if (other.gameObject.tag == "exitPipe2")
-		{
-			rigidbody.velocity = new Vector3(0, 0, 4);
-		}
 	}
 
 	// Move the player to the left lane
