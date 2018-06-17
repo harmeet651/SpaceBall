@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // GameController controls the overall aspect of the game
 // For example, generating tiles, obstacles should be handled here
@@ -41,8 +42,7 @@ public class GameController : MonoBehaviour {
 		{
 			playerController.MoveSlow();
 		}
-
-
+        
 		//Touch manager.
 		if(Input.touchCount > 0) {
 			//Get touch event by the first finger.
@@ -50,7 +50,6 @@ public class GameController : MonoBehaviour {
 			//Check If touch is just starting
 			if (myTouch.phase == TouchPhase.Began){
 				//Reset all related variables
-				Debug.Log("Touch Began");
 				touchDuration = 0;
 				swipeDistance = 0;
 				swiped = 0;
@@ -62,30 +61,25 @@ public class GameController : MonoBehaviour {
 			//Check for any movement of finger
 			if(myTouch.phase == TouchPhase.Moved ){
 				Vector2 touchDeltaPosition = myTouch.deltaPosition;
-				Debug.Log("Moved DeltaPosition: " + touchDeltaPosition + " DeltaTime:" + myTouch.deltaTime);
 				//Update total distance moved during this swipe/hold.
 				swipeDistance += touchDeltaPosition.x;
 			}else if(myTouch.phase == TouchPhase.Ended){
-				Debug.Log("Touch ended");
 				hold = 0;
 			}
 
 			//Check if swipe threshold was reached in 0.2ms and if the swipe was not handled before
 			if(swipeDistance > 20.0f && touchDuration < 0.1f && swiped == 0){
 				playerController.MoveRight();
-				Debug.Log("Swipe Right swipeDistance: " + swipeDistance + " touchDuration: " + touchDuration);
 				//Mark the swipe as handled.
 				swiped = 1;
 			}else if(swipeDistance < -20.0f && touchDuration < 0.1f && swiped == 0){
 				playerController.MoveLeft();
-				Debug.Log("Swipe Left swipeDistance: " + swipeDistance + " touchDuration: " + touchDuration);
 				//Mark the swipe as handled.
 				swiped = 1;
 			}//Check if player is currently holding and has not swiped during current touch event.
 			 //If threshold is not reached within 0.1ms, consider it as a tap and hold.
 			 else if(touchDuration > 0.1f && swiped == 0){
 				hold = 1;
-				Debug.Log("Hold swipeDistance: " + swipeDistance + " touchDuration: " + touchDuration);
 			}
 
 			if(hold == 1){
@@ -93,8 +87,6 @@ public class GameController : MonoBehaviour {
 			}
 
 		}//End of Touch Manager.
-
-	
 	}
 
     public float GetLaneCenterXPos(int laneNum) {
@@ -104,5 +96,10 @@ public class GameController : MonoBehaviour {
     public void ChangeScore(int change)
     {
         score += change; 
+    }
+
+    public void GameOver()
+    {
+        SceneManager.LoadScene("Scenes/MenuScene");
     }
 }

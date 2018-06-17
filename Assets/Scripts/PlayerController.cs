@@ -2,9 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+enum HorizontalMovement
+{
+    None, 
+    Left, 
+    Right
+}
+
 public class PlayerController : MonoBehaviour
 {
-
 	public KeyCode moveL;
 	public KeyCode moveR;
 	public KeyCode moveSlow;
@@ -17,7 +23,7 @@ public class PlayerController : MonoBehaviour
 
 	private new Rigidbody rigidbody;
 	private GameController gameController;
-	private bool isMovingHorizontal = false;
+	private HorizontalMovement horizontalMoveStatus = HorizontalMovement.None;
 	private bool isLaneLockEnabled = true;
 
 	private int currentLane;    // current lane
@@ -41,12 +47,17 @@ public class PlayerController : MonoBehaviour
 
 		// Ball always starts at the center lane
 		currentLane = (numLanes / 2) + 1;
+        targetLane = currentLane; 
 	}
 
 	void Update()
 	{
+        Debug.Log("Update() horizontalMoveStatus=" + horizontalMoveStatus);
+        Debug.Log("targetLane=" + targetLane + ", targetXPos=" + targetXPos); 
+
+
 		// If the ball is moving, check if movement is complete
-		if (isMovingHorizontal)
+		if (horizontalMoveStatus != HorizontalMovement.None)
 		{
 			CheckMoveComplete();
 		}
@@ -80,15 +91,23 @@ public class PlayerController : MonoBehaviour
 		rigidbody.velocity = new Vector3(horizVelocity, 0, forwardSpeed);
 	}
 
+    void LateUpdate()
+    {
+        // If the player falls below -5.0f in y axis, game over
+        if (transform.position.y <= -5.0f)
+        {
+            gameController.GameOver();
+        }
+    }
+
 	private void OnCollisionEnter(Collision collision)
 	{
-
-		//author:arpit; change: added a death collider for player with traps
+        
 		if (collision.gameObject.tag == "death")
 		{
 			Destroy(gameObject);
 			Instantiate(explodeObj, transform.position, explodeObj.rotation);
-
+            gameController.GameOver(); 
 		}
         if(collision.gameObject.tag=="speedAddRampToBall")
         {
@@ -107,11 +126,12 @@ public class PlayerController : MonoBehaviour
 	// Move the player to the left lane
 	public void MoveLeft()
 	{
-		if ((currentLane > 1) && !isMovingHorizontal)
+        Debug.Log("MoveLeft(), horizontalMoveStatus=" + horizontalMoveStatus);
+        if ((currentLane > 1) && horizontalMoveStatus != HorizontalMovement.Left)
 		{
-			isMovingHorizontal = true;
+			horizontalMoveStatus = HorizontalMovement.Left;
 			horizVelocity = -horizSpeed;
-			targetLane = currentLane - 1;
+			targetLane = targetLane - 1;
 			targetXPos = gameController.GetLaneCenterXPos(targetLane);
 		}
 	}
@@ -119,18 +139,19 @@ public class PlayerController : MonoBehaviour
 	// Move the player to the right lane
 	public void MoveRight()
 	{
-		if ((currentLane < numLanes) && !isMovingHorizontal)
+        Debug.Log("MoveRight(), horizontalMoveStatus=" + horizontalMoveStatus);
+		if ((currentLane < numLanes) && horizontalMoveStatus != HorizontalMovement.Right)
 		{
-			isMovingHorizontal = true;
+			horizontalMoveStatus = HorizontalMovement.Right;
 			horizVelocity = horizSpeed;
-			targetLane = currentLane + 1;
+			targetLane = targetLane + 1;
 			targetXPos = gameController.GetLaneCenterXPos(targetLane);
 		}
 	}
 
 	// If the player is in the process of moving, check if lane shifting is complete
 	public void CheckMoveComplete()
-	{
+	{        
 		// Moving left
 		if (currentLane > targetLane)
 		{
@@ -150,10 +171,11 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	// When mov
+	// Event handler when moving to a different lane is complete
 	public void OnHorizontalMoveComplete()
 	{
-		isMovingHorizontal = false;
+        Debug.Log("OnHorizontalMoveComplete()");
+		horizontalMoveStatus = HorizontalMovement.None;
 		currentLane = targetLane;
 		horizVelocity = 0;
 		transform.position = new Vector3(targetXPos, transform.position.y, transform.position.z);
