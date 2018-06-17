@@ -8,11 +8,16 @@ public class RewardController : MonoBehaviour
     private GameController gameController;
 
     public int rewardAmount; 
-    public bool isSpinning; 
+    public bool isSpinning;
+    private bool isInMagneticField = false;
+
+    private GameObject player;
 
     // Use this for initialization
     void Start()
     {
+        player = GameObject.FindWithTag("Player");
+
         gameControllerObject = GameObject.FindWithTag("GameController");
         gameController = gameControllerObject.GetComponent<GameController>();
     }
@@ -24,17 +29,26 @@ public class RewardController : MonoBehaviour
         {
             transform.Rotate(new Vector3(3, 3, 3));
         }
+
+        if (isInMagneticField)
+        {
+            float speed = 15.0f;
+            float step = speed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, step);
+        }
     }
 
     void OnTriggerEnter(Collider col)
     {
-        Debug.Log("OnTriggerEnter()");
-        Debug.Log(col.gameObject.tag);
-
         if (col.gameObject.tag == "Player")
         {
             gameController.ChangeScore(rewardAmount);
             Destroy(gameObject);
+        }
+
+        else if (col.gameObject.tag == "MagneticField")
+        {
+            isInMagneticField = true; 
         }
     }
 }

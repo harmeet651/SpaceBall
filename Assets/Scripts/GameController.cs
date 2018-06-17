@@ -6,7 +6,6 @@ using UnityEngine;
 // For example, generating tiles, obstacles should be handled here
 // Game over, restart actions should also be defined here
 public class GameController : MonoBehaviour {
-
 	public KeyCode moveL;
 	public KeyCode moveR;
 	public KeyCode moveSlow;
@@ -22,8 +21,6 @@ public class GameController : MonoBehaviour {
 	void Start () {
         player = GameObject.FindWithTag("Player");
         playerController = player.GetComponent<PlayerController>(); 
-
-
 	}
 	
 	// Update is called once per frame

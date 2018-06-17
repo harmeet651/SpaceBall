@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
 	public KeyCode moveSlow;
 	private float horizSpeed = 10.0f;
 	private float horizVelocity = 0;
-	private float forwardSpeed = 5.0f;
+	private float forwardSpeed = 10.0f;
 	private float forwardSlowSpeed = 0.5f;
 
 	private int numLanes;
@@ -20,10 +20,11 @@ public class PlayerController : MonoBehaviour
 	private bool isMovingHorizontal = false;
 	private bool isLaneLockEnabled = true;
 
-
 	private int currentLane;    // current lane
 	private int targetLane;     // target lane of horizontal move
 	private float targetXPos;   // target x position of horizontal move
+
+    public GameObject magneticSphere; 
 
 	public Transform explodeObj;    //effect after collision with trap
 
@@ -162,8 +163,7 @@ public class PlayerController : MonoBehaviour
 	{
 		rigidbody.velocity = new Vector3(0, 0, forwardSlowSpeed);
 	}
-
-
+    
 	public void EnableLaneLock()
 	{
 		isLaneLockEnabled = true;
@@ -173,13 +173,22 @@ public class PlayerController : MonoBehaviour
 	{
 		isLaneLockEnabled = false;
 	}
-	//author:Arpit;method used to send velocity to Score.cs and update it based on score
+
+    public void EnableMagneticField()
+    {
+        magneticSphere.SetActive(true);
+    }
+
+    public void DisableMagneticField()
+    {
+        magneticSphere.SetActive(false);
+    }
+
 	public void AddSpeed(float modifier)
 	{
 		forwardSpeed = forwardSpeed + modifier;
 	}
-
-	//this piece of code is useless and is just used to log whether the speed of the player actually increases
+    
 	public float GetSpeed()
 	{
 		return forwardSpeed;
