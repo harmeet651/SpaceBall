@@ -52,10 +52,6 @@ public class PlayerController : MonoBehaviour
 
 	void Update()
 	{
-        Debug.Log("Update() horizontalMoveStatus=" + horizontalMoveStatus);
-        Debug.Log("targetLane=" + targetLane + ", targetXPos=" + targetXPos); 
-
-
 		// If the ball is moving, check if movement is complete
 		if (horizontalMoveStatus != HorizontalMovement.None)
 		{
@@ -109,24 +105,30 @@ public class PlayerController : MonoBehaviour
 			Instantiate(explodeObj, transform.position, explodeObj.rotation);
             gameController.GameOver(); 
 		}
-        if(collision.gameObject.tag=="speedAddRampToBall")
+
+        else if (collision.gameObject.tag == "speedAddRampToBall")
         {
             forwardSlowSpeed = 1.5f;
         }
+
         else
         {
             forwardSlowSpeed = 0.5f;
         }
 	}
 
-	void OnTriggerEnter(Collider other)
+	void OnTriggerEnter(Collider col)
 	{
-	}
+        if (col.gameObject.tag == "MagnetItem")
+        {
+            Destroy(col.gameObject);
+            EnableMagneticField();
+        }
+    }
 
 	// Move the player to the left lane
 	public void MoveLeft()
 	{
-        Debug.Log("MoveLeft(), horizontalMoveStatus=" + horizontalMoveStatus);
         if ((currentLane > 1) && horizontalMoveStatus != HorizontalMovement.Left)
 		{
 			horizontalMoveStatus = HorizontalMovement.Left;
@@ -139,7 +141,6 @@ public class PlayerController : MonoBehaviour
 	// Move the player to the right lane
 	public void MoveRight()
 	{
-        Debug.Log("MoveRight(), horizontalMoveStatus=" + horizontalMoveStatus);
 		if ((currentLane < numLanes) && horizontalMoveStatus != HorizontalMovement.Right)
 		{
 			horizontalMoveStatus = HorizontalMovement.Right;
@@ -174,7 +175,6 @@ public class PlayerController : MonoBehaviour
 	// Event handler when moving to a different lane is complete
 	public void OnHorizontalMoveComplete()
 	{
-        Debug.Log("OnHorizontalMoveComplete()");
 		horizontalMoveStatus = HorizontalMovement.None;
 		currentLane = targetLane;
 		horizVelocity = 0;
@@ -199,13 +199,15 @@ public class PlayerController : MonoBehaviour
     public void EnableMagneticField()
     {
         magneticSphere.SetActive(true);
+        StartCoroutine(DisableMagneticField());
     }
 
-    public void DisableMagneticField()
+    IEnumerator DisableMagneticField()
     {
+        yield return new WaitForSeconds(10);
         magneticSphere.SetActive(false);
     }
-
+    
 	public void AddSpeed(float modifier)
 	{
 		forwardSpeed = forwardSpeed + modifier;
