@@ -16,6 +16,10 @@ public class GameController : MonoBehaviour {
     public int numLanes = 5;                   // number of lanes
     public int score = 0;
 
+    //Swipe manager variables.
+    private int swiped = 0, hold = 0;
+    private float touchDuration = 0f, swipeDistance = 0f;
+
 
 	// Use this for initialization
 	void Start () {
@@ -37,6 +41,58 @@ public class GameController : MonoBehaviour {
 		{
 			playerController.MoveSlow();
 		}
+
+
+		//Touch manager.
+		if(Input.touchCount > 0) {
+			//Get touch event by the first finger.
+			Touch myTouch = Input.GetTouch(0);
+			//Check If touch is just starting
+			if (myTouch.phase == TouchPhase.Began){
+				//Reset all related variables
+				Debug.Log("Touch Began");
+				touchDuration = 0;
+				swipeDistance = 0;
+				swiped = 0;
+				hold = 0; 
+			}	
+			//Increment total touch duration
+			touchDuration += Time.deltaTime;
+
+			//Check for any movement of finger
+			if(myTouch.phase == TouchPhase.Moved ){
+				Vector2 touchDeltaPosition = myTouch.deltaPosition;
+				Debug.Log("Moved DeltaPosition: " + touchDeltaPosition + " DeltaTime:" + myTouch.deltaTime);
+				//Update total distance moved during this swipe/hold.
+				swipeDistance += touchDeltaPosition.x;
+			}else if(myTouch.phase == TouchPhase.Ended){
+				Debug.Log("Touch ended");
+				hold = 0;
+			}
+
+			//Check if swipe threshold was reached in 0.2ms and if the swipe was not handled before
+			if(swipeDistance > 20.0f && touchDuration < 0.1f && swiped == 0){
+				playerController.MoveRight();
+				Debug.Log("Swipe Right swipeDistance: " + swipeDistance + " touchDuration: " + touchDuration);
+				//Mark the swipe as handled.
+				swiped = 1;
+			}else if(swipeDistance < -20.0f && touchDuration < 0.1f && swiped == 0){
+				playerController.MoveLeft();
+				Debug.Log("Swipe Left swipeDistance: " + swipeDistance + " touchDuration: " + touchDuration);
+				//Mark the swipe as handled.
+				swiped = 1;
+			}//Check if player is currently holding and has not swiped during current touch event.
+			 //If threshold is not reached within 0.1ms, consider it as a tap and hold.
+			 else if(touchDuration > 0.1f && swiped == 0){
+				hold = 1;
+				Debug.Log("Hold swipeDistance: " + swipeDistance + " touchDuration: " + touchDuration);
+			}
+
+			if(hold == 1){
+				playerController.MoveSlow();
+			}
+
+		}//End of Touch Manager.
 
 	
 	}
