@@ -13,7 +13,7 @@ OcclusionCullingSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 9
+  serializedVersion: 8
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -38,8 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45140034, g: 0.50089264, b: 0.5723172, a: 1}
-  m_UseRadianceAmbientProbe: 0
+  m_IndirectSpecularColor: {r: 0.45140046, g: 0.5008931, b: 0.57231724, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -55,10 +54,11 @@ LightmapSettings:
     m_EnableBakedLightmaps: 1
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
-    serializedVersion: 10
+    serializedVersion: 9
     m_Resolution: 2
     m_BakeResolution: 10
-    m_AtlasSize: 1024
+    m_TextureWidth: 1024
+    m_TextureHeight: 1024
     m_AO: 0
     m_AOMaxDistance: 1
     m_CompAOExponent: 1
@@ -223,7 +223,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1522631706187488, guid: a1019fb3704eb4342a07fa10daa8dde6, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a1019fb3704eb4342a07fa10daa8dde6, type: 2}
@@ -379,7 +379,6 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 9b095cdaac7b52c408ce369fbd99ceb3, type: 2}
   m_StaticBatchInfo:
@@ -654,7 +653,6 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 071bba75a2863424ca130360b3581589, type: 2}
   m_StaticBatchInfo:
@@ -891,7 +889,6 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: a6988653e33ca49409c1fa9e1f557cd2, type: 2}
   m_StaticBatchInfo:
@@ -1063,7 +1060,7 @@ MonoBehaviour:
   tilePrefabs:
   - {fileID: 1522631706187488, guid: 081d33c0510dd4b479cf89b7954de941, type: 2}
   - {fileID: 1972110797528554, guid: c047c59ef7f3b4b03b0710e5ecf5d005, type: 2}
-  - {fileID: 1600752419774940, guid: f013436808fde404b8831ea2cceffe8d, type: 2}
+  - {fileID: 0}
   - {fileID: 1898799769038446, guid: 30075003ac1df714ba9754fe27a119d7, type: 2}
   - {fileID: 1923587659890520, guid: 84fcfe0e6eca14a2895eab0cbc420e42, type: 2}
   - {fileID: 1709741549244516, guid: eeb3ee2687bc243a79979f50954eab20, type: 2}
