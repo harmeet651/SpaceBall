@@ -632,7 +632,7 @@ MonoBehaviour:
   moveSlow: 108
   verticalVelocity: 0
   isFlying: 0
-  magneticSphere: {fileID: 1828996309}
+  magneticField: {fileID: 1828996309}
   explodeObj: {fileID: 4189830235195804, guid: 41d1c067a2cf84d2dbc6e0f8abb274e8, type: 2}
 --- !u!114 &1482535009
 MonoBehaviour:
@@ -982,6 +982,8 @@ MonoBehaviour:
   tilePrefabs:
   - {fileID: 1522631706187488, guid: 081d33c0510dd4b479cf89b7954de941, type: 2}
   - {fileID: 1972110797528554, guid: c047c59ef7f3b4b03b0710e5ecf5d005, type: 2}
+  - {fileID: 1323808413322596, guid: e4c1af07fc58c4015a545e6b6c0d00d4, type: 2}
+  - {fileID: 1273095555313778, guid: 112802ecafd2c4973868864890d2f095, type: 2}
 --- !u!4 &2137124264
 Transform:
   m_ObjectHideFlags: 0
