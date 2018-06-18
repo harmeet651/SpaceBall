@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MagnetField : MonoBehaviour {
+public class MagneticFieldController : MonoBehaviour {
     private GameObject player;
     private Material mat;
     private float alphaPingPongSpeed = 5.0f;
     private float sizePingPongSpeed = 10.0f;
     Color originalColor;
-    Vector3 originalScale; 
+    public Vector3 originalScale; 
     
     // Use this for initialization
     void Start () {

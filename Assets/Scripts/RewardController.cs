@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class RewardController : MonoBehaviour
 {
+    private GameObject player;
+
     public bool isSpinning;
     public int rewards;
     public float cubeZAxis=0;
-    public GameObject objSwn;
+
+    private bool isInMagneticField = false;
 
     // Use this for initialization
     void Start()
     {
+        player = GameObject.FindWithTag("Player");
+
         cubeZAxis = transform.position.z;
     }
 
@@ -21,6 +26,13 @@ public class RewardController : MonoBehaviour
         if (isSpinning)
         {
             transform.Rotate(new Vector3(3, 3, 3));
+        }
+
+        if (isInMagneticField)
+        {
+            float speed = player.GetComponent<Rigidbody>().velocity.z * 2; 
+            float step = speed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, step);
         }
     }
 
@@ -32,9 +44,13 @@ public class RewardController : MonoBehaviour
                 Destroy(gameObject);
                 if (rewards == 3)
                 {
-                //Vector3 a = Vector3(transform.position.x - 0.5f, transform.position.y - 1.2f, cubeZAxis - 62);
-                    Instantiate(objSwn, transform.position + new Vector3(transform.position.x - 0.5f, transform.position.y - 1.2f, cubeZAxis+1), transform.rotation);
+                    
                 }
+        }
+
+        else if (col.gameObject.tag == "MagneticField")
+        {
+            isInMagneticField = true;
         }
     }
 }

@@ -20,10 +20,12 @@ public class PlayerController : MonoBehaviour
 	private float horizVelocity = 0;
 	private float forwardSpeed = 10.0f;
 	private float forwardSlowSpeed = 0.2f;
+    public float verticalVelocity = 0.0f;
+    public bool isFlying = false; 
 
 	private int numLanes;
 
-	private new Rigidbody rigidbody;
+	private Rigidbody rb;
 	private GameController gameController;
 	private HorizontalMovement horizontalMoveStatus = HorizontalMovement.None;
 	private bool isLaneLockEnabled = true;
@@ -32,20 +34,24 @@ public class PlayerController : MonoBehaviour
 	private int targetLane;     // target lane of horizontal move
 	private float targetXPos;   // target x position of horizontal move
 
-    public GameObject magneticSphere; 
+    public GameObject magneticField;
+    private MagneticFieldController magneticFieldController; 
 
 	public Transform explodeObj;    //effect after collision with trap
 
 	void Start()
 	{
 		// Save a reference to the rigidbody object
-		rigidbody = GetComponent<Rigidbody>();
+		rb = GetComponent<Rigidbody>();
 
 		// Save a reference to the main GameController object
 		gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
 
-		// Retrieve the number of lanes in this game from GameController
-		numLanes = gameController.numLanes;
+        // Magnetic field gameobject
+        magneticFieldController = magneticField.GetComponent<MagneticFieldController>(); 
+
+        // Retrieve the number of lanes in this game from GameController
+        numLanes = gameController.numLanes;
 
 		// Ball always starts at the center lane
 		currentLane = (numLanes / 2) + 1;
@@ -57,7 +63,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Debug.Log("space");
-            rigidbody.AddForce(new Vector3(0, 40000, 40000));
+            Fly(); 
         }
 
         // If the ball is moving, check if movement is complete
@@ -92,7 +98,15 @@ public class PlayerController : MonoBehaviour
 			}
 		}
 
-		rigidbody.velocity = new Vector3(horizVelocity, 0, forwardSpeed);
+        if (isFlying)
+        {
+            rb.velocity = new Vector3(horizVelocity, verticalVelocity, forwardSpeed * 3); 
+        }
+
+        else
+        {
+            rb.velocity = new Vector3(horizVelocity, verticalVelocity, forwardSpeed);
+        }
 	}
 
     void LateUpdate()
@@ -107,7 +121,7 @@ public class PlayerController : MonoBehaviour
 	private void OnCollisionEnter(Collision collision)
 	{
         
-		if (collision.gameObject.tag == "death")
+		if (collision.gameObject.tag == "death" && !isFlying)
 		{
 			Destroy(gameObject);
 			Instantiate(explodeObj, transform.position, explodeObj.rotation);
@@ -196,7 +210,7 @@ public class PlayerController : MonoBehaviour
 
 	public void MoveSlow()
 	{
-		rigidbody.velocity = new Vector3(0, 0, forwardSlowSpeed);
+		rb.velocity = new Vector3(0, 0, forwardSlowSpeed);
 	}
     
 	public void EnableLaneLock()
@@ -211,14 +225,32 @@ public class PlayerController : MonoBehaviour
 
     public void EnableMagneticField()
     {
-        magneticSphere.SetActive(true);
-        StartCoroutine(DisableMagneticField());
+        EnableMagneticField(5.0f, true); 
     }
 
-    IEnumerator DisableMagneticField()
+    public void EnableMagneticField(float magneticFieldSize, bool automaticDisable)
+    {
+        Debug.Log("EnableMagneticField(magneticFieldSize=" + magneticFieldSize + ")");
+
+        magneticField.SetActive(true); 
+        magneticFieldController.originalScale = new Vector3(magneticFieldSize, magneticFieldSize, magneticFieldSize);
+
+        // If automatic disable option after x seconds is on, start a corutine
+        if (automaticDisable)
+        {
+            StartCoroutine(MagneticFieldCoroutine());
+        }
+    }
+
+    public void DisableMagneticField()
+    {
+        magneticField.SetActive(false);
+    }
+
+    IEnumerator MagneticFieldCoroutine()
     {
         yield return new WaitForSeconds(10);
-        magneticSphere.SetActive(false);
+        DisableMagneticField(); 
     }
     
 	public void AddSpeed(float modifier)
@@ -230,6 +262,15 @@ public class PlayerController : MonoBehaviour
 	{
 		return forwardSpeed;
 	}
+
+    // Start flying
+    public void Fly()
+    {
+        // Actual flying motion is done through FlightController
+        GetComponent<FlightController>().Fly();
+        EnableMagneticField(20.0f, false); 
+    }
+
     public void OnGUI()
     {
         GUI.Label(new Rect(100, 100, 100, 20), "Rewards : " + rewards);
@@ -238,31 +279,4 @@ public class PlayerController : MonoBehaviour
             rewards = 1;
         }
     }
-    //Vector3 SampleParabola(Vector3 start, Vector3 end, float height, float t)
-    //{
-    //    Debug.Log("hhudhuehduehdhe");
-    //    float parabolicT = t * 2 - 1;
-    //    if (Mathf.Abs(start.y - end.y) < 0.1f)
-    //    {
-    //        //start and end are roughly level, pretend they are - simpler solution with less steps
-    //        Vector3 travelDirection = end - start;
-    //        Vector3 result = start + t * travelDirection;
-    //        result.y += (-parabolicT * parabolicT + 1) * height;
-    //        return result;
-    //    }
-    //    else
-    //    {
-    //        //would generally not happen
-    //        //start and end are not level, gets more complicated
-    //        Vector3 travelDirection = end - start;
-    //        Vector3 levelDirecteion = end - new Vector3(start.x, end.y, start.z);
-    //        Vector3 right = Vector3.Cross(travelDirection, levelDirecteion);
-    //        Vector3 up = Vector3.Cross(right, travelDirection);
-    //        if (end.y > start.y) up = -up;
-    //        Vector3 result = start + t * travelDirection;
-    //        result += ((-parabolicT * parabolicT + 1) * height) * up.normalized;
-    //        return result;
-    //    }
-
-    //}
 }
