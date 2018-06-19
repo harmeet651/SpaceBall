@@ -60,12 +60,6 @@ public class PlayerController : MonoBehaviour
 
 	void Update()
 	{
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("space");
-            Fly(); 
-        }
-
         // If the ball is moving, check if movement is complete
         if (horizontalMoveStatus != HorizontalMovement.None)
 		{
@@ -148,6 +142,7 @@ public class PlayerController : MonoBehaviour
         }
             if (col.gameObject.name.Contains("myFly"))
             {
+            Fly();
             //SampleParabola(new Vector3(transform.position.x,transform.position.y,transform.position.z), new Vector3(transform.position.x, transform.position.y, transform.position.z+40), 40, 0);
                 Destroy(col.gameObject);
             }

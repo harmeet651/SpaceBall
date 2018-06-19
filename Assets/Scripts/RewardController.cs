@@ -9,6 +9,8 @@ public class RewardController : MonoBehaviour
     public bool isSpinning;
     public int rewards;
     public float cubeZAxis=0;
+    public GameObject objSwn;
+    public GameObject fly;
 
     private bool isInMagneticField = false;
 
@@ -17,7 +19,7 @@ public class RewardController : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player");
 
-        cubeZAxis = transform.position.z;
+        cubeZAxis = player.transform.position.z;
     }
 
     // Update is called once per frame
@@ -44,7 +46,8 @@ public class RewardController : MonoBehaviour
                 Destroy(gameObject);
                 if (rewards == 3)
                 {
-                    
+                    fly = Instantiate(objSwn, player.transform.position + new Vector3(player.transform.position.x, player.transform.position.y-0.5f, cubeZAxis + 15), transform.rotation);
+                    Destroy(fly, 100);
                 }
         }
 
