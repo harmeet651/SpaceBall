@@ -13,7 +13,7 @@ OcclusionCullingSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 8
+  serializedVersion: 9
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -38,7 +38,8 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45140088, g: 0.50089335, b: 0.5723178, a: 1}
+  m_IndirectSpecularColor: {r: 0.45140034, g: 0.50089264, b: 0.5723172, a: 1}
+  m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -54,11 +55,10 @@ LightmapSettings:
     m_EnableBakedLightmaps: 1
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
-    serializedVersion: 9
+    serializedVersion: 10
     m_Resolution: 2
     m_BakeResolution: 10
-    m_TextureWidth: 1024
-    m_TextureHeight: 1024
+    m_AtlasSize: 1024
     m_AO: 0
     m_AOMaxDistance: 1
     m_CompAOExponent: 1
@@ -375,6 +375,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 9b095cdaac7b52c408ce369fbd99ceb3, type: 2}
   m_StaticBatchInfo:
@@ -557,6 +558,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 071bba75a2863424ca130360b3581589, type: 2}
   m_StaticBatchInfo:
@@ -807,6 +809,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: a6988653e33ca49409c1fa9e1f557cd2, type: 2}
   m_StaticBatchInfo:
@@ -978,7 +981,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilePrefabs:
   - {fileID: 1522631706187488, guid: 081d33c0510dd4b479cf89b7954de941, type: 2}
+  - {fileID: 1058045483406968, guid: eeb3ee2687bc243a79979f50954eab20, type: 2}
   - {fileID: 1690109404017258, guid: a5646e416e27241a087852bf51b5ff20, type: 2}
+  - {fileID: 1185233438442068, guid: 84fcfe0e6eca14a2895eab0cbc420e42, type: 2}
+  - {fileID: 1095983260621874, guid: 112802ecafd2c4973868864890d2f095, type: 2}
+  - {fileID: 1951549204031348, guid: e4c1af07fc58c4015a545e6b6c0d00d4, type: 2}
+  - {fileID: 1093536333571880, guid: ea1dfd5d158e2407f8d1ff4172673011, type: 2}
+  - {fileID: 1972110797528554, guid: c047c59ef7f3b4b03b0710e5ecf5d005, type: 2}
+  - {fileID: 1366407482896870, guid: 75539d29b3fe74479956f4d128f268f8, type: 2}
+  - {fileID: 1547455666437786, guid: 537fdea673b46fb40bfc7486cc2061eb, type: 2}
+  - {fileID: 1545672490373114, guid: 4f464c16718d2574c99ab604796d0fb5, type: 2}
+  - {fileID: 1702679576619344, guid: a725d91b56d0e8b42b748dc0bb11409b, type: 2}
+  - {fileID: 1884244231084716, guid: f4640bf4cebd6a44fb1bf0545b451edc, type: 2}
+  - {fileID: 1989611958785626, guid: fc05fc5f8eb3c1f4a94b9805ff4353cd, type: 2}
+  - {fileID: 1188832670488608, guid: f7b10d4376b96e641b9ba5f35c2a899f, type: 2}
+  - {fileID: 1449639832161414, guid: cf24745208ecf472f9dd52b18f35bafd, type: 2}
+  - {fileID: 1086152957810906, guid: ded54a6cd078346f98bba69a92571ce1, type: 2}
+  - {fileID: 1587769094113258, guid: 7c576362f793f420ba885f88d113db59, type: 2}
+  - {fileID: 1890434576350568, guid: 5296b3b17d279463c80998f81fe990f6, type: 2}
+  - {fileID: 1521786314645202, guid: 73ccf968c65544d679d98cde36909a7c, type: 2}
 --- !u!4 &2137124264
 Transform:
   m_ObjectHideFlags: 0

@@ -115,7 +115,7 @@ public class PlayerController : MonoBehaviour
 	private void OnCollisionEnter(Collision collision)
 	{
         
-		if (collision.gameObject.tag == "death" && !isFlying || collision.gameObject.name == "Cube")
+		if (collision.gameObject.tag == "death" && !isFlying)
 		{
 			Destroy(gameObject);
 			Instantiate(explodeObj, transform.position, explodeObj.rotation);
@@ -142,8 +142,7 @@ public class PlayerController : MonoBehaviour
         }
             if (col.gameObject.name.Contains("myFly"))
             {
-            Fly();
-            //SampleParabola(new Vector3(transform.position.x,transform.position.y,transform.position.z), new Vector3(transform.position.x, transform.position.y, transform.position.z+40), 40, 0);
+                Fly();
                 Destroy(col.gameObject);
             }
     }
