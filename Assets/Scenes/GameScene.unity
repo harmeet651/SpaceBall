@@ -13,7 +13,7 @@ OcclusionCullingSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 9
+  serializedVersion: 8
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -38,8 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45140034, g: 0.50089264, b: 0.5723172, a: 1}
-  m_UseRadianceAmbientProbe: 0
+  m_IndirectSpecularColor: {r: 0.45140088, g: 0.50089335, b: 0.5723178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -55,10 +54,11 @@ LightmapSettings:
     m_EnableBakedLightmaps: 1
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
-    serializedVersion: 10
+    serializedVersion: 9
     m_Resolution: 2
     m_BakeResolution: 10
-    m_AtlasSize: 1024
+    m_TextureWidth: 1024
+    m_TextureHeight: 1024
     m_AO: 0
     m_AOMaxDistance: 1
     m_CompAOExponent: 1
@@ -375,7 +375,6 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 9b095cdaac7b52c408ce369fbd99ceb3, type: 2}
   m_StaticBatchInfo:
@@ -558,7 +557,6 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 071bba75a2863424ca130360b3581589, type: 2}
   m_StaticBatchInfo:
@@ -809,7 +807,6 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: a6988653e33ca49409c1fa9e1f557cd2, type: 2}
   m_StaticBatchInfo:
@@ -981,9 +978,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilePrefabs:
   - {fileID: 1522631706187488, guid: 081d33c0510dd4b479cf89b7954de941, type: 2}
-  - {fileID: 1972110797528554, guid: c047c59ef7f3b4b03b0710e5ecf5d005, type: 2}
-  - {fileID: 1323808413322596, guid: e4c1af07fc58c4015a545e6b6c0d00d4, type: 2}
-  - {fileID: 1273095555313778, guid: 112802ecafd2c4973868864890d2f095, type: 2}
+  - {fileID: 1690109404017258, guid: a5646e416e27241a087852bf51b5ff20, type: 2}
 --- !u!4 &2137124264
 Transform:
   m_ObjectHideFlags: 0

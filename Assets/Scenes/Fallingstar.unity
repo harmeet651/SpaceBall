@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45140046, g: 0.5008931, b: 0.57231724, a: 1}
+  m_IndirectSpecularColor: {r: 0.45140088, g: 0.50089335, b: 0.5723178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -199,10 +199,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09fb0520bbffada429a1fd5badcf18c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rewards: 0
   moveL: 97
   moveR: 100
   moveSlow: 108
-  magneticSphere: {fileID: 0}
+  verticalVelocity: 0
+  isFlying: 0
+  magneticField: {fileID: 0}
   explodeObj: {fileID: 0}
 --- !u!54 &1182886599
 Rigidbody:
