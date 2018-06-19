@@ -121,7 +121,7 @@ public class PlayerController : MonoBehaviour
 	private void OnCollisionEnter(Collision collision)
 	{
         
-		if (collision.gameObject.tag == "death" && !isFlying)
+		if (collision.gameObject.tag == "death" && !isFlying || collision.gameObject.name == "Cube")
 		{
 			Destroy(gameObject);
 			Instantiate(explodeObj, transform.position, explodeObj.rotation);
