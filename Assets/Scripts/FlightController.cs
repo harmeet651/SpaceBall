@@ -11,6 +11,9 @@ enum FlightStatus
 }
 
 public class FlightController : MonoBehaviour {
+    public GameObject wing;
+    private Vector3 wingOffset; 
+
     Rigidbody rb;
     private float launchSpeed = 20.0f;
     private float flightAltitude = 8.0f;
@@ -23,11 +26,15 @@ public class FlightController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody>();
-        playerController = GetComponent<PlayerController>(); 
+        playerController = GetComponent<PlayerController>();
+
+        wingOffset = wing.transform.position - transform.position;
     }
 	
 	// Update is called once per frame
 	void Update () {
+        wing.transform.position = transform.position + wingOffset; 
+
         if (flightStatus == FlightStatus.Launching)
         {
             if (transform.position.y < flightAltitude)
@@ -60,6 +67,7 @@ public class FlightController : MonoBehaviour {
                 playerController.isFlying = false;
                 playerController.DisableMagneticField();
                 flightStatus = FlightStatus.None;
+                wing.SetActive(false); 
             }
         }
 
@@ -69,6 +77,7 @@ public class FlightController : MonoBehaviour {
     {
         rb.useGravity = false;
 
-        flightStatus = FlightStatus.Launching; 
+        flightStatus = FlightStatus.Launching;
+        wing.SetActive(true); 
     }
 }

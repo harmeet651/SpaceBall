@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
 	private float forwardSlowSpeed = 0.2f;
     public float verticalVelocity = 0.0f;
     public bool isFlying = false; 
+    public bool isShieldOn = false; 
 
 	private int numLanes;
 
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour
 	private float targetXPos;   // target x position of horizontal move
 
     public GameObject magneticField;
+    public GameObject shield;
     private MagneticFieldController magneticFieldController; 
 
 	public Transform explodeObj;    //effect after collision with trap
@@ -135,16 +137,33 @@ public class PlayerController : MonoBehaviour
 
 	void OnTriggerEnter(Collider col)
 	{
-        if (col.gameObject.tag == "MagnetItem")
+        if (col.gameObject.tag == "ItemMagnet")
         {
-            Destroy(col.gameObject);
+            Destroy(col.gameObject.transform.parent.gameObject);
             EnableMagneticField();
         }
-            if (col.gameObject.name.Contains("myFly"))
-            {
-                Fly();
-                Destroy(col.gameObject);
-            }
+
+        // If player runs into a 
+        else if (col.gameObject.tag == "ItemWing")
+        {
+            Fly();
+            Destroy(col.gameObject);
+        }
+        
+        // If player runs into a shield item
+        else if (col.gameObject.tag == "ItemShield")
+        {
+            EnableShield(); 
+            Debug.Log("Shield");
+            Destroy(col.gameObject.transform.parent.gameObject);
+        }
+
+        // If player runs into a health box item
+        else if (col.gameObject.tag == "ItemHealthBox")
+        {
+            Debug.Log("Healthbox");
+            Destroy(col.gameObject.transform.parent.gameObject);
+        }
     }
 
 	// Move the player to the left lane
@@ -224,15 +243,13 @@ public class PlayerController : MonoBehaviour
 
     public void EnableMagneticField(float magneticFieldSize, bool automaticDisable)
     {
-        Debug.Log("EnableMagneticField(magneticFieldSize=" + magneticFieldSize + ")");
-
-        magneticField.SetActive(true); 
-        magneticFieldController.originalScale = new Vector3(magneticFieldSize, magneticFieldSize, magneticFieldSize);
+        magneticField.SetActive(true);
+        magneticField.transform.localScale = new Vector3(magneticFieldSize, magneticFieldSize, magneticFieldSize); 
 
         // If automatic disable option after x seconds is on, start a corutine
         if (automaticDisable)
         {
-            StartCoroutine(MagneticFieldCoroutine());
+            StartCoroutine(DisableMagneticFieldAfterDelay());
         }
     }
 
@@ -241,13 +258,39 @@ public class PlayerController : MonoBehaviour
         magneticField.SetActive(false);
     }
 
-    IEnumerator MagneticFieldCoroutine()
+    IEnumerator DisableMagneticFieldAfterDelay()
     {
         yield return new WaitForSeconds(10);
-        DisableMagneticField(); 
+        DisableMagneticField();
     }
-    
-	public void AddSpeed(float modifier)
+
+    public void EnableShield()
+    {
+        EnableShield(true);
+    }
+
+    public void EnableShield(bool automaticDisable)
+    {
+        shield.SetActive(true);
+
+        if (automaticDisable)
+        {
+            StartCoroutine(DisableShieldAfterDelay());
+        }
+    }
+
+    public void DisableShield()
+    {
+        shield.SetActive(false); 
+    }
+
+    IEnumerator DisableShieldAfterDelay()
+    {
+        yield return new WaitForSeconds(10);
+        DisableShield();
+    }
+
+    public void AddSpeed(float modifier)
 	{
 		forwardSpeed = forwardSpeed + modifier;
 	}
