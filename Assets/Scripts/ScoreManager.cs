@@ -26,7 +26,7 @@ public class ScoreManager : MonoBehaviour
 
     PlayerController playerController;
 
-    private int slow;
+    private bool isInSlowMode;
 
     // Use this for initialization
     void Start()
@@ -38,7 +38,7 @@ public class ScoreManager : MonoBehaviour
             highscoreCount = PlayerPrefs.GetFloat("HighScore");
         }
 
-        slow = 0;
+        isInSlowMode = false;
     }
 
     // Update is called once per frame
@@ -50,7 +50,7 @@ public class ScoreManager : MonoBehaviour
 
         //update the score with game time
 
-        if (slow == 0)
+        if (isInSlowMode == false)
         {
             score += Time.deltaTime;
         }
@@ -70,7 +70,7 @@ public class ScoreManager : MonoBehaviour
         scoreText.text = "Score " + ((int)score).ToString();
 
         highscoreText.text = "High Score " + ((int)highscoreCount).ToString();
-        slow = 0;
+        isInSlowMode = false;
     }
 
     // Update score by passed amount
@@ -97,6 +97,6 @@ public class ScoreManager : MonoBehaviour
 
     public void MoveSlow()
     {
-        slow = 1;
+        isInSlowMode = true;
     }
 }
