@@ -562,6 +562,11 @@ Prefab:
       propertyPath: maxHealth
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 114263873179854138, guid: 1274b2eedf3ef634ca3c6810618c380e,
+        type: 2}
+      propertyPath: highscoreText
+      value: 
+      objectReference: {fileID: 1640637689}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1274b2eedf3ef634ca3c6810618c380e, type: 2}
   m_IsPrefabParent: 0
@@ -989,6 +994,7 @@ MonoBehaviour:
   moveSlow: 108
   numLanes: 5
   score: 0
+  highscoreCount: 0
 --- !u!4 &1827008202
 Transform:
   m_ObjectHideFlags: 0
