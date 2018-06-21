@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
+    private NotificationController notificationController;
+
     //initialize score with zero
     private float score = 0.0f;
 
@@ -22,7 +24,7 @@ public class ScoreManager : MonoBehaviour
     private int maxDfficultyLevel = 10;
 
     //score needed to reach next level
-    private int scoreToNextLevel = 20;
+    private int scoreToNextLevel = 30;
 
     PlayerController playerController;
 
@@ -32,6 +34,7 @@ public class ScoreManager : MonoBehaviour
     void Start()
     {
         playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+        notificationController = GameObject.FindWithTag("GameController").GetComponent<NotificationController>();
 
         if (PlayerPrefs.HasKey("HighScore"))
         {
@@ -46,7 +49,9 @@ public class ScoreManager : MonoBehaviour
     {
         //if player reaches the score needed to move to next level level up
         if (score >= scoreToNextLevel)
+        {
             LevelUp();
+        }
 
         //update the score with game time
 
@@ -85,14 +90,19 @@ public class ScoreManager : MonoBehaviour
     {
         //if the max difficulty level is reached keep playing at that level
         if (difficultyLevel == maxDfficultyLevel)
+        {
             return;
+        }
 
         //exponentially increase score to move to next level. eg 20-60-180
-        scoreToNextLevel *= 3;
+        scoreToNextLevel *= 2;
 
         difficultyLevel++;
 
-        //fetch the forward velocity of player from 'PlayerController' and update it 
+        // Notify user of the level up event
+        notificationController.NotifyText("Level " + difficultyLevel);
+
+        // Fetch the forward velocity of player from 'PlayerController' and update it 
         playerController.AddSpeed(0.5f);
     }
 

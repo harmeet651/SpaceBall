@@ -5,8 +5,13 @@ using UnityEngine.UI;
 
 public class NotificationController : MonoBehaviour
 {
-    public GameObject notificationCanvas;
+    public Canvas notificationCanvas;
+    public Image backgroundImage; 
     public Text notificationText;
+
+    private Color gray = new Color32(55, 55, 55, 80);
+    private Color green = new Color32(145, 255, 0, 80);
+    private Color red = new Color32(255, 40, 0, 80); 
 
     // Use this for initialization
     void Start()
@@ -22,23 +27,38 @@ public class NotificationController : MonoBehaviour
 
     public void NotifyText(string text)
     {
-        notificationCanvas.SetActive(true);
+        notificationCanvas.enabled = true;
+        backgroundImage.color = gray; 
         notificationText.text = text;
 
         StartCoroutine(CloseAfterSeconds(3));
     }
 
-    public void NotifyLevelUp(int newLevel)
+    public void NotifyHealthChange(int change)
     {
-        notificationCanvas.SetActive(true);
+        if (change > 0)
+        {
+            notificationCanvas.enabled = true; 
+            backgroundImage.color = green; 
+            notificationText.text = "Health +" + change;
 
-        StartCoroutine(CloseAfterSeconds(3));
+            StartCoroutine(CloseAfterSeconds(0.5f)); 
+        }
+
+        else if (change < 0)
+        {
+            notificationCanvas.enabled = true;
+            backgroundImage.color = red;
+            notificationText.text = "Health -" + (-change);
+
+            StartCoroutine(CloseAfterSeconds(0.2f));
+        }
     }
 
     IEnumerator CloseAfterSeconds(float seconds)
     {
         yield return new WaitForSeconds(seconds);
 
-        notificationCanvas.SetActive(false); 
+        notificationCanvas.enabled = false;
     }
 }

@@ -11,6 +11,9 @@ enum HorizontalMovement
 
 public class PlayerController : MonoBehaviour
 {
+    private GameController gameController;
+    public NotificationController notificationController; 
+
     public TileManager tile;
     public int maxHealth;
     public Slider healthSlider;
@@ -30,7 +33,6 @@ public class PlayerController : MonoBehaviour
     private int numLanes;
 
     private Rigidbody rb;
-    private GameController gameController;
     private HorizontalMovement horizontalMoveStatus = HorizontalMovement.None;
     private bool isLaneLockEnabled = true;
 
@@ -53,6 +55,7 @@ public class PlayerController : MonoBehaviour
 
         // Save a reference to the main GameController object
         gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
+        notificationController = GameObject.FindWithTag("GameController").GetComponent<NotificationController>(); 
 
         // Retrieve the number of lanes in this game from GameController
         numLanes = gameController.numLanes;
@@ -72,6 +75,8 @@ public class PlayerController : MonoBehaviour
         {
             health += x;
         }
+
+        notificationController.NotifyHealthChange(x);
     }
 
     void Update()
@@ -139,9 +144,11 @@ public class PlayerController : MonoBehaviour
 
         if (col.gameObject.tag == "death" && !isFlying)
         {
-            int temp = GetHealth();
-            temp -= 1;
-            SetHealth(temp);
+            int damageAmount = -1; 
+
+            SetHealth(GetHealth() + damageAmount);
+
+            notificationController.NotifyHealthChange(damageAmount); 
         }
 
         // If player runs into a health box item

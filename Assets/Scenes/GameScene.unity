@@ -518,7 +518,7 @@ GameObject:
   - component: {fileID: 527188394}
   - component: {fileID: 527188393}
   m_Layer: 5
-  m_Name: Background
+  m_Name: BackgroundImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -530,7 +530,7 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 527188391}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -554,7 +554,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2264151, g: 0.2264151, b: 0.2264151, a: 0.3137255}
+  m_Color: {r: 0.21568628, g: 0.21568628, b: 0.21568628, a: 0.3137255}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -920,7 +920,7 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1503284347}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1013,7 +1013,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1574721964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1284,7 +1284,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff9c997009787ab4ea844780ad9544ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notificationCanvas: {fileID: 1574721963}
+  notificationCanvas: {fileID: 1574721966}
+  backgroundImage: {fileID: 527188393}
   notificationText: {fileID: 1503284349}
 --- !u!1 &1908366765
 GameObject:
