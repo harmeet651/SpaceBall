@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
     public GameObject shield;
 
     public Transform explodeObj;    //effect after collision with trap
+    public Material MagneticMaterial,DefaultMaterial;
 
     void Start()
     {
@@ -275,6 +276,7 @@ public class PlayerController : MonoBehaviour
 
     public void EnableMagneticField(float magneticFieldSize, bool automaticDisable)
     {
+        rb.GetComponent<MeshRenderer>().material = MagneticMaterial;
         magneticField.SetActive(true);
         magneticField.transform.localScale = new Vector3(magneticFieldSize, magneticFieldSize, magneticFieldSize);
 
@@ -288,6 +290,7 @@ public class PlayerController : MonoBehaviour
     public void DisableMagneticField()
     {
         magneticField.SetActive(false);
+        rb.GetComponent<MeshRenderer>().material = DefaultMaterial;
     }
 
     IEnumerator DisableMagneticFieldAfterDelay()
