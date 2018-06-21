@@ -77,7 +77,7 @@ public class ScoreManager : MonoBehaviour
     public void AddScore(float amount)
     {
         score += amount;
-        highscoreCount += amount;
+        //highscoreCount += amount;
     }
 
     //Method to levelup the game
