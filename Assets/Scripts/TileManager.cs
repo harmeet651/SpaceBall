@@ -111,21 +111,13 @@ public class TileManager : MonoBehaviour
 		/// </summary>
 		//if bbramp was spawned increase tilelength by another 20;change index here to match
 
-		if (flag == 1)
-		{
-			Obj.transform.position = Vector3.forward * spawnZ;
-
-            //update the length of the generated tiles
-            spawnZ += tileLength40;
-
-		}
-		else { 
+		
 			Obj.transform.position = Vector3.forward * spawnZ;
 
             //update the length of the generated tiles
             spawnZ += tileLength;
 
-		}
+		
 
         if (locFlag == 1)
         {
