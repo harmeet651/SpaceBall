@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45140117, g: 0.5008937, b: 0.5723182, a: 1}
+  m_IndirectSpecularColor: {r: 0.45140034, g: 0.50089264, b: 0.5723172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -547,6 +547,11 @@ Prefab:
       propertyPath: scoreText
       value: 
       objectReference: {fileID: 465526156}
+    - target: {fileID: 114263873179854138, guid: 1274b2eedf3ef634ca3c6810618c380e,
+        type: 2}
+      propertyPath: highscoreText
+      value: 
+      objectReference: {fileID: 1640637689}
     - target: {fileID: 114030696003384304, guid: 1274b2eedf3ef634ca3c6810618c380e,
         type: 2}
       propertyPath: tile
@@ -557,16 +562,10 @@ Prefab:
       propertyPath: healthSlider
       value: 
       objectReference: {fileID: 1420817243}
-    - target: {fileID: 114030696003384304, guid: 1274b2eedf3ef634ca3c6810618c380e,
-        type: 2}
-      propertyPath: maxHealth
-      value: 10
+    - target: {fileID: 1799519974786486, guid: 1274b2eedf3ef634ca3c6810618c380e, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114263873179854138, guid: 1274b2eedf3ef634ca3c6810618c380e,
-        type: 2}
-      propertyPath: highscoreText
-      value: 
-      objectReference: {fileID: 1640637689}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1274b2eedf3ef634ca3c6810618c380e, type: 2}
   m_IsPrefabParent: 0
@@ -993,8 +992,6 @@ MonoBehaviour:
   moveR: 100
   moveSlow: 108
   numLanes: 5
-  score: 0
-  highscoreCount: 0
   tapDuration: 0
 --- !u!4 &1827008202
 Transform:
@@ -1095,6 +1092,7 @@ MonoBehaviour:
   - {fileID: 1545672490373114, guid: 4f464c16718d2574c99ab604796d0fb5, type: 2}
   - {fileID: 1884244231084716, guid: f4640bf4cebd6a44fb1bf0545b451edc, type: 2}
   - {fileID: 1188832670488608, guid: f7b10d4376b96e641b9ba5f35c2a899f, type: 2}
+  maxLevel: 9
 --- !u!4 &2137124264
 Transform:
   m_ObjectHideFlags: 0

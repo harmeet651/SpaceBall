@@ -428,6 +428,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09fb0520bbffada429a1fd5badcf18c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tile: {fileID: 0}
+  maxHealth: 10
+  healthSlider: {fileID: 0}
+  play: {fileID: 0}
+  temp1: 0
+  reference: 0
+  pos_z: 0
   rewards: 0
   moveL: 97
   moveR: 100
@@ -462,6 +469,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 0}
+  highscoreText: {fileID: 0}
+  highscoreCount: 0
 --- !u!114 &114827946259922976
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -21,8 +21,6 @@ public class PlayerController : MonoBehaviour
     public float pos_z;
     float a;
 
-    public int rewards = 0;
-
     public KeyCode moveL;
     public KeyCode moveR;
     public KeyCode moveSlow;
@@ -70,7 +68,7 @@ public class PlayerController : MonoBehaviour
         targetLane = currentLane;
     }
 
-    public void addHealth(int x)
+    public void AddHealth(int x)
     {
         if (health + x >= maxHealth)
         {
@@ -142,17 +140,46 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision col)
     {
 
-        if (collision.gameObject.tag == "death" && !isFlying)
+        if (col.gameObject.tag == "death" && !isFlying)
         {
             int temp = GetHealth();
             temp -= 1;
             SetHealth(temp);
         }
 
-        else if (collision.gameObject.tag == "speedAddRampToBall")
+        // If player runs into a health box item
+        else if (col.gameObject.tag == "ItemHealthBox")
+        {
+            Destroy(col.gameObject);
+            AddHealth(2);
+            Debug.Log("Healthbox");
+        }
+
+        else if (col.gameObject.tag == "ItemMagnet")
+        {
+            Destroy(col.gameObject);
+            EnableMagneticField();
+        }
+
+        // If player runs into a 
+        else if (col.gameObject.tag == "ItemWing")
+        {
+            Destroy(col.gameObject);
+            Fly();
+        }
+
+        // If player runs into a shield item
+        else if (col.gameObject.tag == "ItemShield")
+        {
+            Debug.Log("Shield");
+            Destroy(col.gameObject);
+            EnableShield();
+        }
+
+        else if (col.gameObject.tag == "speedAddRampToBall")
         {
             forwardSlowSpeed = 1.2f;
         }
@@ -165,33 +192,7 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.tag == "ItemMagnet")
-        {
-            Destroy(col.gameObject.transform.parent.gameObject);
-            EnableMagneticField();
-        }
 
-        // If player runs into a 
-        else if (col.gameObject.tag == "ItemWing")
-        {
-            Fly();
-            Destroy(col.gameObject);
-        }
-
-        // If player runs into a shield item
-        else if (col.gameObject.tag == "ItemShield")
-        {
-            EnableShield();
-            Debug.Log("Shield");
-            Destroy(col.gameObject.transform.parent.gameObject);
-        }
-
-        // If player runs into a health box item
-        else if (col.gameObject.tag == "ItemHealthBox")
-        {
-            Debug.Log("Healthbox");
-            Destroy(col.gameObject.transform.parent.gameObject);
-        }
     }
 
     // Move the player to the left lane

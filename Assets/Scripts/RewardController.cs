@@ -5,12 +5,10 @@ using UnityEngine;
 public class RewardController : MonoBehaviour
 {
     private GameObject player;
+    private ScoreManager scoreManager; 
 
     public bool isSpinning;
     public int rewards;
-    public float cubeZAxis = 0;
-    public GameObject objSwn;
-    public GameObject fly;
 
     private bool isInMagneticField = false;
 
@@ -18,8 +16,7 @@ public class RewardController : MonoBehaviour
     void Start()
     {
         player = GameObject.FindWithTag("Player");
-
-        cubeZAxis = player.transform.position.z;
+        scoreManager = player.GetComponent<ScoreManager>(); 
     }
 
     // Update is called once per frame
@@ -38,20 +35,19 @@ public class RewardController : MonoBehaviour
         }
     }
 
+    void OnCollisionEnter(Collision col)
+    {
+        if (col.gameObject.name == "Player")
+        {
+            scoreManager.AddScore(rewards);
+            Destroy(gameObject); 
+            
+        }
+    }
+
     void OnTriggerEnter(Collider col)
     {
-        if (col.name == "Player")
-        {
-            rewards = col.GetComponent<PlayerController>().rewards++;
-            Destroy(gameObject);
-            if (rewards == 3)
-            {
-                fly = Instantiate(objSwn, player.transform.position + new Vector3(player.transform.position.x, player.transform.position.y - 0.5f, cubeZAxis + 15), transform.rotation);
-                Destroy(fly, 100);
-            }
-        }
-
-        else if (col.gameObject.tag == "MagneticField")
+        if (col.gameObject.tag == "MagneticField")
         {
             isInMagneticField = true;
         }
