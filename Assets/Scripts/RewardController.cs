@@ -35,6 +35,14 @@ public class RewardController : MonoBehaviour
         }
     }
 
+    void LateUpdate()
+    {
+        if (transform.position.y <= -10.0f)
+        {
+            Destroy(gameObject); 
+        }
+    }
+
     void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.name == "Player")
@@ -43,6 +51,12 @@ public class RewardController : MonoBehaviour
             Destroy(gameObject); 
             
         }
+    }
+
+    // Destroyer
+    void OnBecameInvisible()
+    {
+        Destroy(gameObject);
     }
 
     void OnTriggerEnter(Collider col)

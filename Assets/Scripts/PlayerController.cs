@@ -14,12 +14,6 @@ public class PlayerController : MonoBehaviour
     public TileManager tile;
     public int maxHealth;
     public Slider healthSlider;
-    public PlayerController play;
-
-    public float temp1;
-    public float reference;
-    public float pos_z;
-    float a;
 
     public KeyCode moveL;
     public KeyCode moveR;

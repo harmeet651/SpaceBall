@@ -5,9 +5,7 @@ using UnityEngine;
 public class TileManager : MonoBehaviour
 {
     float positionForRespawn = 0;
-
-    //author: Arpit; Changes: Adding infinite tiles in the game
-
+    
     //list holding prefabs
     public GameObject[] tilePrefabs;
 
@@ -48,7 +46,6 @@ public class TileManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
         //instantiate active tiles
         activeTiles = new List<GameObject>();
 
@@ -66,23 +63,19 @@ public class TileManager : MonoBehaviour
             else
                 SpawnTile();    //now create the random ones
         }
-
-
     }
 
     // Update is called once per frame
     void Update()
     {
-
-
         if (playerTransform.position.z - safeToDelete > (spawnZ - amnTilesOnScreen * tileLength))
         {
             SpawnTile();
             DeleteTile();
-
         }
     }
-    //method to spawn a tile 
+
+    // Spawn a tile 
     private void SpawnTile(int prefabIndex = -1)
     {
         GameObject Obj;
@@ -123,12 +116,10 @@ public class TileManager : MonoBehaviour
 
         //add tile to list of active tiles
         activeTiles.Add(Obj);
-
     }
 
     public float getSpawnPos()
     {
-
         return (positionForRespawn + 21);
     }
 
@@ -157,9 +148,9 @@ public class TileManager : MonoBehaviour
         int count = 0, levelChoose = level;
         float randomNumber, prevProbabilty = 0f;
 
-
         //Generating random number to select the level of prefab
         randomNumber = Random.Range(0.0f, 100.0f);
+
         //Select corresponding level
         foreach (float probability in probabilities)
         {
