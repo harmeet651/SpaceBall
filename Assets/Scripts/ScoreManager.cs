@@ -22,7 +22,7 @@ public class ScoreManager : MonoBehaviour
     private int maxDfficultyLevel = 10;
 
     //score needed to reach next level
-    private int scoreToNextLevel = 10;
+    private int scoreToNextLevel = 20;
 
     PlayerController playerController;
 
@@ -88,11 +88,13 @@ public class ScoreManager : MonoBehaviour
             return;
 
         //exponentially increase score to move to next level. eg 20-40-80...
-        scoreToNextLevel *= 2;
+        scoreToNextLevel *= 3;
+        Debug.Log("scoreToNextLevel=" + scoreToNextLevel); 
+
         difficultyLevel++;
 
         //fetch the forward velocity of player from 'PlayerController' and update it 
-        playerController.AddSpeed(1.5f);
+        playerController.AddSpeed(0.5f);
     }
 
     public void MoveSlow()

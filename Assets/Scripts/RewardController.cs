@@ -49,7 +49,11 @@ public class RewardController : MonoBehaviour
         {
             scoreManager.AddScore(rewards);
             Destroy(gameObject); 
-            
+        }
+
+        else if (col.gameObject.tag == "death")
+        {
+            Destroy(gameObject); 
         }
     }
 

@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     public KeyCode moveL;
     public KeyCode moveR;
     public KeyCode moveSlow;
-    private float horizSpeed = 10.0f;
+    private float horizSpeed = 9.0f;
     private float horizVelocity = 0;
     private float forwardSpeed = 10.0f;
     private float forwardSlowSpeed = 0.2f;
