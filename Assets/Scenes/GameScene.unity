@@ -221,6 +221,11 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 27
       objectReference: {fileID: 0}
+    - target: {fileID: 20141557444614600, guid: 1b845758cd5f3894cbfd15e2b4df07e6,
+        type: 2}
+      propertyPath: m_ClearFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1b845758cd5f3894cbfd15e2b4df07e6, type: 2}
   m_IsPrefabParent: 0
@@ -648,6 +653,23 @@ Prefab:
       propertyPath: DefaultMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 071bba75a2863424ca130360b3581589, type: 2}
+    - target: {fileID: 4095950282904666, guid: 1274b2eedf3ef634ca3c6810618c380e, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4060743144576636, guid: 1274b2eedf3ef634ca3c6810618c380e, type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1327602958498888, guid: 1274b2eedf3ef634ca3c6810618c380e, type: 2}
+      propertyPath: m_Name
+      value: PlayerWing-Backup
+      objectReference: {fileID: 0}
+    - target: {fileID: 114827946259922976, guid: 1274b2eedf3ef634ca3c6810618c380e,
+        type: 2}
+      propertyPath: wing
+      value: 
+      objectReference: {fileID: 2091901355}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1274b2eedf3ef634ca3c6810618c380e, type: 2}
   m_IsPrefabParent: 0
@@ -1101,6 +1123,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1631070751 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1165272872534498, guid: 1b845758cd5f3894cbfd15e2b4df07e6,
+    type: 2}
+  m_PrefabInternal: {fileID: 227778924}
+--- !u!45 &1631070752
+Skybox:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1631070751}
+  m_Enabled: 1
+  m_CustomSkybox: {fileID: 2100000, guid: 860a66ca4259b384f9ec01b687f71c3c, type: 2}
 --- !u!1 &1640637687
 GameObject:
   m_ObjectHideFlags: 0
@@ -1331,6 +1366,62 @@ RectTransform:
   m_AnchoredPosition: {x: -11.199997, y: 0.0000009536743}
   m_SizeDelta: {x: -7.59, y: 0.0000019073}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!4 &2002297876 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4233745905492670, guid: 1274b2eedf3ef634ca3c6810618c380e,
+    type: 2}
+  m_PrefabInternal: {fileID: 573754502}
+--- !u!1001 &2091901354
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2002297876}
+    m_Modifications:
+    - target: {fileID: 4272214072163058, guid: 57eb5dc024aa9451b96bc8d5f1363af7, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4272214072163058, guid: 57eb5dc024aa9451b96bc8d5f1363af7, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4272214072163058, guid: 57eb5dc024aa9451b96bc8d5f1363af7, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4272214072163058, guid: 57eb5dc024aa9451b96bc8d5f1363af7, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4272214072163058, guid: 57eb5dc024aa9451b96bc8d5f1363af7, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4272214072163058, guid: 57eb5dc024aa9451b96bc8d5f1363af7, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4272214072163058, guid: 57eb5dc024aa9451b96bc8d5f1363af7, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4272214072163058, guid: 57eb5dc024aa9451b96bc8d5f1363af7, type: 2}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1876336292015098, guid: 57eb5dc024aa9451b96bc8d5f1363af7, type: 2}
+      propertyPath: m_Name
+      value: PlayerWing
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 57eb5dc024aa9451b96bc8d5f1363af7, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1 &2091901355 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1876336292015098, guid: 57eb5dc024aa9451b96bc8d5f1363af7,
+    type: 2}
+  m_PrefabInternal: {fileID: 2091901354}
 --- !u!1 &2137124262
 GameObject:
   m_ObjectHideFlags: 0
