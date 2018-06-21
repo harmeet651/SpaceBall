@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 enum HorizontalMovement
 {
     None, 
@@ -11,6 +11,16 @@ enum HorizontalMovement
 
 public class PlayerController : MonoBehaviour
 {
+    public TileManager tile;
+    public int maxHealth;
+    public Slider healthSlider;
+    public PlayerController play;
+
+    public float temp1;
+    public float reference;
+    public float pos_z;
+    float a;
+
     public int rewards = 0;
 
     public KeyCode moveL;
@@ -23,6 +33,7 @@ public class PlayerController : MonoBehaviour
     public float verticalVelocity = 0.0f;
     public bool isFlying = false; 
     public bool isShieldOn = false; 
+    public static int health=10;
 
 	private int numLanes;
 
@@ -43,8 +54,11 @@ public class PlayerController : MonoBehaviour
 
 	void Start()
 	{
-		// Save a reference to the rigidbody object
-		rb = GetComponent<Rigidbody>();
+        health = maxHealth;
+        healthSlider.maxValue = maxHealth;
+
+        // Save a reference to the rigidbody object
+        rb = GetComponent<Rigidbody>();
 
 		// Save a reference to the main GameController object
 		gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
@@ -60,8 +74,22 @@ public class PlayerController : MonoBehaviour
         targetLane = currentLane; 
 	}
 
-	void Update()
+    public void addHealth(int x)
+    {
+        if (health + x >= maxHealth)
+        {
+            health = maxHealth;
+        }
+        else
+        {
+            health += x;
+        }
+    }
+
+    void Update()
 	{
+        healthSlider.value = health;
+
         // If the ball is moving, check if movement is complete
         if (horizontalMoveStatus != HorizontalMovement.None)
 		{
@@ -107,10 +135,14 @@ public class PlayerController : MonoBehaviour
 
     void LateUpdate()
     {
-        // If the player falls below -5.0f in y axis, game over
-        if (transform.position.y <= -5.0f)
+        if ((transform.position.y >= 0.0f))
         {
-            gameController.GameOver();
+            EnableLaneLock();
+            horizSpeed = 10;
+        }
+        if (transform.position.y <= -15.0f)
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -119,10 +151,11 @@ public class PlayerController : MonoBehaviour
         
 		if (collision.gameObject.tag == "death" && !isFlying)
 		{
-			Destroy(gameObject);
-			Instantiate(explodeObj, transform.position, explodeObj.rotation);
-            gameController.GameOver(); 
-		}
+            int temp = GetHealth();
+            temp -= 1;
+            SetHealth(temp);
+            Debug.Log("ball collided, new health" + temp);
+        }
 
         else if (collision.gameObject.tag == "speedAddRampToBall")
         {
@@ -315,5 +348,21 @@ public class PlayerController : MonoBehaviour
         {
             rewards = 1;
         }
+        GUI.Label(new Rect(200, 200, 100, 20), "Health : " + health);
+
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+            //Instantiate(explodeObj, transform.position, explodeObj.rotation);
+            // GetComponent<GameController>().GameOver();
+        }
+    }
+    public int GetHealth()
+    {
+        return health;
+    }
+    public void SetHealth(int x)
+    {
+        health = x;
     }
 }

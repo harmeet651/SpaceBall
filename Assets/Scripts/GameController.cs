@@ -28,10 +28,7 @@ public class GameController : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerController = player.GetComponent<PlayerController>();
-
-        Debug.Log("player=" + player + ", player.name=" + player.name);
-        Debug.Log("playerController=" + playerController); 
-
+        
         if (playerController == null)
         {
             Debug.Log("Start(), playerController is null"); 

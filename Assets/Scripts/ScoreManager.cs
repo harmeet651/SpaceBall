@@ -58,9 +58,5 @@ public class ScoreManager : MonoBehaviour {
 
 		//fetch the forward velocity of player from 'PlayerController' and update it 
 		playerController.AddSpeed(1.5f);
-
-		//this piece of code is useless and is just used to log whether the player speed actually increases
-		float flag = playerController.GetSpeed();
-		Debug.Log (flag);
 	}
 }

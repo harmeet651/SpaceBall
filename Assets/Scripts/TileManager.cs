@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TileManager : MonoBehaviour
 {
+    float positionForRespawn = 0;
 
     //author: Arpit; Changes: Adding infinite tiles in the game
 
@@ -14,7 +15,7 @@ public class TileManager : MonoBehaviour
     private Transform playerTransform;
 
     //spawn of tile updation variable
-    private float spawnZ = -5.0f;
+    private float spawnZ = 0;
 
     //length of each tile in the prefab; each of the prefab in folder lanes is of length 20 units
     private float tileLength = 20.0f;
@@ -36,7 +37,8 @@ public class TileManager : MonoBehaviour
     //change by arpit
     /// </summary>
     private int flag = 0;
-	private int temp = 0;
+    private int locFlag = 0;
+
     // Use this for initialization
     void Start()
     {
@@ -50,9 +52,18 @@ public class TileManager : MonoBehaviour
         {
             //for the first 2 tiles just create starter tiles
             if (i < 2)
-                SpawnTile(0);   // 0 is the index assigned in unity to starter tile
+            {    SpawnTile(0);   // 0 is the index assigned in unity to starter tile
+                
+            }
             else
                 SpawnTile();    //now create the random ones
+
+
+            if (i == 0)
+            {
+                locFlag = 1;
+          
+            }
         }
 
 
@@ -92,8 +103,6 @@ public class TileManager : MonoBehaviour
 
 		if (flag == 1)
 		{
-            Debug.Log(temp);
-//			spawnZ += 20;
 			Obj.transform.position = Vector3.forward * spawnZ;
 
             //update the length of the generated tiles
@@ -107,10 +116,27 @@ public class TileManager : MonoBehaviour
             spawnZ += tileLength;
 
 		}
-		      
+
+        if (locFlag == 1)
+        {
+            locFlag = 0;
+            setSpawnPos(Obj);
+        }
+
         //add tile to list of active tiles
         activeTiles.Add(Obj);
 
+    }
+
+    public float getSpawnPos()
+    {
+
+        return (positionForRespawn+21);
+    }
+
+    public void setSpawnPos(GameObject Obj)
+    {
+        positionForRespawn = Obj.transform.position.z;
     }
     //method to destroy a tile
     private void DeleteTile()
@@ -154,8 +180,6 @@ public class TileManager : MonoBehaviour
             
         //update the last index and return its index to generate the corresponding tile
         lastPrefabIndex = randIndex;
-		temp = randIndex;
-
 
         return randIndex;
     }
