@@ -8,8 +8,10 @@ public class ItemGenerationController : MonoBehaviour {
     public GameObject itemMagnetPrefab;
     public GameObject itemShieldPrefab;
     public GameObject itemWingPrefab;
+    
+    private PlayerController playerController;
 
-    private PlayerController playerController; 
+    private float lastGeneratedPlayerZPos = 0; 
 
     // Use this for initialization
     void Start() {
@@ -23,9 +25,9 @@ public class ItemGenerationController : MonoBehaviour {
         
     }
 
-    void GenerateReward()
+    void Generate(GameObject prefab)
     {
-        GameObject newRewardObj = Instantiate(coinPrefab) as GameObject;
+        GameObject newRewardObj = Instantiate(prefab) as GameObject;
 
         float spawnZPos = transform.position.z + playerController.GetSpeed() * 2;
 
@@ -36,7 +38,38 @@ public class ItemGenerationController : MonoBehaviour {
     {
         while(gameObject != null)
         {
-            GenerateReward();
+            if (transform.position.z > lastGeneratedPlayerZPos + 2.0f)
+            {
+                float randVal = Random.Range(0, 100);
+                Debug.Log("randVal=" + randVal); 
+
+                if (randVal < 3)
+                {
+                    Generate(itemWingPrefab);
+                }
+
+                else if (randVal < 6)
+                {
+                    Generate(itemMagnetPrefab);
+                }
+
+                else if (randVal < 9)
+                {
+                    Generate(itemShieldPrefab); 
+                }
+
+                else if (randVal < 12)
+                {
+                    Generate(itemHealthBoxPrefab); 
+                }
+
+                else
+                {
+                    Generate(coinPrefab);
+                }
+                
+                lastGeneratedPlayerZPos = transform.position.z; 
+            }
 
             yield return new WaitForSeconds(0.2f);
         }

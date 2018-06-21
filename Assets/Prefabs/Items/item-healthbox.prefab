@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 33203682960621556}
   - component: {fileID: 23027295142777838}
   - component: {fileID: 135030702310526282}
+  - component: {fileID: 54715491625037114}
   m_Layer: 0
   m_Name: item-healthbox
   m_TagString: ItemHealthBox
@@ -158,6 +159,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1202456670205256}
   m_Mesh: {fileID: 4300000, guid: 844e044356f71478780c0c4ad4e9e860, type: 3}
+--- !u!54 &54715491625037114
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1935851681724926}
+  serializedVersion: 2
+  m_Mass: 0.1
+  m_Drag: 20
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!65 &65461311714360608
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -177,7 +193,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1935851681724926}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
