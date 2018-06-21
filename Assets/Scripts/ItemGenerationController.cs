@@ -29,7 +29,7 @@ public class ItemGenerationController : MonoBehaviour {
     {
         GameObject newRewardObj = Instantiate(prefab) as GameObject;
 
-        float spawnZPos = transform.position.z + playerController.GetSpeed() * 2;
+        float spawnZPos = transform.position.z + playerController.GetSpeed() * 4;
 
         newRewardObj.transform.position = new Vector3(Mathf.Round(Random.Range(-2.0f, 2.0f)), 5, spawnZPos);
     }

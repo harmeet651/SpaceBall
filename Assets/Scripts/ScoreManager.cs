@@ -99,9 +99,6 @@ public class ScoreManager : MonoBehaviour
 
         difficultyLevel++;
 
-        // Notify user of the level up event
-        notificationController.NotifyText("Level " + difficultyLevel);
-
         // Fetch the forward velocity of player from 'PlayerController' and update it 
         playerController.AddSpeed(0.5f);
     }

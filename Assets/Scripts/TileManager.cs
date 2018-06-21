@@ -53,7 +53,7 @@ public class TileManager : MonoBehaviour
         probabilities = new List<float>();
         probabilities.Add(100.0f);
 
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        playerTransform = GameObject.FindWithTag("Player").transform;
         //spawn tiles upto amount specified in var amnTilesOnScreen
         for (int i = 0; i < amnTilesOnScreen; i++)
         {

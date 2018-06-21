@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     public TileManager tile;
     public int maxHealth;
     public Slider healthSlider;
+    public Image healthFillImage;
+    public PlayerController play;
 
     public KeyCode moveL;
     public KeyCode moveR;
@@ -63,6 +65,8 @@ public class PlayerController : MonoBehaviour
         // Ball always starts at the center lane
         currentLane = (numLanes / 2) + 1;
         targetLane = currentLane;
+        healthFillImage = healthSlider.transform.Find("Fill Area/Fill").GetComponent<Image>();
+        healthFillImage.color = Color.green;
     }
 
     public void AddHealth(int x)
@@ -82,7 +86,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         healthSlider.value = health;
-
+        healthFillImage.color = Color.Lerp(Color.red, Color.green, (float)health / maxHealth);
         // If the ball is moving, check if movement is complete
         if (horizontalMoveStatus != HorizontalMovement.None)
         {
