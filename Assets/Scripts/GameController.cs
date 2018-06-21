@@ -14,78 +14,90 @@ public class GameController : MonoBehaviour
 
     private GameObject player;
     private PlayerController playerController;
+    private ScoreManager scoreManager;
 
     public int numLanes = 5;                   // number of lanes
 
     //Swipe manager variables.
-    private int hold = 0;
+    private bool hold = false;
     private float touchDuration = 0f, scrMid, TouchStart;
 
     public float tapDuration;
 
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         player = GameObject.FindWithTag("Player");
-        playerController = player.GetComponent<PlayerController>(); 
-
-        scrMid = (float) Screen.width;
-        scrMid = scrMid /2;
+        playerController = player.GetComponent<PlayerController>();
+        scoreManager = player.GetComponent<ScoreManager>();
+        scrMid = (float)Screen.width;
+        scrMid = scrMid / 2;
         tapDuration = 0.165f;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (Input.GetKeyDown(moveL))
-		{
-			playerController.MoveLeft();
-		}
-		if (Input.GetKeyDown(moveR))
-		{
-			playerController.MoveRight();
-		}
-		if (Input.GetKey(moveSlow))
-		{
-			playerController.MoveSlow();
-		}
-        
-		//Touch manager.
-		if(Input.touchCount > 0) {
-			//Get touch event by the first finger.
-			Touch myTouch = Input.GetTouch(0);
-			//Check If touch is just starting
-			if (myTouch.phase == TouchPhase.Began){
-				//Reset all related variables
-				touchDuration = 0;
-				hold = 0; 
-				TouchStart = Time.time;
-			}	
-			//Increment total touch duration
-			touchDuration += Time.deltaTime;
+    }
 
-			if(hold == 1){
-				playerController.MoveSlow();
-			}else{
-				if(myTouch.phase == TouchPhase.Ended){
-					hold = 0;
-					Debug.Log("Touch: Duration is " + (Time.time-TouchStart));
-					if(myTouch.phase == TouchPhase.Ended && (Time.time-TouchStart) < tapDuration){
-						Debug.Log("Touch: TAP, Last Time.DeltaTime is " + Time.deltaTime);
-						if(myTouch.position.x > scrMid)
-							playerController.MoveRight();
-						else
-							playerController.MoveLeft();
-						//Mark the swipe as handled.
-					}
-				}
-				else if((Time.time-TouchStart) > tapDuration){
-					hold = 1;
-					Debug.Log("Touch: HOLD" + (Time.time-TouchStart) + " touchduration: " + touchDuration);
-					
-				}
-			}
-		}//End of Touch Manager.
-	}
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyDown(moveL))
+        {
+            playerController.MoveLeft();
+        }
+        if (Input.GetKeyDown(moveR))
+        {
+            playerController.MoveRight();
+        }
+        if (Input.GetKey(moveSlow))
+        {
+            playerController.MoveSlow();
+            scoreManager.MoveSlow();
+        }
+
+        //Touch manager.
+        if (Input.touchCount > 0)
+        {
+            //Get touch event by the first finger.
+            Touch myTouch = Input.GetTouch(0);
+            //Check If touch is just starting
+            if (myTouch.phase == TouchPhase.Began)
+            {
+                //Reset all related variables
+                touchDuration = 0;
+                hold = false;
+                TouchStart = Time.time;
+            }
+            //Increment total touch duration
+            touchDuration += Time.deltaTime;
+
+            if (hold == true)
+            {
+                playerController.MoveSlow();
+                scoreManager.MoveSlow();
+            }
+            else
+            {
+                if (myTouch.phase == TouchPhase.Ended)
+                {
+                    hold = false;
+                    if (myTouch.phase == TouchPhase.Ended && (Time.time - TouchStart) < tapDuration)
+                    {
+                        if (myTouch.position.x > scrMid)
+                            playerController.MoveRight();
+                        else
+                            playerController.MoveLeft();
+                        //Mark the swipe as handled.
+                    }
+                }
+                else if ((Time.time - TouchStart) > tapDuration)
+                {
+                    hold = true;
+                    playerController.MoveSlow();
+                    scoreManager.MoveSlow();
+
+                }
+            }
+        }//End of Touch Manager.
+    }
 
     public float GetLaneCenterXPos(int laneNum)
     {
