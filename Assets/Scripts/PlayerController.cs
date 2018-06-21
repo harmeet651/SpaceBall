@@ -12,13 +12,12 @@ enum HorizontalMovement
 public class PlayerController : MonoBehaviour
 {
     private GameController gameController;
-    public NotificationController notificationController; 
+    private NotificationController notificationController; 
 
     public TileManager tile;
     public int maxHealth;
     public Slider healthSlider;
-    public Image healthFillImage;
-    public PlayerController play;
+    private Image healthFillImage;
 
     public KeyCode moveL;
     public KeyCode moveR;
@@ -46,7 +45,7 @@ public class PlayerController : MonoBehaviour
     public GameObject shield;
 
     public Transform explodeObj;    //effect after collision with trap
-    public Material MagneticMaterial,DefaultMaterial;
+    public Material MagneticMaterial,DefaultMaterial,HealthMaterial;
 
     void Start()
     {
@@ -81,7 +80,16 @@ public class PlayerController : MonoBehaviour
             health += x;
         }
 
-        notificationController.NotifyHealthChange(x);
+        rb.GetComponent<MeshRenderer>().material = HealthMaterial;
+
+        StartCoroutine(RecoverOriginalPlayerMaterial());
+    }
+
+    IEnumerator RecoverOriginalPlayerMaterial()
+    {
+        yield return new WaitForSeconds(0.2f);
+
+        rb.GetComponent<MeshRenderer>().material = DefaultMaterial;
     }
 
     void Update()

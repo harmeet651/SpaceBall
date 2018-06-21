@@ -670,6 +670,11 @@ Prefab:
       propertyPath: wing
       value: 
       objectReference: {fileID: 2091901355}
+    - target: {fileID: 114030696003384304, guid: 1274b2eedf3ef634ca3c6810618c380e,
+        type: 2}
+      propertyPath: HealthMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 7051801200a1748f9b3225ea9f708497, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1274b2eedf3ef634ca3c6810618c380e, type: 2}
   m_IsPrefabParent: 0
@@ -1414,7 +1419,13 @@ Prefab:
       propertyPath: m_Name
       value: PlayerWing
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 1876336292015098, guid: 57eb5dc024aa9451b96bc8d5f1363af7, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 65863157849686224, guid: 57eb5dc024aa9451b96bc8d5f1363af7, type: 2}
+    - {fileID: 65584710414369266, guid: 57eb5dc024aa9451b96bc8d5f1363af7, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 57eb5dc024aa9451b96bc8d5f1363af7, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &2091901355 stripped
