@@ -15,6 +15,7 @@ public class GameController : MonoBehaviour
     private GameObject player;
     private PlayerController playerController;
     private ScoreManager scoreManager;
+    private NotificationController notificationController; 
 
     public int numLanes = 5;                   // number of lanes
 
@@ -31,9 +32,12 @@ public class GameController : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         playerController = player.GetComponent<PlayerController>();
         scoreManager = player.GetComponent<ScoreManager>();
+        notificationController = GetComponent<NotificationController>(); 
         scrMid = (float)Screen.width;
         scrMid = scrMid / 2;
         tapDuration = 0.165f;
+
+        notificationController.NotifyText("Begin");
     }
 
     // Update is called once per frame
@@ -106,6 +110,14 @@ public class GameController : MonoBehaviour
 
     public void GameOver()
     {
+        Debug.Log("GameOver()"); 
+        StartCoroutine(GameOverCoroutine()); 
+    }
+
+    IEnumerator GameOverCoroutine()
+    {
+        notificationController.NotifyText("Game Over");
+        yield return new WaitForSeconds(3);
         SceneManager.LoadScene("Scenes/MenuScene");
     }
 }

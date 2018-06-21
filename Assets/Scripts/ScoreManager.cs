@@ -80,16 +80,15 @@ public class ScoreManager : MonoBehaviour
         //highscoreCount += amount;
     }
 
-    //Method to levelup the game
+    // Method to levelup the game
     void LevelUp()
     {
         //if the max difficulty level is reached keep playing at that level
         if (difficultyLevel == maxDfficultyLevel)
             return;
 
-        //exponentially increase score to move to next level. eg 20-40-80...
+        //exponentially increase score to move to next level. eg 20-60-180
         scoreToNextLevel *= 3;
-        Debug.Log("scoreToNextLevel=" + scoreToNextLevel); 
 
         difficultyLevel++;
 
