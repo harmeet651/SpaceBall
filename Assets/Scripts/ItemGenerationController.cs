@@ -41,7 +41,6 @@ public class ItemGenerationController : MonoBehaviour {
             if (transform.position.z > lastGeneratedPlayerZPos + 2.0f)
             {
                 float randVal = Random.Range(0, 100);
-                Debug.Log("randVal=" + randVal); 
 
                 if (randVal < 3)
                 {
