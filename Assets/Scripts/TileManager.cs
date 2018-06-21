@@ -20,20 +20,20 @@ public class TileManager : MonoBehaviour
     //length of each tile in the prefab; each of the prefab in folder lanes is of length 20 units
     private float tileLength = 20.0f;
 
-	//how many tiles we want to see at any time in the background at one time
-	private int amnTilesOnScreen = 10;
+    //how many tiles we want to see at any time in the background at one time
+    private int amnTilesOnScreen = 10;
 
     //list of active game tiles
     private List<GameObject> activeTiles;
 
-	//list of probabilities for each level of prefabs
-	private List<float> probabilities;	
+    //list of probabilities for each level of prefabs
+    private List<float> probabilities;
 
-	//current level
-	private int level = 0;
+    //current level
+    private int level = 0;
 
-	//safe to destroy tiles after these units so player does not fall into empty space
-	private float safeToDelete = 25.0f;
+    //safe to destroy tiles after these units so player does not fall into empty space
+    private float safeToDelete = 25.0f;
 
     //flag to save index to prefab
     private int lastPrefabIndex = 0;
@@ -41,7 +41,6 @@ public class TileManager : MonoBehaviour
     /// <summary>
     //change by arpit
     /// </summary>
-    private int flag = 0;
     private int locFlag = 0;
 
     public int maxLevel = 9;
@@ -53,19 +52,20 @@ public class TileManager : MonoBehaviour
         //instantiate active tiles
         activeTiles = new List<GameObject>();
 
-		//instantiate probabilities and add the initial probability
-		probabilities = new List<float>();
-		probabilities.Add(100.0f);
+        //instantiate probabilities and add the initial probability
+        probabilities = new List<float>();
+        probabilities.Add(100.0f);
 
-		playerTransform=GameObject.FindGameObjectWithTag("Player").transform;
-		//spawn tiles upto amount specified in var amnTilesOnScreen
-		for (int i=0; i < amnTilesOnScreen; i++) {
-			//for the first 2 tiles just create starter tiles
-			if (i < 2)
-				SpawnTile (0);	// 0 is the index assigned in unity to starter tile
-			else
-				SpawnTile ();	//now create the random ones
-		}
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        //spawn tiles upto amount specified in var amnTilesOnScreen
+        for (int i = 0; i < amnTilesOnScreen; i++)
+        {
+            //for the first 2 tiles just create starter tiles
+            if (i < 2)
+                SpawnTile(0);   // 0 is the index assigned in unity to starter tile
+            else
+                SpawnTile();    //now create the random ones
+        }
 
 
     }
@@ -87,40 +87,33 @@ public class TileManager : MonoBehaviour
     {
         GameObject Obj;
 
-		int temp = (int)spawnZ;
-		//Debug.Log("temp: " + temp);
-		//Level Up every 6 tiles
-		if( temp > 0 && ( (temp)%120 == 0) && level < maxLevel){
-			level += 1;
-			float lastprob = probabilities[probabilities.Count-1];
-			probabilities[probabilities.Count-1] = lastprob/2.0f;
-			probabilities.Add(lastprob/2.0f);
-			Debug.Log("Level Up! Level: " + level);
-			Debug.Log(probabilities[probabilities.Count-1]);
-		}
+        int temp = (int)spawnZ;
 
-		//create the tile on screen
+        //Level Up every 6 tiles
+        if (temp > 0 && ((temp) % 120 == 0) && level < maxLevel)
+        {
+            level += 1;
+            float lastprob = probabilities[probabilities.Count - 1];
+            probabilities[probabilities.Count - 1] = lastprob / 2.0f;
+            probabilities.Add(lastprob / 2.0f);
+        }
 
+        //create the tile on screen
         if (prefabIndex == -1)
+        {
             Obj = Instantiate(tilePrefabs[RandomPrefabIndex()]) as GameObject;
+        }
         else
+        {
             Obj = Instantiate(tilePrefabs[prefabIndex]) as GameObject;
+        }
 
         //tag it as a child to 'TileManager' prefab
         Obj.transform.SetParent(transform);
+        Obj.transform.position = Vector3.forward * spawnZ;
 
-		/// <summary>
-		//change by arpit
-		/// </summary>
-		//if bbramp was spawned increase tilelength by another 20;change index here to match
-
-		
-			Obj.transform.position = Vector3.forward * spawnZ;
-
-            //update the length of the generated tiles
-            spawnZ += tileLength;
-
-		
+        //update the length of the generated tiles
+        spawnZ += tileLength;
 
         if (locFlag == 1)
         {
@@ -136,7 +129,7 @@ public class TileManager : MonoBehaviour
     public float getSpawnPos()
     {
 
-        return (positionForRespawn+21);
+        return (positionForRespawn + 21);
     }
 
     public void setSpawnPos(GameObject Obj)
@@ -153,66 +146,65 @@ public class TileManager : MonoBehaviour
     //method to ensure we randomly generate tiles and do not repeat the same tile back to back
     private int RandomPrefabIndex()
     {
-
-        if (tilePrefabs.Length <= 1)    //if the length is 1; which means we have generated 0 or 1 tile then return 0 which corresponds to starter tile
+        //if the length is 1; which means we have generated 0 or 1 tile then return 0 which corresponds to starter tile
+        if (tilePrefabs.Length <= 1)
+        {
             return 0;
+        }
 
         int randIndex = lastPrefabIndex;
 
-
-		//GameObject[] currentLevelPrefabs = GameObject.FindGameObjectsWithTag(level.ToString());
-		int count = 0,  levelChoose = level;
-		float randomNumber, prevProbabilty = 0f;
+        int count = 0, levelChoose = level;
+        float randomNumber, prevProbabilty = 0f;
 
 
-		//Generating random number to select the level of prefab
-		randomNumber = Random.Range(0.0f,100.0f);
-		Debug.Log("RandomNumber is " + randomNumber);
-		//Select corresponding level
-		foreach(float probability in probabilities){
-			randomNumber -= prevProbabilty;
-			if (randomNumber > probability){
-				levelChoose--;
-				prevProbabilty = probability;
-			}else{
-				break;
-			} 
-		}
-		Debug.Log("Chosen level is " + levelChoose);
+        //Generating random number to select the level of prefab
+        randomNumber = Random.Range(0.0f, 100.0f);
+        //Select corresponding level
+        foreach (float probability in probabilities)
+        {
+            randomNumber -= prevProbabilty;
+            if (randomNumber > probability)
+            {
+                levelChoose--;
+                prevProbabilty = probability;
+            }
+            else
+            {
+                break;
+            }
+        }
 
-		List<GameObject> currentLevelPrefabs;
-		currentLevelPrefabs = new List<GameObject>();
+        List<GameObject> currentLevelPrefabs;
+        currentLevelPrefabs = new List<GameObject>();
 
-		foreach(GameObject gobj in tilePrefabs){
-			if(gobj.CompareTag(levelChoose.ToString())){
-				currentLevelPrefabs.Add(gobj);
-				count++;
-				//Debug.Log(gobj.transform.name);
-			}
-		}
-		//Debug.Log("Number of prefabs in level: " + level + " is: " +currentLevelPrefabs.Length);
-		//Debug.Log(count);
+        foreach (GameObject gobj in tilePrefabs)
+        {
+            if (gobj.CompareTag(levelChoose.ToString()))
+            {
+                currentLevelPrefabs.Add(gobj);
+                count++;
+            }
+        }
 
-		//if we generate the same index as that of last prefab tile, keep looping until we generate a different one
+        int i;
+        while (randIndex == lastPrefabIndex)
+        {
+            randIndex = Random.Range(0, currentLevelPrefabs.Count);
+            for (i = 0; i < tilePrefabs.Length; i++)
+            {
+                if (tilePrefabs[i] == currentLevelPrefabs[randIndex])
+                {
+                    randIndex = i;
+                    break;
+                }
+            }
+            if (currentLevelPrefabs.Count < 2)
+                break;
+        }
 
-		// while (randIndex == lastPrefabIndex) {
-		// 	randIndex = Random.Range (0, tilePrefabs.Length);
-
-		// }
-		int i;
-		while (randIndex == lastPrefabIndex) {
-			randIndex = Random.Range (0, currentLevelPrefabs.Count);
-			for(i = 0;i<tilePrefabs.Length;i++){
-				if(tilePrefabs[i] == currentLevelPrefabs[randIndex]){
-					randIndex = i;
-					break;
-				}
-			}
-			if(currentLevelPrefabs.Count < 2)
-				break;
-		}		
-		//update the last index and return its index to generate the corresponding tile
-		lastPrefabIndex = randIndex;
+        //update the last index and return its index to generate the corresponding tile
+        lastPrefabIndex = randIndex;
 
         return randIndex;
     }

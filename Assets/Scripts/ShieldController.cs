@@ -40,7 +40,7 @@ public class ShieldController : MonoBehaviour
     {
         if (col.gameObject.tag == "death")
         {
-            Destroy(col.gameObject); 
+            Destroy(col.gameObject);
         }
     }
 }

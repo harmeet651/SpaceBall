@@ -6,34 +6,37 @@ enum FlightStatus
 {
     None,
     Launching,
-    Flying, 
+    Flying,
     Landing
 }
 
-public class FlightController : MonoBehaviour {
+public class FlightController : MonoBehaviour
+{
     public GameObject wing;
-    private Vector3 wingOffset; 
+    private Vector3 wingOffset;
 
     Rigidbody rb;
     private float launchSpeed = 20.0f;
     private float flightAltitude = 8.0f;
-    private float flightLength = 100.0f;  
-    private FlightStatus flightStatus = FlightStatus.None; 
-    private float flightBeginZPos; 
+    private float flightLength = 100.0f;
+    private FlightStatus flightStatus = FlightStatus.None;
+    private float flightBeginZPos;
 
-    private PlayerController playerController; 
+    private PlayerController playerController;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         rb = GetComponent<Rigidbody>();
         playerController = GetComponent<PlayerController>();
 
         wingOffset = wing.transform.position - transform.position;
     }
-	
-	// Update is called once per frame
-	void Update () {
-        wing.transform.position = transform.position + wingOffset; 
+
+    // Update is called once per frame
+    void Update()
+    {
+        wing.transform.position = transform.position + wingOffset;
 
         if (flightStatus == FlightStatus.Launching)
         {
@@ -51,12 +54,12 @@ public class FlightController : MonoBehaviour {
             }
         }
 
-		else if (flightStatus == FlightStatus.Flying)
+        else if (flightStatus == FlightStatus.Flying)
         {
             if (flightBeginZPos + flightLength < transform.position.z)
             {
                 flightStatus = FlightStatus.Landing;
-                rb.useGravity = true; 
+                rb.useGravity = true;
             }
         }
 
@@ -67,17 +70,17 @@ public class FlightController : MonoBehaviour {
                 playerController.isFlying = false;
                 playerController.DisableMagneticField();
                 flightStatus = FlightStatus.None;
-                wing.SetActive(false); 
+                wing.SetActive(false);
             }
         }
 
-	}
+    }
 
     public void Fly()
     {
         rb.useGravity = false;
 
         flightStatus = FlightStatus.Launching;
-        wing.SetActive(true); 
+        wing.SetActive(true);
     }
 }

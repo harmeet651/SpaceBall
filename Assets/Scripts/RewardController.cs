@@ -8,7 +8,7 @@ public class RewardController : MonoBehaviour
 
     public bool isSpinning;
     public int rewards;
-    public float cubeZAxis=0;
+    public float cubeZAxis = 0;
     public GameObject objSwn;
     public GameObject fly;
 
@@ -32,7 +32,7 @@ public class RewardController : MonoBehaviour
 
         if (isInMagneticField)
         {
-            float speed = player.GetComponent<Rigidbody>().velocity.z * 2; 
+            float speed = player.GetComponent<Rigidbody>().velocity.z * 2;
             float step = speed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, player.transform.position, step);
         }
@@ -42,13 +42,13 @@ public class RewardController : MonoBehaviour
     {
         if (col.name == "Player")
         {
-                rewards = col.GetComponent<PlayerController>().rewards++;
-                Destroy(gameObject);
-                if (rewards == 3)
-                {
-                    fly = Instantiate(objSwn, player.transform.position + new Vector3(player.transform.position.x, player.transform.position.y-0.5f, cubeZAxis + 15), transform.rotation);
-                    Destroy(fly, 100);
-                }
+            rewards = col.GetComponent<PlayerController>().rewards++;
+            Destroy(gameObject);
+            if (rewards == 3)
+            {
+                fly = Instantiate(objSwn, player.transform.position + new Vector3(player.transform.position.x, player.transform.position.y - 0.5f, cubeZAxis + 15), transform.rotation);
+                Destroy(fly, 100);
+            }
         }
 
         else if (col.gameObject.tag == "MagneticField")
