@@ -138,7 +138,7 @@ public class PlayerController : MonoBehaviour
         }
         if (transform.position.y <= -15.0f)
         {
-            Destroy(gameObject);
+            gameController.GameOver(); 
         }
     }
 
@@ -150,7 +150,6 @@ public class PlayerController : MonoBehaviour
             int temp = GetHealth();
             temp -= 1;
             SetHealth(temp);
-            Debug.Log("ball collided, new health" + temp);
         }
 
         else if (collision.gameObject.tag == "speedAddRampToBall")
@@ -339,18 +338,9 @@ public class PlayerController : MonoBehaviour
 
     public void OnGUI()
     {
-        GUI.Label(new Rect(100, 100, 100, 20), "Rewards : " + rewards);
-        if (rewards == 5)
-        {
-            rewards = 1;
-        }
-        GUI.Label(new Rect(200, 200, 100, 20), "Health : " + health);
-
         if (health <= 0)
         {
-            Destroy(gameObject);
-            //Instantiate(explodeObj, transform.position, explodeObj.rotation);
-            // GetComponent<GameController>().GameOver();
+            gameController.GameOver(); 
         }
     }
     public int GetHealth()
