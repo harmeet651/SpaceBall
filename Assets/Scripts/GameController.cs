@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour
 
     public int numLanes = 5;                   // number of lanes
     public int score = 0;
+    public int highscoreCount = 0;
 
     //Swipe manager variables.
     private int swiped = 0, hold = 0;
@@ -124,7 +125,8 @@ public class GameController : MonoBehaviour
 
     public void ChangeScore(int change)
     {
-        score += change;
+        score += change; 
+        highscoreCount += change; 
     }
 
     public void GameOver()

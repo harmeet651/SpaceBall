@@ -48,7 +48,6 @@ public class PlayerController : MonoBehaviour
 
     public GameObject magneticField;
     public GameObject shield;
-    private MagneticFieldController magneticFieldController; 
 
 	public Transform explodeObj;    //effect after collision with trap
 
@@ -62,9 +61,6 @@ public class PlayerController : MonoBehaviour
 
 		// Save a reference to the main GameController object
 		gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
-
-        // Magnetic field gameobject
-        magneticFieldController = magneticField.GetComponent<MagneticFieldController>(); 
 
         // Retrieve the number of lanes in this game from GameController
         numLanes = gameController.numLanes;

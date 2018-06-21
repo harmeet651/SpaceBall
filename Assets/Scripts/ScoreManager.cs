@@ -10,6 +10,10 @@ public class ScoreManager : MonoBehaviour {
 	//var to send score to unity
 	public Text scoreText;
 
+	//var to send high score and keep a count
+	public Text highscoreText;
+	public float highscoreCount = 0.0f;
+
 	//initial difficulty level
 	private int difficultyLevel = 1;
 
@@ -24,6 +28,11 @@ public class ScoreManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+
+        if(PlayerPrefs.HasKey("HighScore"))
+        {
+        	highscoreCount = PlayerPrefs.GetFloat("HighScore");
+        }
     }
 	
 	// Update is called once per frame
@@ -35,14 +44,24 @@ public class ScoreManager : MonoBehaviour {
 		//update the score with game time
 		score += Time.deltaTime;
 
+		//to calculate and display high Score
+		if (score > highscoreCount)
+		{
+			highscoreCount = score;
+			PlayerPrefs.SetFloat("HighScore", highscoreCount);
+		}
+
 		//truncate score to integer and convert to string to pass to 'Score-Canvas' component in Unity
 		scoreText.text = "Score " + ((int)score).ToString();
+
+		highscoreText.text = "High Score " + ((int)highscoreCount).ToString();
 	}
 
     // Update score by passed amount
     public void AddScore(float amount)
     {
-        score += amount; 
+        score += amount;
+        highscoreCount += amount; 
     }
 
 	//Method to levelup the game
