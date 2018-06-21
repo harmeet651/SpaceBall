@@ -160,7 +160,6 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(col.gameObject);
             AddHealth(2);
-            Debug.Log("Healthbox");
         }
 
         else if (col.gameObject.tag == "ItemMagnet")
@@ -179,7 +178,6 @@ public class PlayerController : MonoBehaviour
         // If player runs into a shield item
         else if (col.gameObject.tag == "ItemShield")
         {
-            Debug.Log("Shield");
             Destroy(col.gameObject);
             EnableShield();
         }

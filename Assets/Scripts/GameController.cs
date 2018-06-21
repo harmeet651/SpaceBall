@@ -110,7 +110,6 @@ public class GameController : MonoBehaviour
 
     public void GameOver()
     {
-        Debug.Log("GameOver()"); 
         StartCoroutine(GameOverCoroutine()); 
     }
 
