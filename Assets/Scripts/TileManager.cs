@@ -44,6 +44,8 @@ public class TileManager : MonoBehaviour
     private int flag = 0;
     private int locFlag = 0;
 
+    public int maxLevel = 9;
+
     // Use this for initialization
     void Start()
     {
@@ -88,7 +90,7 @@ public class TileManager : MonoBehaviour
 		int temp = (int)spawnZ;
 		//Debug.Log("temp: " + temp);
 		//Level Up every 6 tiles
-		if( temp > 0 && ( (temp)%120 == 0) ){
+		if( temp > 0 && ( (temp)%120 == 0) && level < maxLevel){
 			level += 1;
 			float lastprob = probabilities[probabilities.Count-1];
 			probabilities[probabilities.Count-1] = lastprob/2.0f;
