@@ -85,7 +85,8 @@ public class TileManager : MonoBehaviour
     {
         GameObject Obj;
 
-		int temp = (int)spawnZ + 5;
+		int temp = (int)spawnZ;
+		//Debug.Log("temp: " + temp);
 		//Level Up every 6 tiles
 		if( temp > 0 && ( (temp)%120 == 0) ){
 			level += 1;
