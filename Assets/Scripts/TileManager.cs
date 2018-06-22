@@ -58,7 +58,7 @@ public class TileManager : MonoBehaviour
         for (int i = 0; i < amnTilesOnScreen; i++)
         {
             //for the first 2 tiles just create starter tiles
-            if (i < 2)
+            if (i < 4)
                 SpawnTile(0);   // 0 is the index assigned in unity to starter tile
             else
                 SpawnTile();    //now create the random ones

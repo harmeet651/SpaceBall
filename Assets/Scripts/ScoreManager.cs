@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    private NotificationController notificationController;
-
     //initialize score with zero
     private float score = 0.0f;
 
@@ -34,8 +32,7 @@ public class ScoreManager : MonoBehaviour
     void Start()
     {
         playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
-        notificationController = GameObject.FindWithTag("GameController").GetComponent<NotificationController>();
-
+        
         if (PlayerPrefs.HasKey("HighScore"))
         {
             highscoreCount = PlayerPrefs.GetFloat("HighScore");

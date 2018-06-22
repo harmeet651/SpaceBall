@@ -38,7 +38,7 @@ public class ItemGenerationController : MonoBehaviour {
     {
         while(gameObject != null)
         {
-            if (transform.position.z > lastGeneratedPlayerZPos + 2.0f)
+            if (transform.position.z > Mathf.Max(lastGeneratedPlayerZPos + 2.0f, 80.0f))
             {
                 float randVal = Random.Range(0, 100);
 

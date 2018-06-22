@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI; 
 
 // GameController controls the overall aspect of the game
 // For example, generating tiles, obstacles should be handled here
@@ -25,6 +26,12 @@ public class GameController : MonoBehaviour
 
     public float tapDuration;
 
+    public Canvas tutorialCanvas;
+    public GameObject leftInstructionSlide;
+    public GameObject rightInstructionSlide;
+    public GameObject holdInstructionSlide;
+    public Text countDownText; 
+
 
     // Use this for initialization
     void Start()
@@ -37,7 +44,31 @@ public class GameController : MonoBehaviour
         scrMid = scrMid / 2;
         tapDuration = 0.165f;
 
-        notificationController.NotifyText("Begin");
+        StartCoroutine(InitialTutorial());
+    }
+    
+    IEnumerator InitialTutorial()
+    {
+        yield return new WaitForSeconds(2.5f);
+        leftInstructionSlide.SetActive(false);
+        rightInstructionSlide.SetActive(true);
+
+        yield return new WaitForSeconds(2.5f);
+        rightInstructionSlide.SetActive(false);
+        holdInstructionSlide.SetActive(true);
+
+        yield return new WaitForSeconds(2.5f);
+        holdInstructionSlide.SetActive(false);
+
+        yield return new WaitForSeconds(0.5f);
+        
+        for (int secondsLeft = 3; secondsLeft > 0; secondsLeft--)
+        {
+            countDownText.text = "" + secondsLeft; 
+            yield return new WaitForSeconds(0.8f); 
+        }
+
+        tutorialCanvas.enabled = false; 
     }
 
     // Update is called once per frame
