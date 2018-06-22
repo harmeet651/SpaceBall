@@ -146,7 +146,7 @@ public class PlayerController : MonoBehaviour
             EnableLaneLock();
             horizSpeed = 10;
         }
-        if (transform.position.y <= -15.0f)
+        if (transform.position.y <= -10.0f)
         {
             gameController.GameOver(); 
         }
@@ -216,6 +216,8 @@ public class PlayerController : MonoBehaviour
             horizVelocity = -horizSpeed;
             targetLane = targetLane - 1;
             targetXPos = gameController.GetLaneCenterXPos(targetLane);
+
+            Debug.Log("MoveLeft(), currentLane=" + currentLane + ", targetLane=" + targetLane); 
         }
     }
 
@@ -228,6 +230,9 @@ public class PlayerController : MonoBehaviour
             horizVelocity = horizSpeed;
             targetLane = targetLane + 1;
             targetXPos = gameController.GetLaneCenterXPos(targetLane);
+
+            Debug.Log("MoveRight(), currentLane=" + currentLane + ", targetLane=" + targetLane);
+            
         }
     }
 
@@ -250,6 +255,11 @@ public class PlayerController : MonoBehaviour
             {
                 OnHorizontalMoveComplete();
             }
+        }
+
+        else
+        {
+            OnHorizontalMoveComplete(); 
         }
     }
 
