@@ -12,7 +12,8 @@ enum HorizontalMovement
 public class PlayerController : MonoBehaviour
 {
     private GameController gameController;
-    private NotificationController notificationController; 
+    private ScoreManager scoreManager;
+    private NotificationController notificationController;
 
     public TileManager tile;
     public int maxHealth;
@@ -45,28 +46,34 @@ public class PlayerController : MonoBehaviour
     public GameObject shield;
 
     public Transform explodeObj;    //effect after collision with trap
-    public Material MagneticMaterial,DefaultMaterial,HealthMaterial;
+    public Material playerOriginalMaterial, playerMagnetMaterial, playerHealthMaterial;
 
     void Start()
     {
+        // Save a reference to the main GameController object
+        gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
+        notificationController = GameObject.FindWithTag("GameController").GetComponent<NotificationController>();
+        scoreManager = GetComponent<ScoreManager>();
+
         health = maxHealth;
         healthSlider.maxValue = maxHealth;
 
         // Save a reference to the rigidbody object
         rb = GetComponent<Rigidbody>();
 
-        // Save a reference to the main GameController object
-        gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
-        notificationController = GameObject.FindWithTag("GameController").GetComponent<NotificationController>(); 
-
         // Retrieve the number of lanes in this game from GameController
         numLanes = gameController.numLanes;
 
         // Ball always starts at the center lane
         currentLane = (numLanes / 2) + 1;
+
+        // targetLane is used to mark which lane the ball is moving towards while moving horizontally
         targetLane = currentLane;
         healthFillImage = healthSlider.transform.Find("Fill Area/Fill").GetComponent<Image>();
         healthFillImage.color = Color.green;
+
+        // Enable lane lock by default (always keep the ball at the center of the lane)
+        EnableLaneLock(); 
     }
 
     public void AddHealth(int x)
@@ -80,7 +87,7 @@ public class PlayerController : MonoBehaviour
             health += x;
         }
 
-        rb.GetComponent<MeshRenderer>().material = HealthMaterial;
+        rb.GetComponent<MeshRenderer>().material = playerHealthMaterial;
 
         StartCoroutine(RecoverOriginalPlayerMaterial());
     }
@@ -89,13 +96,14 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
 
-        rb.GetComponent<MeshRenderer>().material = DefaultMaterial;
+        rb.GetComponent<MeshRenderer>().material = playerOriginalMaterial;
     }
 
     void Update()
     {
         healthSlider.value = health;
         healthFillImage.color = Color.Lerp(Color.red, Color.green, (float)health / maxHealth);
+
         // If the ball is moving, check if movement is complete
         if (horizontalMoveStatus != HorizontalMovement.None)
         {
@@ -141,14 +149,9 @@ public class PlayerController : MonoBehaviour
 
     void LateUpdate()
     {
-        if ((transform.position.y >= 0.0f))
-        {
-            EnableLaneLock();
-            horizSpeed = 10;
-        }
         if (transform.position.y <= -10.0f)
         {
-            gameController.GameOver(); 
+            gameController.GameOver();
         }
     }
 
@@ -157,11 +160,11 @@ public class PlayerController : MonoBehaviour
 
         if (col.gameObject.tag == "death" && !isFlying)
         {
-            int damageAmount = -1; 
+            int damageAmount = -1;
 
             SetHealth(GetHealth() + damageAmount);
 
-            notificationController.NotifyHealthChange(damageAmount); 
+            notificationController.NotifyHealthChange(damageAmount);
         }
 
         // If player runs into a health box item
@@ -216,8 +219,6 @@ public class PlayerController : MonoBehaviour
             horizVelocity = -horizSpeed;
             targetLane = targetLane - 1;
             targetXPos = gameController.GetLaneCenterXPos(targetLane);
-
-            Debug.Log("MoveLeft(), currentLane=" + currentLane + ", targetLane=" + targetLane); 
         }
     }
 
@@ -230,9 +231,6 @@ public class PlayerController : MonoBehaviour
             horizVelocity = horizSpeed;
             targetLane = targetLane + 1;
             targetXPos = gameController.GetLaneCenterXPos(targetLane);
-
-            Debug.Log("MoveRight(), currentLane=" + currentLane + ", targetLane=" + targetLane);
-            
         }
     }
 
@@ -259,7 +257,7 @@ public class PlayerController : MonoBehaviour
 
         else
         {
-            OnHorizontalMoveComplete(); 
+            OnHorizontalMoveComplete();
         }
     }
 
@@ -275,6 +273,7 @@ public class PlayerController : MonoBehaviour
     public void MoveSlow()
     {
         rb.velocity = new Vector3(0, 0, forwardSlowSpeed);
+        scoreManager.MoveSlow();
     }
 
     public void EnableLaneLock()
@@ -294,7 +293,7 @@ public class PlayerController : MonoBehaviour
 
     public void EnableMagneticField(float magneticFieldSize, bool automaticDisable)
     {
-        rb.GetComponent<MeshRenderer>().material = MagneticMaterial;
+        rb.GetComponent<MeshRenderer>().material = playerMagnetMaterial;
         magneticField.SetActive(true);
         magneticField.transform.localScale = new Vector3(magneticFieldSize, magneticFieldSize, magneticFieldSize);
 
@@ -308,7 +307,7 @@ public class PlayerController : MonoBehaviour
     public void DisableMagneticField()
     {
         magneticField.SetActive(false);
-        rb.GetComponent<MeshRenderer>().material = DefaultMaterial;
+        rb.GetComponent<MeshRenderer>().material = playerOriginalMaterial;
     }
 
     IEnumerator DisableMagneticFieldAfterDelay()
@@ -365,7 +364,7 @@ public class PlayerController : MonoBehaviour
     {
         if (health <= 0)
         {
-            gameController.GameOver(); 
+            gameController.GameOver();
         }
     }
     public int GetHealth()
