@@ -113,7 +113,7 @@ public class GameController : MonoBehaviour
     IEnumerator GameOverCoroutine()
     {
         notificationController.NotifyText("Game Over");
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(0.1f);
         SceneManager.LoadScene("Scenes/MenuScene");
     }
 }
