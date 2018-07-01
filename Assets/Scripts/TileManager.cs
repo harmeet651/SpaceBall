@@ -34,7 +34,7 @@ public class TileManager : MonoBehaviour
     private float safeToDelete = 25.0f;
 
     //flag to save index to prefab
-    private int lastPrefabIndex = 0;
+    private int lastPrefabIndex = 0, flg = 0;
 
     /// <summary>
     //change by arpit
@@ -53,7 +53,6 @@ public class TileManager : MonoBehaviour
         probabilities = new List<float>();
         probabilities.Add(100.0f);
 
-        playerTransform = GameObject.FindWithTag("Player").transform;
         //spawn tiles upto amount specified in var amnTilesOnScreen
         for (int i = 0; i < amnTilesOnScreen; i++)
         {
@@ -68,11 +67,19 @@ public class TileManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerTransform.position.z - safeToDelete > (spawnZ - amnTilesOnScreen * tileLength))
-        {
-            SpawnTile();
-            DeleteTile();
+        if(GameObject.FindWithTag("Player") != null){
+            flg = 1;
+            playerTransform = GameObject.FindWithTag("Player").transform;
+
         }
+        if(flg == 1){
+            if (playerTransform.position.z - safeToDelete > (spawnZ - amnTilesOnScreen * tileLength))
+            {
+                SpawnTile();
+                DeleteTile();
+            }    
+        }
+        
     }
 
     // Spawn a tile 
