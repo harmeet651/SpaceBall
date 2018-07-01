@@ -24,53 +24,62 @@ public class FlightController : MonoBehaviour
 
     private PlayerController playerController;
 
+    private float flag = 0;
+
     // Use this for initialization
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        playerController = GetComponent<PlayerController>();
-
-        wingOffset = wing.transform.position - transform.position;
+        
     }
 
     // Update is called once per frame
     void Update()
-    {
-        wing.transform.position = transform.position + wingOffset;
+    {   
+        if(GetComponent<PlayerController>() != null){
+            flag = 1;
+            rb = GetComponent<Rigidbody>();
+            playerController = GetComponent<PlayerController>();
 
-        if (flightStatus == FlightStatus.Launching)
-        {
-            if (transform.position.y < flightAltitude)
-            {
-                playerController.verticalVelocity = launchSpeed;
-            }
-
-            else
-            {
-                playerController.verticalVelocity = 0;
-                flightStatus = FlightStatus.Flying;
-                flightBeginZPos = transform.position.z;
-                playerController.isFlying = true;
-            }
+            wingOffset = wing.transform.position - transform.position;
         }
 
-        else if (flightStatus == FlightStatus.Flying)
-        {
-            if (flightBeginZPos + flightLength < transform.position.z)
-            {
-                flightStatus = FlightStatus.Landing;
-                rb.useGravity = true;
-            }
-        }
+        if(flag == 1){
+            wing.transform.position = transform.position + wingOffset;
 
-        else if (flightStatus == FlightStatus.Landing)
-        {
-            if (transform.position.y < 3.0f)
+            if (flightStatus == FlightStatus.Launching)
             {
-                playerController.isFlying = false;
-                playerController.DisableMagneticField();
-                flightStatus = FlightStatus.None;
-                wing.SetActive(false);
+                if (transform.position.y < flightAltitude)
+                {
+                    playerController.verticalVelocity = launchSpeed;
+                }
+
+                else
+                {
+                    playerController.verticalVelocity = 0;
+                    flightStatus = FlightStatus.Flying;
+                    flightBeginZPos = transform.position.z;
+                    playerController.isFlying = true;
+                }
+            }
+
+            else if (flightStatus == FlightStatus.Flying)
+            {
+                if (flightBeginZPos + flightLength < transform.position.z)
+                {
+                    flightStatus = FlightStatus.Landing;
+                    rb.useGravity = true;
+                }
+            }
+
+            else if (flightStatus == FlightStatus.Landing)
+            {
+                if (transform.position.y < 3.0f)
+                {
+                    playerController.isFlying = false;
+                    playerController.DisableMagneticField();
+                    flightStatus = FlightStatus.None;
+                    wing.SetActive(false);
+                }
             }
         }
 
