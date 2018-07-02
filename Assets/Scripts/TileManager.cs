@@ -67,9 +67,11 @@ public class TileManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GameObject.FindWithTag("Player") != null){
+        if(GameObject.Find("Player(Clone)")!= null && flg == 0){
             flg = 1;
             playerTransform = GameObject.FindWithTag("Player").transform;
+            Debug.Log("Attached tile manager controller to player");
+            //Debug.Log("Scene: " +GameObject.FindWithTag("Player").scene.name); 
 
         }
         if(flg == 1){

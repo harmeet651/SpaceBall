@@ -28,6 +28,18 @@ public class GameController : MonoBehaviour
 
     private int slow, flg = 0;
 
+    private int numberOfPlayers;
+
+
+    public int incgetnop(){
+    	numberOfPlayers++;
+    	return numberOfPlayers;
+    }
+
+    public int getnop(){
+    	return numberOfPlayers;
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -38,6 +50,7 @@ public class GameController : MonoBehaviour
         scrMid = wid / 2;
         tapDuration = 0.165f;
         slow = 0;
+        numberOfPlayers = 0;
 
     }
 
@@ -45,11 +58,17 @@ public class GameController : MonoBehaviour
     void Update()
     {
     	//Attaching gamecontroller to the player only after it spawns.
-    	if(GameObject.FindWithTag("Player") != null)
+    	if(GameObject.Find("Player(Clone)") != null && flg == 0)
     	{
-    		player = GameObject.FindWithTag("Player");
+    		player = GameObject.Find("Player(Clone)");
+    		//player.name = "a";
+    		player.name = "player" + numberOfPlayers;
     		playerController = player.GetComponent<PlayerController>();
+
+    		//Its just a flag, dont worry about it...
     		flg = 1;
+
+    		Debug.Log("Attached game controller to player");
     	}
 
     	if(flg == 1){
@@ -107,8 +126,9 @@ public class GameController : MonoBehaviour
         return (float)(laneNum - (numLanes / 2 + 1));
     }
 
-    public void GameOver()
+    public void GameOver(string x)
     {
+    	Debug.Log("Game Over called bcos: " + x);
         StartCoroutine(GameOverCoroutine());
     }
 

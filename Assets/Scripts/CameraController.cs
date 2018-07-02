@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour
     private GameObject player;
 
     // Distance between the player and the camera
-    private Vector3 offset;
+    public Vector3 offset;
 
     private int flag = 0;
 
@@ -23,15 +23,22 @@ public class CameraController : MonoBehaviour
     // LateUpdate is called after Update each frame
     void LateUpdate()
     {
-        if(GameObject.FindWithTag("Player") != null){
-            flag = 1;
-            player = GameObject.FindWithTag("Player");
-        }
+        // if(GameObject.Find("Player1") != null && flag == 0){
+        //     if(GameObject.Find("Player2") != null && flag == 0){
+        //         flag = 1;
+        //         player = GameObject.Find("Player2");
+        //         //player.name = "A";
+        //     }
+        //     else{
+        //         flag = 1;
+        //         player = GameObject.Find("Player1");
+        //     }
+        // }
 
-        if(flag == 1){
+        // if(flag == 1){
 
-            transform.position = new Vector3(0, player.transform.position.y + offset.y, player.transform.position.z + offset.z);
-        }
+        //     transform.position = new Vector3(0, player.transform.position.y + offset.y, player.transform.position.z + offset.z);
+        // }
 
     }
 }
