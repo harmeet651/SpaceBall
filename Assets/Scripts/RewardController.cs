@@ -1,22 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading;
 
 public class RewardController : MonoBehaviour
 {
     private GameObject player;
-    private ScoreManager scoreManager; 
+    private ScoreManager scoreManager;
 
     public bool isSpinning;
     public int rewards;
 
     private bool isInMagneticField = false;
+    public AudioClip clip;
+    private AudioSource audSource;
 
     // Use this for initialization
     void Start()
     {
         player = GameObject.FindWithTag("Player");
-        scoreManager = player.GetComponent<ScoreManager>(); 
+        scoreManager = player.GetComponent<ScoreManager>();
+
+        audSource = GetComponent<AudioSource>();
+        audSource.clip = clip;
+        audSource.loop = false;
+        audSource.volume = 1F;
     }
 
     // Update is called once per frame
@@ -48,7 +56,11 @@ public class RewardController : MonoBehaviour
         if (col.gameObject.name == "Player")
         {
             scoreManager.AddScore(rewards);
-            Destroy(gameObject); 
+            audSource.Play();
+            Debug.Log("In play");
+            Thread.Sleep(5);
+            Destroy(gameObject);
+
         }
 
         else if (col.gameObject.tag == "death")

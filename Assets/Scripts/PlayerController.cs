@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
     public GameObject shield;
 
     public Transform explodeObj;    //effect after collision with trap
-    public Material playerOriginalMaterial, playerMagnetMaterial, playerHealthMaterial;
+    public Material playerOriginalMaterial, playerMagnetMaterial, playerHealthMaterial, playerShieldMaterial;
 
     void Start()
     {
@@ -200,6 +200,8 @@ public class PlayerController : MonoBehaviour
         // If player runs into a shield item
         else if (col.gameObject.tag == "ItemShield")
         {
+            rb.GetComponent<MeshRenderer>().material = playerShieldMaterial;
+            StartCoroutine(RecoverOriginalPlayerMaterial());
             Destroy(col.gameObject);
             EnableShield();
         }
@@ -334,7 +336,7 @@ public class PlayerController : MonoBehaviour
     public void EnableShield(bool automaticDisable)
     {
         shield.SetActive(true);
-
+        rb.GetComponent<MeshRenderer>().material = playerShieldMaterial;
         if (automaticDisable)
         {
             StartCoroutine(DisableShieldAfterDelay());
