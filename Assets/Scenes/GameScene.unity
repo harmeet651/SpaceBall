@@ -1589,11 +1589,13 @@ MonoBehaviour:
   magneticField: {fileID: 1199450449}
   shield: {fileID: 1890716137}
   explodeObj: {fileID: 4189830235195804, guid: 41d1c067a2cf84d2dbc6e0f8abb274e8, type: 2}
-  playerOriginalMaterial: {fileID: 2100000, guid: 071bba75a2863424ca130360b3581589,
+  playerOriginalMaterial: {fileID: 2100000, guid: 6a15b1f15432b6f4b9a8066e1e6ca4df,
     type: 2}
   playerMagnetMaterial: {fileID: 2100000, guid: fcf63c7ba03395e4a89bd2e4f87b6f06,
     type: 2}
   playerHealthMaterial: {fileID: 2100000, guid: 7051801200a1748f9b3225ea9f708497,
+    type: 2}
+  playerShieldMaterial: {fileID: 2100000, guid: e82362acbd75d7e4d8daeb4de2a19655,
     type: 2}
 --- !u!54 &1528680231
 Rigidbody:
@@ -1640,7 +1642,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 071bba75a2863424ca130360b3581589, type: 2}
+  - {fileID: 2100000, guid: 6a15b1f15432b6f4b9a8066e1e6ca4df, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

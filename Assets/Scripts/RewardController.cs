@@ -12,6 +12,7 @@ public class RewardController : MonoBehaviour
     public int rewards;
 
     private bool isInMagneticField = false;
+
     public AudioClip clip;
     private AudioSource audSource;
 
@@ -58,8 +59,9 @@ public class RewardController : MonoBehaviour
             scoreManager.AddScore(rewards);
             audSource.Play();
             Debug.Log("In play");
-            Thread.Sleep(5);
-            Destroy(gameObject);
+            //Thread.Sleep(5);
+            // 0.1f works fine, but then sound is not good
+            Destroy(gameObject, 1f);
 
         }
 
