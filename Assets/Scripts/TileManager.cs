@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class TileManager : MonoBehaviour
+public class TileManager : NetworkBehaviour
 {
     float positionForRespawn = 0;
     
@@ -36,12 +37,13 @@ public class TileManager : MonoBehaviour
     //flag to save index to prefab
     private int lastPrefabIndex = 0, flg = 0;
 
-    /// <summary>
-    //change by arpit
-    /// </summary>
     private int locFlag = 0;
 
     public int maxLevel = 9;
+
+    private List<int> generatedTiles;
+
+    private int currentLocalTileIndex;
 
     // Use this for initialization
     void Start()
@@ -52,6 +54,9 @@ public class TileManager : MonoBehaviour
         //instantiate probabilities and add the initial probability
         probabilities = new List<float>();
         probabilities.Add(100.0f);
+
+        generatedTiles = new List<int>();
+        currentLocalTileIndex = 0;
 
         //spawn tiles upto amount specified in var amnTilesOnScreen
         for (int i = 0; i < amnTilesOnScreen; i++)
@@ -67,16 +72,30 @@ public class TileManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GameObject.Find("Player(Clone)")!= null && flg == 0){
-            flg = 1;
-            playerTransform = GameObject.FindWithTag("Player").transform;
-            Debug.Log("Attached tile manager controller to player");
-            //Debug.Log("Scene: " +GameObject.FindWithTag("Player").scene.name); 
-
+        // if(GameObject.Find("Player(Clone)")!= null && flg == 0){
+        //     flg = 1;
+        //     playerTransform = GameObject.FindWithTag("Player").transform;
+        //     Debug.Log("Attached tile manager controller to player");
+        //     //Debug.Log("Scene: " +GameObject.FindWithTag("Player").scene.name); 
+    	// }
+    	if(flg == 0)
+        foreach(GameObject go in GameObject.FindGameObjectsWithTag("Player")){
+        	if(hasAuthority){
+        		flg = 1;
+                playerTransform = go.transform;
+                //playerTransform.Translate(1f,1f,1f);
+                break;
+        	}
         }
+
+        
         if(flg == 1){
             if (playerTransform.position.z - safeToDelete > (spawnZ - amnTilesOnScreen * tileLength))
             {
+            	// if( isLocalPLayer == false )
+            	// {
+            	//     return;
+            	// }
                 SpawnTile();
                 DeleteTile();
             }    
@@ -87,44 +106,57 @@ public class TileManager : MonoBehaviour
     // Spawn a tile 
     private void SpawnTile(int prefabIndex = -1)
     {
-        GameObject Obj;
+
+
+    	GameObject Obj;
 
         int temp = (int)spawnZ;
 
-        //Level Up every 6 tiles
-        if (temp > 0 && ((temp) % 120 == 0) && level < maxLevel)
-        {
-            level += 1;
-            float lastprob = probabilities[probabilities.Count - 1];
-            probabilities[probabilities.Count - 1] = lastprob / 2.0f;
-            probabilities.Add(lastprob / 2.0f);
-        }
 
-        //create the tile on screen
-        if (prefabIndex == -1)
-        {
-            Obj = Instantiate(tilePrefabs[RandomPrefabIndex()]) as GameObject;
-        }
-        else
-        {
-            Obj = Instantiate(tilePrefabs[prefabIndex]) as GameObject;
-        }
+    	if(isServer)
+    	{
 
-        //tag it as a child to 'TileManager' prefab
-        Obj.transform.SetParent(transform);
-        Obj.transform.position = Vector3.forward * spawnZ;
+    	}
 
-        //update the length of the generated tiles
-        spawnZ += tileLength;
+    	if( true == true )
+    	{
+    		//Level Up every 6 tiles
+    		if (temp > 0 && ((temp) % 120 == 0) && level < maxLevel)
+    		{
+    		    level += 1;
+    		    float lastprob = probabilities[probabilities.Count - 1];
+    		    probabilities[probabilities.Count - 1] = lastprob / 2.0f;
+    		    probabilities.Add(lastprob / 2.0f);
+    		}
 
-        if (locFlag == 1)
-        {
-            locFlag = 0;
-            setSpawnPos(Obj);
-        }
+    		//create the tile on screen
+    		if (prefabIndex == -1)
+    		{
+    		    Obj = Instantiate(tilePrefabs[RandomPrefabIndex()]) as GameObject;
+    		}
+    		else
+    		{
+    		    Obj = Instantiate(tilePrefabs[prefabIndex]) as GameObject;
+    		}
 
-        //add tile to list of active tiles
-        activeTiles.Add(Obj);
+    		//tag it as a child to 'TileManager' prefab
+    		Obj.transform.SetParent(transform);
+    		Obj.transform.position = Vector3.forward * spawnZ;
+
+    		//update the length of the generated tiles
+    		spawnZ += tileLength;
+	        
+	        //add tile to list of active tiles
+	        activeTiles.Add(Obj);
+    	}
+
+
+        
+
+       
+
+        
+
     }
 
     public float getSpawnPos()

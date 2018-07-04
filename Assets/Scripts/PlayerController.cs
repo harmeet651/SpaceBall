@@ -16,7 +16,7 @@ public class PlayerController : NetworkBehaviour
     private ScoreManager scoreManager;
     private NotificationController notificationController;
 
-    public TileManager tile;
+    //public TileManager tile;
     public int maxHealth;
     public Slider healthSlider;
     private Image healthFillImage;
@@ -116,10 +116,8 @@ public class PlayerController : NetworkBehaviour
     void Update()
     {
 
-         if( hasAuthority == false )
+        if( hasAuthority == false )
         {
-            
-
             return;
         }
         cameraController.transform.position = new Vector3(0, transform.position.y + cameraController.offset.y, transform.position.z + cameraController.offset.z);
