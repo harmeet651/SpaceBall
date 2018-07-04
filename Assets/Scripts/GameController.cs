@@ -28,113 +28,97 @@ public class GameController : MonoBehaviour
 
     private int slow;
 
+    private bool spawned = false;
+
+    private int numberOfPlayers;
+
+
+    public int incgetnop(){
+    	numberOfPlayers++;
+    	return numberOfPlayers;
+    }
+
+    public int getnop(){
+    	return numberOfPlayers;
+    }
+
     // Use this for initialization
     void Start()
     {
-        player = GameObject.FindWithTag("Player");
-        playerController = player.GetComponent<PlayerController>();
+       
         notificationController = GetComponent<NotificationController>();
         wid = (float)Screen.width;
         hig = (float)Screen.height;
         scrMid = wid / 2;
         tapDuration = 0.165f;
         slow = 0;
+        numberOfPlayers = 0;
 
-        // RectTransform rt = leftSlowButton.GetComponent<RectTransform>();
-        // rt.sizeDelta = new Vector2(wid/4, hig/7);
-
-        //Button lt = leftSlowButton.GetComponent<Button>();
-        //Button rt = rightSlowButton.GetComponent<Button>();
-
-        // lt.onClick.AddListener(moveslow);
-        // rt.onClick.AddListener(playerController.MoveSlow);
-
-        //Debug.Log(rightSlowButton.transform.position.x);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(moveL))
-        {
-            playerController.MoveLeft();
-        }
-        if (Input.GetKeyDown(moveR))
-        {
-            playerController.MoveRight();
-        }
-        if (Input.GetKey(moveSlow))
-        {
-            playerController.MoveSlow();
-        }
+    	//Attaching gamecontroller to the player only after it spawns.
+    	if(GameObject.Find("Player(Clone)") != null && !spawned)
+    	{
+    		player = GameObject.Find("Player(Clone)");
+    		//player.name = "a";
+    		player.name = "player" + numberOfPlayers;
+    		playerController = player.GetComponent<PlayerController>();
 
-        //Touch manager.
-        if (Input.touchCount > 0)
-        {
-            //Get touch event by the first finger.
-            Touch myTouch = Input.GetTouch(0);
-            //Check If touch is just starting
-            if (myTouch.phase == TouchPhase.Began)
-            {
-                //Reset all related variables
-                touchDuration = 0;
-                isTouchInHold = false;
-                TouchStart = Time.time;
+    		//Its just a flag, dont worry about it...
+    		spawned = true;
 
-                // if(myTouch.position.x < (wid/4) || myTouch.position.x > (wid-(wid/4)) ){
-                // 	if(myTouch.position.y < (wid/7)){
-                // 		slow = 1;
-                // 	}
-                // }
+    		Debug.Log("Attached game controller to player");
+    	}
 
-                if(slow != 1){
-                	if(myTouch.position.x > scrMid){
-                		playerController.MoveRight();
-                	}
-                	else{
-                		playerController.MoveLeft();
-                	}
-                }
-            }
+    	if(spawned){
+    		// if (Input.GetKeyDown(moveL))
+    		// {
+    		//     playerController.MoveLeft();
+    		// }
+    		// if (Input.GetKeyDown(moveR))
+    		// {
+    		//     playerController.MoveRight();
+    		// }
+    		// if (Input.GetKey(moveSlow))
+    		// {
+    		//     playerController.MoveSlow();
+    		// }
 
-            
+    		//Touch manager.
+    		if (Input.touchCount > 0)
+    		{
+    		    //Get touch event by the first finger.
+    		    Touch myTouch = Input.GetTouch(0);
+    		    //Check If touch is just starting
+    		    if (myTouch.phase == TouchPhase.Began)
+    		    {
+    		        //Reset all related variables
+    		        touchDuration = 0;
+    		        isTouchInHold = false;
+    		        TouchStart = Time.time;
 
-            //Increment total touch duration
-            // touchDuration += Time.deltaTime;
+    		        if(slow != 1){
+    		        	if(myTouch.position.x > scrMid){
+    		        		playerController.MoveRight();
+    		        	}
+    		        	else{
+    		        		playerController.MoveLeft();
+    		        	}
+    		        }
+    		    }
 
-            // if (isTouchInHold == true)
-            // {
-            //     playerController.MoveSlow();
-            // }
-            // else
-            // {
-            //     if (myTouch.phase == TouchPhase.Ended)
-            //     {
-            //         isTouchInHold = false;
-            //         if (myTouch.phase == TouchPhase.Ended && (Time.time - TouchStart) < tapDuration)
-            //         {
-            //             if (myTouch.position.x > scrMid)
-            //             {
-            //                 playerController.MoveRight();
-            //             }
+    		    
 
-            //             else
-            //             {
-            //                 playerController.MoveLeft();
-            //             }
-            //         }
-            //     }
-            //     else if ((Time.time - TouchStart) > tapDuration)
-            //     {
-            //         isTouchInHold = true;
-            //         playerController.MoveSlow();
-            //     }
-            // }
-        } //End of Touch Manager.
+    		} //End of Touch Manager.
 
-        if(slow == 1){
-        	playerController.MoveSlow();
-        }
+    		if(slow == 1){
+    			playerController.MoveSlow();
+    		}
+    	}
+        
     }
 
 
@@ -144,8 +128,9 @@ public class GameController : MonoBehaviour
         return (float)(laneNum - (numLanes / 2 + 1));
     }
 
-    public void GameOver()
+    public void GameOver(string x)
     {
+    	Debug.Log("Game Over called bcos: " + x);
         StartCoroutine(GameOverCoroutine());
     }
 

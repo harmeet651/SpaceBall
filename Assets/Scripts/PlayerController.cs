@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 enum HorizontalMovement
 {
     None,
@@ -9,13 +10,13 @@ enum HorizontalMovement
     Right
 }
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour 
 {
     private GameController gameController;
     private ScoreManager scoreManager;
     private NotificationController notificationController;
 
-    public TileManager tile;
+    //public TileManager tile;
     public int maxHealth;
     public Slider healthSlider;
     private Image healthFillImage;
@@ -48,11 +49,18 @@ public class PlayerController : MonoBehaviour
     public Transform explodeObj;    //effect after collision with trap
     public Material playerOriginalMaterial, playerMagnetMaterial, playerHealthMaterial, playerShieldMaterial;
 
+    private bool AllConnected = false;
+    private int playerNumber;
+
+    private CameraController cameraController;
+
     void Start()
     {
         // Save a reference to the main GameController object
         gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
         notificationController = GameObject.FindWithTag("GameController").GetComponent<NotificationController>();
+        cameraController = GameObject.FindWithTag("MainCamera").GetComponent<CameraController>();
+
         scoreManager = GetComponent<ScoreManager>();
 
         health = maxHealth;
@@ -74,6 +82,12 @@ public class PlayerController : MonoBehaviour
 
         // Enable lane lock by default (always keep the ball at the center of the lane)
         EnableLaneLock(); 
+        //gameController.numberOfPlayers++;
+        playerNumber= gameController.incgetnop();
+        Debug.Log("Player" + playerNumber);
+        // if(playerNumber == 2){
+        //     AllConnected = true;
+        // } 
     }
 
     public void AddHealth(int x)
@@ -101,8 +115,33 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+
+         if( hasAuthority == false )
+        {
+            
+
+            return;
+        }
+        cameraController.transform.position = new Vector3(0, transform.position.y + cameraController.offset.y, transform.position.z + cameraController.offset.z);
         healthSlider.value = health;
         healthFillImage.color = Color.Lerp(Color.red, Color.green, (float)health / maxHealth);
+
+        if(gameController.getnop() == 2){
+            AllConnected = true;
+        }
+
+        if (Input.GetKeyDown(moveL))
+            {
+                MoveLeft();
+            }
+            if (Input.GetKeyDown(moveR))
+            {
+                MoveRight();
+            }
+            if (Input.GetKey(moveSlow))
+            {
+                MoveSlow();
+            }
 
         // If the ball is moving, check if movement is complete
         if (horizontalMoveStatus != HorizontalMovement.None)
@@ -141,8 +180,12 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector3(horizVelocity, verticalVelocity, forwardSpeed * 3);
         }
 
-        else
+        else if(!AllConnected)
         {
+            rb.velocity = new Vector3(horizVelocity, verticalVelocity, 0);
+        }
+        else{
+
             rb.velocity = new Vector3(horizVelocity, verticalVelocity, forwardSpeed);
         }
 
@@ -161,7 +204,8 @@ public class PlayerController : MonoBehaviour
     {
         if (transform.position.y <= -10.0f)
         {
-            gameController.GameOver();
+            gameController.GameOver("y pos too low");
+            Debug.Log("Xpos: " +transform.position.x + " Ypos: " +transform.position.y+ " Zpos: " + transform.position.z);
         }
     }
 
@@ -376,7 +420,8 @@ public class PlayerController : MonoBehaviour
     {
         if (health <= 0)
         {
-            gameController.GameOver();
+            //Debug.Log("health 0, calling game over.");
+            gameController.GameOver("health became 0");
         }
     }
     public int GetHealth()

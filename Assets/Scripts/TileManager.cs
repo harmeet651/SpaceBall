@@ -35,10 +35,8 @@ public class TileManager : MonoBehaviour
 
     //flag to save index to prefab
     private int lastPrefabIndex = 0;
+	private bool spawned = false;
 
-    /// <summary>
-    //change by arpit
-    /// </summary>
     private int locFlag = 0;
 
     public int maxLevel = 9;
@@ -53,7 +51,6 @@ public class TileManager : MonoBehaviour
         probabilities = new List<float>();
         probabilities.Add(100.0f);
 
-        playerTransform = GameObject.FindWithTag("Player").transform;
         //spawn tiles upto amount specified in var amnTilesOnScreen
         for (int i = 0; i < amnTilesOnScreen; i++)
         {
@@ -68,11 +65,21 @@ public class TileManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerTransform.position.z - safeToDelete > (spawnZ - amnTilesOnScreen * tileLength))
-        {
-            SpawnTile();
-            DeleteTile();
+        if(GameObject.Find("Player(Clone)")!= null && !spawned){
+            spawned = true;
+            playerTransform = GameObject.FindWithTag("Player").transform;
+            Debug.Log("Attached tile manager controller to player");
+            //Debug.Log("Scene: " +GameObject.FindWithTag("Player").scene.name); 
+
         }
+        if(spawned){
+            if (playerTransform.position.z - safeToDelete > (spawnZ - amnTilesOnScreen * tileLength))
+            {
+                SpawnTile();
+                DeleteTile();
+            }    
+        }
+        
     }
 
     // Spawn a tile 
