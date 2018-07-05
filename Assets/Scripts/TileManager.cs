@@ -29,10 +29,7 @@ public class TileManager : NetworkBehaviour
     private List<float> probabilities;
 
     //list of spawned prefab indices;
-    private List<int> prefabIndices;
-
-    //last prefab spwaned by a player.
-    private int lastPrefabSpawned;
+    private SyncListInt prefabIndices = new SyncListInt();
 
     //current level
     private int level = 0;
@@ -40,9 +37,10 @@ public class TileManager : NetworkBehaviour
     //safe to destroy tiles after these units so player does not fall into empty space
     private float safeToDelete = 25.0f;
 
-    //flag to save index to prefab
-    private int lastPrefabIndex = 0;
-	private bool spawned = false;
+    //Number of prefabs spawned by cuurent player.
+    private int numberOfPrefabsSpawnedByCurrentPlayer = 0;
+
+    private bool spawned = false;
 
     private int locFlag = 0;
 
@@ -58,11 +56,11 @@ public class TileManager : NetworkBehaviour
         probabilities = new List<float>();
         probabilities.Add(100.0f);
 
-        prefabIndices = new List<int>();
 
         if(isServer)
         {
-            Debug.Log("Yup, this is the server.");
+            Debug.Log("This is the server!");
+            generateInitialTiles();
         }
 
         //spawn tiles upto amount specified in var amnTilesOnScreen
@@ -79,9 +77,10 @@ public class TileManager : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if(GameObject.Find("Player(Clone)")!= null && !spawned){
             spawned = true;
-            playerTransform = GameObject.FindWithTag("Player").transform;
+            playerTransform = GameObject.Find("Player(Clone)").transform;
             Debug.Log("Attached tile manager controller to player");
             //Debug.Log("Scene: " +GameObject.FindWithTag("Player").scene.name); 
 
@@ -94,6 +93,10 @@ public class TileManager : NetworkBehaviour
             }    
         }
         
+    }
+
+    private void generateInitialTiles(){
+
     }
 
     // Spawn a tile 
@@ -120,6 +123,7 @@ public class TileManager : NetworkBehaviour
         else
         {
             Obj = Instantiate(tilePrefabs[prefabIndex]) as GameObject;
+            CmdAddNextPrefabIndex(prefabIndex);
         }
 
         //tag it as a child to 'TileManager' prefab
@@ -137,6 +141,8 @@ public class TileManager : NetworkBehaviour
 
         //add tile to list of active tiles
         activeTiles.Add(Obj);
+        numberOfPrefabsSpawnedByCurrentPlayer++;
+        Debug.Log("numberOfPrefabsSpawnedByCurrentPlayer is: " + numberOfPrefabsSpawnedByCurrentPlayer);
     }
 
     public float getSpawnPos()
@@ -159,12 +165,22 @@ public class TileManager : NetworkBehaviour
     private int RandomPrefabIndex()
     {
         //if the length is 1; which means we have generated 0 or 1 tile then return 0 which corresponds to starter tile
+
+        if(numberOfPrefabsSpawnedByCurrentPlayer < prefabIndices.Count){
+            Debug.Log("Tile index already generated, returning");
+            return prefabIndices[numberOfPrefabsSpawnedByCurrentPlayer];
+        }
+
+        
+        Debug.Log("Generating New Tile Index");
+
+
         if (tilePrefabs.Length <= 1)
         {
             return 0;
         }
 
-        int randIndex = lastPrefabIndex;
+        int randIndex = numberOfPrefabsSpawnedByCurrentPlayer;
 
         int count = 0, levelChoose = level;
         float randomNumber, prevProbabilty = 0f;
@@ -200,24 +216,49 @@ public class TileManager : NetworkBehaviour
         }
 
         int i;
-        while (randIndex == lastPrefabIndex)
-        {
-            randIndex = Random.Range(0, currentLevelPrefabs.Count);
-            for (i = 0; i < tilePrefabs.Length; i++)
+
+        if(prefabIndices.Count > 0){
+            Debug.Log("prefabIndices.Count is: " + prefabIndices.Count + "numberOfPrefabsSpawnedByCurrentPlayer-1 is : " + numberOfPrefabsSpawnedByCurrentPlayer);
+            while (randIndex == prefabIndices[numberOfPrefabsSpawnedByCurrentPlayer-1])
             {
-                if (tilePrefabs[i] == currentLevelPrefabs[randIndex])
+                randIndex = Random.Range(0, currentLevelPrefabs.Count);
+                for (i = 0; i < tilePrefabs.Length; i++)
                 {
-                    randIndex = i;
-                    break;
+                    if (tilePrefabs[i] == currentLevelPrefabs[randIndex])
+                    {
+                        randIndex = i;
+                        break;
+                    }
                 }
+                if (currentLevelPrefabs.Count < 2)
+                    break;
             }
-            if (currentLevelPrefabs.Count < 2)
-                break;
+        }
+        else{
+             randIndex = Random.Range(0, currentLevelPrefabs.Count);
+                for (i = 0; i < tilePrefabs.Length; i++)
+                {
+                    if (tilePrefabs[i] == currentLevelPrefabs[randIndex])
+                    {
+                        randIndex = i;
+                        break;
+                    }
+                }
         }
 
+        
+
         //update the last index and return its index to generate the corresponding tile
-        lastPrefabIndex = randIndex;
+        //numberOfPrefabsSpawnedByCurrentPlayer = randIndex;
+        Debug.Log("Calling Command.");
+        CmdAddNextPrefabIndex(randIndex);
 
         return randIndex;
+    }
+
+    [Command]
+    void CmdAddNextPrefabIndex(int nextTileIndex){
+        prefabIndices.Add(nextTileIndex);
+        Debug.Log("Added to list, List Size: " + prefabIndices.Count);
     }
 }
