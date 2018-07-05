@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class TileManager : MonoBehaviour
+public class TileManager : NetworkBehaviour
 {
     float positionForRespawn = 0;
     
@@ -27,6 +28,12 @@ public class TileManager : MonoBehaviour
     //list of probabilities for each level of prefabs
     private List<float> probabilities;
 
+    //list of spawned prefab indices;
+    private List<int> prefabIndices;
+
+    //last prefab spwaned by a player.
+    private int lastPrefabSpawned;
+
     //current level
     private int level = 0;
 
@@ -50,6 +57,13 @@ public class TileManager : MonoBehaviour
         //instantiate probabilities and add the initial probability
         probabilities = new List<float>();
         probabilities.Add(100.0f);
+
+        prefabIndices = new List<int>();
+
+        if(isServer)
+        {
+            Debug.Log("Yup, this is the server.");
+        }
 
         //spawn tiles upto amount specified in var amnTilesOnScreen
         for (int i = 0; i < amnTilesOnScreen; i++)

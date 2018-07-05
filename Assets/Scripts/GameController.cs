@@ -17,7 +17,8 @@ public class GameController : MonoBehaviour
     private PlayerController playerController;
     private NotificationController notificationController;
 
-    public int numLanes = 5;                   // number of lanes
+    // number of lanes
+    public int numLanes = 5;                   
 
     //Swipe manager variables.
     private bool isTouchInHold = false;

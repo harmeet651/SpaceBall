@@ -385,6 +385,11 @@ Prefab:
       propertyPath: m_ClearFlags
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 81669839780983862, guid: 1b845758cd5f3894cbfd15e2b4df07e6,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1b845758cd5f3894cbfd15e2b4df07e6, type: 2}
   m_IsPrefabParent: 0
@@ -488,6 +493,11 @@ Prefab:
     - target: {fileID: 224492823711683814, guid: 09f9365699c4c9742acb426c083c8a61,
         type: 2}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224492823711683814, guid: 09f9365699c4c9742acb426c083c8a61,
+        type: 2}
+      propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1186,6 +1196,10 @@ Prefab:
       propertyPath: shield
       value: 
       objectReference: {fileID: 1890716137}
+    - target: {fileID: 1291050194074692, guid: 5133f0d32c0344a4184219728ea19446, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5133f0d32c0344a4184219728ea19446, type: 2}
   m_IsPrefabParent: 0
@@ -1575,6 +1589,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1732588994281072, guid: 6f8521f743af2a646829575d417d7438, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6f8521f743af2a646829575d417d7438, type: 2}
   m_IsPrefabParent: 0
@@ -1880,7 +1898,8 @@ MonoBehaviour:
   m_PlayerSpawnMethod: 0
   m_OfflineScene: 
   m_OnlineScene: 
-  m_SpawnPrefabs: []
+  m_SpawnPrefabs:
+  - {fileID: 1291050194074692, guid: 5133f0d32c0344a4184219728ea19446, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -2256,6 +2275,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1160583620834834, guid: b3c8dea599c094a4980701e3f2fe36d1, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b3c8dea599c094a4980701e3f2fe36d1, type: 2}
   m_IsPrefabParent: 0
@@ -2268,6 +2291,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2137124264}
   - component: {fileID: 2137124263}
+  - component: {fileID: 2137124265}
   m_Layer: 0
   m_Name: TileManager
   m_TagString: Untagged
@@ -2321,3 +2345,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2137124265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2137124262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 0
+    i1: 0
+    i2: 0
+    i3: 0
+    i4: 0
+    i5: 0
+    i6: 0
+    i7: 0
+    i8: 0
+    i9: 0
+    i10: 0
+    i11: 0
+    i12: 0
+    i13: 0
+    i14: 0
+    i15: 0
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
