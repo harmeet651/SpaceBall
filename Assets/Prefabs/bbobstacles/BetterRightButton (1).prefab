@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 136184099480227860}
   - component: {fileID: 23295615925651802}
   - component: {fileID: 114571197916130972}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -284,7 +284,7 @@ GameObject:
   - component: {fileID: 33327985276218804}
   - component: {fileID: 23301200643549664}
   - component: {fileID: 65845301556331830}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: lane-1 (1)
   m_TagString: Lane
   m_Icon: {fileID: 0}
@@ -3031,9 +3031,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSpinning: 1
   rewards: 0
-  cubeZAxis: 0
-  objSwn: {fileID: 0}
-  fly: {fileID: 0}
+  clip: {fileID: 0}
 --- !u!114 &114224960889541068
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3047,9 +3045,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSpinning: 1
   rewards: 0
-  cubeZAxis: 0
-  objSwn: {fileID: 0}
-  fly: {fileID: 0}
+  clip: {fileID: 0}
 --- !u!114 &114283801755386712
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3063,9 +3059,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSpinning: 1
   rewards: 0
-  cubeZAxis: 0
-  objSwn: {fileID: 0}
-  fly: {fileID: 0}
+  clip: {fileID: 0}
 --- !u!114 &114545517626274818
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3079,9 +3073,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSpinning: 1
   rewards: 0
-  cubeZAxis: 0
-  objSwn: {fileID: 0}
-  fly: {fileID: 0}
+  clip: {fileID: 0}
 --- !u!114 &114571197916130972
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3107,9 +3099,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSpinning: 1
   rewards: 0
-  cubeZAxis: 0
-  objSwn: {fileID: 0}
-  fly: {fileID: 0}
+  clip: {fileID: 0}
 --- !u!114 &114870389187133674
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3123,9 +3113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSpinning: 1
   rewards: 0
-  cubeZAxis: 0
-  objSwn: {fileID: 0}
-  fly: {fileID: 0}
+  clip: {fileID: 0}
 --- !u!136 &136184099480227860
 CapsuleCollider:
   m_ObjectHideFlags: 1
