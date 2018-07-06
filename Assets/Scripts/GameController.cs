@@ -58,6 +58,11 @@ public class GameController : MonoBehaviour
     }
 
     // Update is called once per frame
+
+    // public void Spawn(int ){
+
+    // }
+
     void Update()
     {
     	//Attaching gamecontroller to the player only after it spawns.

@@ -74,13 +74,17 @@ public class TileManager : NetworkBehaviour
         }
     }
 
+    public void Spawn(){
+
+    }
+
     // Update is called once per frame
     void Update()
     {
         
         if(GameObject.Find("Player(Clone)")!= null && !spawned){
             spawned = true;
-            playerTransform = GameObject.Find("Player(Clone)").transform;
+            playerTransform = GameObject.FindWithTag("Player").transform;
             Debug.Log("Attached tile manager controller to player");
             //Debug.Log("Scene: " +GameObject.FindWithTag("Player").scene.name); 
 
@@ -145,7 +149,7 @@ public class TileManager : NetworkBehaviour
         Debug.Log("numberOfPrefabsSpawnedByCurrentPlayer is: " + numberOfPrefabsSpawnedByCurrentPlayer);
     }
 
-    public float getSpawnPos()
+     float getSpawnPos()
     {
         return (positionForRespawn + 21);
     }

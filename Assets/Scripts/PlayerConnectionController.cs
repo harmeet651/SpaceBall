@@ -7,6 +7,9 @@ public class PlayerConnectionController : NetworkBehaviour {
 
 	public GameObject PlayerUnitPrefab;
 
+	[SyncVar]
+	int NoOfPlayers = 0;
+
 	// Use this for initialization
 	void Start () {
 		if( isLocalPlayer == false )
@@ -15,6 +18,7 @@ public class PlayerConnectionController : NetworkBehaviour {
             return;
         }
         CmdSpawnMyUnit();
+        TileManager.Spawn();
 	}
 	
 	// Update is called once per frame
@@ -29,7 +33,9 @@ public class PlayerConnectionController : NetworkBehaviour {
 	void CmdSpawnMyUnit()
 	{
 	    // We are guaranteed to be on the server right now.
+	    NoOfPlayers++;
 	    GameObject go = Instantiate(PlayerUnitPrefab);
+	    go.name = "Player" + NoOfPlayers;
 
 	    //go.GetComponent<NetworkIdentity>().AssignClientAuthority( connectionToClient );
 
