@@ -64,6 +64,10 @@ public class TileManager : NetworkBehaviour
         }
 
         //spawn tiles upto amount specified in var amnTilesOnScreen
+        
+    }
+
+    public void Spawn(string playerName){
         for (int i = 0; i < amnTilesOnScreen; i++)
         {
             //for the first 2 tiles just create starter tiles
@@ -72,23 +76,23 @@ public class TileManager : NetworkBehaviour
             else
                 SpawnTile();    //now create the random ones
         }
-    }
 
-    public void Spawn(){
-
+        playerTransform = GameObject.Find(playerName).transform;
+        spawned = true;
+        Debug.Log("Attached tile manager controller to player");
     }
 
     // Update is called once per frame
     void Update()
     {
         
-        if(GameObject.Find("Player(Clone)")!= null && !spawned){
-            spawned = true;
-            playerTransform = GameObject.FindWithTag("Player").transform;
-            Debug.Log("Attached tile manager controller to player");
-            //Debug.Log("Scene: " +GameObject.FindWithTag("Player").scene.name); 
+        // if(GameObject.Find("Player(Clone)")!= null && !spawned){
+        //     spawned = true;
+            
+        //     Debug.Log("Attached tile manager controller to player");
+        //     //Debug.Log("Scene: " +GameObject.FindWithTag("Player").scene.name); 
 
-        }
+        // }
         if(spawned){
             if (playerTransform.position.z - safeToDelete > (spawnZ - amnTilesOnScreen * tileLength))
             {

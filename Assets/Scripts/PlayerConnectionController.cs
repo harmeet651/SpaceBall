@@ -6,19 +6,21 @@ using UnityEngine.Networking;
 public class PlayerConnectionController : NetworkBehaviour {
 
 	public GameObject PlayerUnitPrefab;
+	private TileManager tileManager;
 
 	[SyncVar]
 	int NoOfPlayers = 0;
 
 	// Use this for initialization
 	void Start () {
+		string playerName;
 		if( isLocalPlayer == false )
         {
             // This object belongs to another player.
             return;
         }
         CmdSpawnMyUnit();
-        TileManager.Spawn();
+        
 	}
 	
 	// Update is called once per frame
@@ -42,5 +44,13 @@ public class PlayerConnectionController : NetworkBehaviour {
 	    // Now that the object exists on the server, propagate it to all
 	    // the clients (and also wire up the NetworkIdentity)
 	    NetworkServer.SpawnWithClientAuthority(go, connectionToClient);
+	    RpcSetPlayerName ("Player" + NoOfPlayers);
 	}
+
+	[ClientRpc]
+	public void RpcSetPlayerName(string playerName){
+		tileManager = GameObject.FindWithTag("TileManager").GetComponent<TileManager>();
+        tileManager.Spawn(playerName);
+	}
+
 }
