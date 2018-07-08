@@ -389,7 +389,13 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 81669839780983862, guid: 1b845758cd5f3894cbfd15e2b4df07e6,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 81669839780983862, guid: 1b845758cd5f3894cbfd15e2b4df07e6, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 1b845758cd5f3894cbfd15e2b4df07e6, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &277676347
@@ -5883,7 +5889,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 953352836}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -13, z: 110}
+  m_LocalPosition: {x: 0, y: -0.8, z: 110}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1876008022}
@@ -11008,7 +11014,6 @@ GameObject:
   - component: {fileID: 1528680229}
   - component: {fileID: 1528680228}
   - component: {fileID: 1528680235}
-  - component: {fileID: 1528680236}
   - component: {fileID: 1528680238}
   - component: {fileID: 1528680237}
   m_Layer: 0
@@ -11185,13 +11190,6 @@ MonoBehaviour:
     type: 2}
   itemWingPrefab: {fileID: 1815137030208146, guid: d465bfbc87dbeaf4aa8f21aba368b0f9,
     type: 2}
---- !u!81 &1528680236
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1528680226}
-  m_Enabled: 1
 --- !u!199 &1528680237
 ParticleSystemRenderer:
   serializedVersion: 5
@@ -15883,7 +15881,6 @@ GameObject:
   - component: {fileID: 1541283816}
   - component: {fileID: 1541283815}
   - component: {fileID: 1541283814}
-  - component: {fileID: 1541283813}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -15891,13 +15888,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!81 &1541283813
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1541283812}
-  m_Enabled: 1
 --- !u!124 &1541283814
 Behaviour:
   m_ObjectHideFlags: 0
@@ -16311,10 +16301,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c98ae7b5c06872448c7a3eff69737f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  verticalVelocity: 10
-  isFlying: 1
-  altitude: 4
 --- !u!54 &1876008020
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -16459,7 +16445,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cab05572c7906fb4a95a4c797371e4d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  temper: 0
   originalScale: {x: 0, y: 0, z: 0}
+  Expl1: {fileID: 1548223037643220, guid: fa808f0ac3d05084b9b6106284d3b5e4, type: 2}
 --- !u!135 &1890716141
 SphereCollider:
   m_ObjectHideFlags: 0

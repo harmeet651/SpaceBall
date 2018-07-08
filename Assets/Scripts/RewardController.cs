@@ -22,10 +22,10 @@ public class RewardController : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         scoreManager = player.GetComponent<ScoreManager>();
 
-        audSource = GetComponent<AudioSource>();
-        audSource.clip = clip;
-        audSource.loop = false;
-        audSource.volume = 1F;
+      //  audSource = GetComponent<AudioSource>();
+        //audSource.clip = clip;
+        //audSource.loop = false;
+        //audSource.volume = 1F;
     }
 
     // Update is called once per frame
@@ -57,11 +57,11 @@ public class RewardController : MonoBehaviour
         if (col.gameObject.name == "Player")
         {
             scoreManager.AddScore(rewards);
-            audSource.Play();
+         //   audSource.Play();
             Debug.Log("In play");
             //Thread.Sleep(5);
             // 0.1f works fine, but then sound is not good
-            Destroy(gameObject, 1f);
+            Destroy(gameObject);//, 1f);
 
         }
 

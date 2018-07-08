@@ -5,11 +5,14 @@ using UnityEngine;
 public class ShieldController : MonoBehaviour
 {
     private GameObject player;
+    public int temper;
     private Material mat;
     private float opacityPingPongSpeed = 10.0f;
     private float sizePingPongSpeed = 10.0f;
     Color originalColor;
     public Vector3 originalScale;
+    public GameObject Expl1;
+    
 
     // Use this for initialization
     void Start()
@@ -40,7 +43,19 @@ public class ShieldController : MonoBehaviour
     {
         if (col.gameObject.tag == "death")
         {
+            Vector3 tempObj;
+
+            //Expl.SetActive(true);
+            tempObj = col.gameObject.transform.position;
+            //use explosion in shield mode here
             Destroy(col.gameObject);
+            GameObject Expl=Expl1;
+            Expl = Instantiate(Expl, tempObj, Quaternion.identity) as GameObject;
+
+            Debug.Log("in shield death");
+
         }
     }
+
+
 }
