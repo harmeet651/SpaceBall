@@ -57,11 +57,8 @@ public class RewardController : MonoBehaviour
         if (col.gameObject.name == "Player")
         {
             scoreManager.AddScore(rewards);
-         //   audSource.Play();
-            Debug.Log("In play");
-            //Thread.Sleep(5);
-            // 0.1f works fine, but then sound is not good
-            Destroy(gameObject);//, 1f);
+            AudioSource.PlayClipAtPoint(clip,gameObject.transform.position);
+            Destroy(gameObject);
 
         }
 
