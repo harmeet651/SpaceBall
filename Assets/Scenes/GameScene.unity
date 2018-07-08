@@ -388,7 +388,7 @@ Prefab:
     - target: {fileID: 81669839780983862, guid: 1b845758cd5f3894cbfd15e2b4df07e6,
         type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1b845758cd5f3894cbfd15e2b4df07e6, type: 2}
@@ -1823,13 +1823,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67a174b638df02f4fa269b5157f66454, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveL: 97
-  moveR: 100
-  moveSlow: 108
   numLanes: 5
-  tapDuration: 0
-  leftSlowButton: {fileID: 33931806}
-  rightSlowButton: {fileID: 0}
 --- !u!4 &1827008202
 Transform:
   m_ObjectHideFlags: 0

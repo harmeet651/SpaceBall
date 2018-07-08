@@ -54,14 +54,16 @@ public class RewardController : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.name == "Player")
+        if (col.gameObject.tag == "Player")
         {
             scoreManager.AddScore(rewards);
-            audSource.Play();
-            Debug.Log("In play");
+            AudioSource.PlayClipAtPoint(clip,gameObject.transform.position);
+            //Debug.Log("In play");
             //Thread.Sleep(5);
             // 0.1f works fine, but then sound is not good
-            Destroy(gameObject, 1f);
+            Destroy(gameObject);
+            //gameObject.SetActive(false);
+            //GetComponent<MeshRenderer>().enabled = false;
 
         }
 
@@ -83,5 +85,10 @@ public class RewardController : MonoBehaviour
         {
             isInMagneticField = true;
         }
+    }
+
+
+    void onDestroy(){
+
     }
 }

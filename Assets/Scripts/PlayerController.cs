@@ -26,7 +26,7 @@ public class PlayerController : NetworkBehaviour
     public KeyCode moveSlow;
     private float horizSpeed = 9.0f;
     private float horizVelocity = 0;
-    private float forwardSpeed = 10.0f;
+    private float forwardSpeed = 10.0f, forwardSpeedBackup;
     private float forwardSlowSpeed = 0.2f;
     public float verticalVelocity = 0.0f;
     public bool isFlying = false;
@@ -51,6 +51,7 @@ public class PlayerController : NetworkBehaviour
 
     private bool AllConnected = false, attachedTileManager = false;
     private int playerNumber;
+    private float scrMid;
 
     private CameraController cameraController;
     private TileManager tileManager;
@@ -89,6 +90,9 @@ public class PlayerController : NetworkBehaviour
         // if(playerNumber == 2){
         //     AllConnected = true;
         // } 
+
+        
+        
 
         
     }
@@ -135,22 +139,60 @@ public class PlayerController : NetworkBehaviour
         healthSlider.value = health;
         healthFillImage.color = Color.Lerp(Color.red, Color.green, (float)health / maxHealth);
 
-        if(gameController.getnop() == 2){
+        if(gameController.getnop() == 1){
             AllConnected = true;
         }
 
+        scrMid = ((float)Screen.width) / 2;
+        //Keyboard controls.
         if (Input.GetKeyDown(moveL))
-            {
-                MoveLeft();
+        {
+            MoveLeft();
+        }
+        if (Input.GetKeyDown(moveR))
+        {
+            MoveRight();
+        }
+        if (Input.GetKeyDown(moveSlow))
+        {
+            MoveSlow();
+        }
+        if (Input.GetKeyUp(moveSlow))
+        {
+            MoveSlowStop();
+        }
+
+        //Touch Controls.
+        if (Input.touchCount > 0)
+        {
+            //Get touch event by the first finger.
+            Touch myTouch = Input.GetTouch(0);
+            //Check If touch is just starting
+            if (myTouch.phase == TouchPhase.Began)
+            {   
+                if(!gameController.getSlow()){
+                    if(myTouch.position.x > scrMid){
+                        MoveRight();
+                    }
+                    else{
+                        MoveLeft();
+                    }
+                }
+                else{
+                    MoveSlow();
+                }
             }
-            if (Input.GetKeyDown(moveR))
+
+            if (myTouch.phase == TouchPhase.Ended)
             {
-                MoveRight();
+                MoveSlowStop();
             }
-            if (Input.GetKey(moveSlow))
-            {
-                MoveSlow();
-            }
+
+            
+
+        } //End of Touch Manager.
+
+
 
         // If the ball is moving, check if movement is complete
         if (horizontalMoveStatus != HorizontalMovement.None)
@@ -228,17 +270,20 @@ public class PlayerController : NetworkBehaviour
             SetHealth(GetHealth() + damageAmount);
 
             notificationController.NotifyHealthChange(damageAmount);
+            Handheld.Vibrate();
         }
 
         // If player runs into a health box item
         else if (col.gameObject.tag == "ItemHealthBox")
         {
+            Handheld.Vibrate();
             Destroy(col.gameObject);
             AddHealth(2);
         }
 
         else if (col.gameObject.tag == "ItemMagnet")
         {
+            Handheld.Vibrate();
             Destroy(col.gameObject);
             EnableMagneticField();
         }
@@ -246,6 +291,7 @@ public class PlayerController : NetworkBehaviour
         // If player runs into a 
         else if (col.gameObject.tag == "ItemWing")
         {
+            Handheld.Vibrate();
             Destroy(col.gameObject);
             Fly();
         }
@@ -253,6 +299,7 @@ public class PlayerController : NetworkBehaviour
         // If player runs into a shield item
         else if (col.gameObject.tag == "ItemShield")
         {
+            Handheld.Vibrate();
             rb.GetComponent<MeshRenderer>().material = playerShieldMaterial;
             StartCoroutine(RecoverOriginalPlayerMaterial());
             Destroy(col.gameObject);
@@ -337,8 +384,17 @@ public class PlayerController : NetworkBehaviour
 
     public void MoveSlow()
     {
-        rb.velocity = new Vector3(0, 0, forwardSlowSpeed);
+        forwardSpeedBackup = forwardSpeed;
+        forwardSpeed = 0.2f;
+        //Debug.Log("Setting speed as slow");
         scoreManager.MoveSlow();
+    }
+
+    public void MoveSlowStop()
+    {   
+        if(forwardSpeed == 0.2f)
+            forwardSpeed = forwardSpeedBackup;
+        Debug.Log("Setting fast speed: " + forwardSpeed);
     }
 
     public void EnableLaneLock()

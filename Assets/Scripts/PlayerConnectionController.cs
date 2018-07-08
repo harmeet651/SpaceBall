@@ -8,7 +8,7 @@ public class PlayerConnectionController : NetworkBehaviour {
 	public GameObject PlayerUnitPrefab;
 	private TileManager tileManager;
 
-	static int NoOfPlayers = 0;
+	public static int NoOfPlayers = 0;
 
 	[SyncVar]
 	public int playerNumber;

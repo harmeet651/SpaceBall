@@ -9,10 +9,7 @@ using UnityEngine.UI;
 // Game over, restart actions should also be defined here
 public class GameController : MonoBehaviour
 {
-    public KeyCode moveL;
-    public KeyCode moveR;
-    public KeyCode moveSlow;
-
+    
     private GameObject player;
     private PlayerController playerController;
     private NotificationController notificationController;
@@ -21,15 +18,13 @@ public class GameController : MonoBehaviour
     public int numLanes = 5;                   
 
     //Swipe manager variables.
-    private bool isTouchInHold = false;
-    private float touchDuration = 0f, scrMid, TouchStart, wid, hig;
-    public float tapDuration;
+    // private bool isTouchInHold = false;
+    // private float touchDuration = 0f, scrMid, TouchStart, wid, hig;
+    // public float tapDuration;
 
-    public Button leftSlowButton, rightSlowButton;
+    // public Button leftSlowButton, rightSlowButton;
 
-    private int slow;
-
-    private bool spawned = false;
+    private bool spawned = false, slow = false;
 
     private int numberOfPlayers;
 
@@ -48,21 +43,11 @@ public class GameController : MonoBehaviour
     {
        
         notificationController = GetComponent<NotificationController>();
-        wid = (float)Screen.width;
-        hig = (float)Screen.height;
-        scrMid = wid / 2;
-        tapDuration = 0.165f;
-        slow = 0;
         numberOfPlayers = 0;
 
     }
 
     // Update is called once per frame
-
-    // public void Spawn(int ){
-
-    // }
-
     void Update()
     {
     	//Attaching gamecontroller to the player only after it spawns.
@@ -79,51 +64,49 @@ public class GameController : MonoBehaviour
     		Debug.Log("Attached game controller to player");
     	}
 
-    	if(spawned){
-    		// if (Input.GetKeyDown(moveL))
-    		// {
-    		//     playerController.MoveLeft();
-    		// }
-    		// if (Input.GetKeyDown(moveR))
-    		// {
-    		//     playerController.MoveRight();
-    		// }
-    		// if (Input.GetKey(moveSlow))
-    		// {
-    		//     playerController.MoveSlow();
-    		// }
+    	// if(spawned){
+    	// 	// if (Input.GetKeyDown(moveL))
+    	// 	// {
+    	// 	//     playerController.MoveLeft();
+    	// 	// }
+    	// 	// if (Input.GetKeyDown(moveR))
+    	// 	// {
+    	// 	//     playerController.MoveRight();
+    	// 	// }
+    	// 	// if (Input.GetKey(moveSlow))
+    	// 	// {
+    	// 	//     playerController.MoveSlow();
+    	// 	// }
 
-    		//Touch manager.
-    		if (Input.touchCount > 0)
-    		{
-    		    //Get touch event by the first finger.
-    		    Touch myTouch = Input.GetTouch(0);
-    		    //Check If touch is just starting
-    		    if (myTouch.phase == TouchPhase.Began)
-    		    {
-    		        //Reset all related variables
-    		        touchDuration = 0;
-    		        isTouchInHold = false;
-    		        TouchStart = Time.time;
+    	// 	//Touch manager.
+    	// 	// if (Input.touchCount > 0)
+    	// 	// {
+    	// 	//     //Get touch event by the first finger.
+    	// 	//     Touch myTouch = Input.GetTouch(0);
+    	// 	//     //Check If touch is just starting
+    	// 	//     if (myTouch.phase == TouchPhase.Began)
+    	// 	//     {
+    	// 	//         //Reset all related variables
+    	// 	//         touchDuration = 0;
+    	// 	//         isTouchInHold = false;
+    	// 	//         TouchStart = Time.time;
 
-    		        if(slow != 1){
-    		        	if(myTouch.position.x > scrMid){
-    		        		playerController.MoveRight();
-    		        	}
-    		        	else{
-    		        		playerController.MoveLeft();
-    		        	}
-    		        }
-    		    }
+    	// 	//         if(slow != 1){
+    	// 	//         	if(myTouch.position.x > scrMid){
+    	// 	//         		playerController.MoveRight();
+    	// 	//         	}
+    	// 	//         	else{
+    	// 	//         		playerController.MoveLeft();
+    	// 	//         	}
+    	// 	//         }
+    	// 	//     }
 
     		    
 
-    		} //End of Touch Manager.
+    	// 	// } //End of Touch Manager.
 
-    		if(slow == 1){
-    			playerController.MoveSlow();
-    		}
-    	}
+    		
+    	// }
         
     }
 
@@ -148,12 +131,16 @@ public class GameController : MonoBehaviour
     }
 
     public void slowModeOn(){
-    	slow = 1;
+    	slow = true;
     	//Debug.Log("Slow button pressed!");
     }
 
     public void slowModeOff(){
-    	slow = 0;
+    	slow = false;
     	//Debug.Log("Slow button pressed!");
+    }
+
+    public bool getSlow(){
+        return slow;
     }
 }
