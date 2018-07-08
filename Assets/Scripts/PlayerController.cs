@@ -49,10 +49,11 @@ public class PlayerController : NetworkBehaviour
     public Transform explodeObj;    //effect after collision with trap
     public Material playerOriginalMaterial, playerMagnetMaterial, playerHealthMaterial, playerShieldMaterial;
 
-    private bool AllConnected = false;
+    private bool AllConnected = false, attachedTileManager = false;
     private int playerNumber;
 
     private CameraController cameraController;
+    private TileManager tileManager;
 
     void Start()
     {
@@ -88,6 +89,8 @@ public class PlayerController : NetworkBehaviour
         // if(playerNumber == 2){
         //     AllConnected = true;
         // } 
+
+        
     }
 
     public void AddHealth(int x)
@@ -121,6 +124,12 @@ public class PlayerController : NetworkBehaviour
             
 
             return;
+        }
+        if(!attachedTileManager){
+            tileManager = GameObject.FindWithTag("TileManager").GetComponent<TileManager>();
+            tileManager.setPlayerName(gameObject.name);
+            Debug.Log("Set player name from PlayerController to TileManager as: " + gameObject.name);
+            attachedTileManager = true;
         }
         cameraController.transform.position = new Vector3(0, transform.position.y + cameraController.offset.y, transform.position.z + cameraController.offset.z);
         healthSlider.value = health;

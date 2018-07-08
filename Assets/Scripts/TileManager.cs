@@ -40,11 +40,13 @@ public class TileManager : NetworkBehaviour
     //Number of prefabs spawned by cuurent player.
     private int numberOfPrefabsSpawnedByCurrentPlayer = 0;
 
-    private bool spawned = false;
+    private bool spawned = false, initialTilesSpawned = false;
 
     private int locFlag = 0;
 
     public int maxLevel = 9;
+
+    private string playerName = "";
 
     // Use this for initialization
     void Start()
@@ -56,30 +58,17 @@ public class TileManager : NetworkBehaviour
         probabilities = new List<float>();
         probabilities.Add(100.0f);
 
-
-        if(isServer)
-        {
-            Debug.Log("This is the server!");
-            generateInitialTiles();
-        }
+        
+        
 
         //spawn tiles upto amount specified in var amnTilesOnScreen
         
     }
 
-    public void Spawn(string playerName){
-        for (int i = 0; i < amnTilesOnScreen; i++)
-        {
-            //for the first 2 tiles just create starter tiles
-            if (i < 2)
-                SpawnTile(0);   // 0 is the index assigned in unity to starter tile
-            else
-                SpawnTile();    //now create the random ones
-        }
-
-        playerTransform = GameObject.Find(playerName).transform;
-        spawned = true;
-        Debug.Log("Attached tile manager controller to player");
+    public void setPlayerName(string pName){
+        
+        playerName = pName;
+        
     }
 
     // Update is called once per frame
@@ -93,6 +82,24 @@ public class TileManager : NetworkBehaviour
         //     //Debug.Log("Scene: " +GameObject.FindWithTag("Player").scene.name); 
 
         // }
+
+        if(GameObject.Find(playerName)!= null && !spawned){
+            playerTransform = GameObject.Find(playerName).transform;
+            Debug.Log("Attached tile manager controller to " + playerName);
+            spawned = true;
+        }
+
+        if(spawned && !initialTilesSpawned){
+            for (int i = 0; i < amnTilesOnScreen; i++)
+            {
+                //for the first 2 tiles just create starter tiles
+                if (i < 2)
+                    SpawnTile(0);   // 0 is the index assigned in unity to starter tile
+                else
+                    SpawnTile();    //now create the random ones
+            }
+            initialTilesSpawned = true;
+        }
         if(spawned){
             if (playerTransform.position.z - safeToDelete > (spawnZ - amnTilesOnScreen * tileLength))
             {
