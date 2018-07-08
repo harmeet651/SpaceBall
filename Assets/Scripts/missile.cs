@@ -8,6 +8,7 @@ public class missile : MonoBehaviour {
     float missileVelocity = 14;
     Rigidbody homingMissile;
     Vector3 m_EulerAngleVelocity;
+    public GameObject Explosion; 
     //float turn = 20;
     //int fuseDelay = 20;
     //GameObject missileMod;
@@ -47,8 +48,16 @@ public class missile : MonoBehaviour {
     {
         if (collision.gameObject.tag == "death")
         {
-            Debug.Log("inside destroy missile and object");         
-            Destroy(collision.gameObject);           
+            Vector3 tempObj;
+            GameObject Expl = Explosion;
+            Debug.Log("inside destroy missile and object");
+           
+
+            tempObj = collision.gameObject.transform.position;
+            tempObj.y = 5;
+            //use explosion after missile bombing here 
+            Destroy(collision.gameObject);
+            Expl = Instantiate(Expl, tempObj, Quaternion.identity) as GameObject;
             Destroy(this.gameObject);
          }
     }

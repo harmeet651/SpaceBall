@@ -8,8 +8,8 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: PlasmaExplosionParticle
   m_Shader: {fileID: 45, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _ALPHABLEND_ON _EMISSION
-  m_LightmapFlags: 1
+  m_ShaderKeywords: _ALPHABLEND_ON
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 3000
@@ -78,7 +78,7 @@ Material:
     - _UVSec: 0
     - _ZWrite: 0
     m_Colors:
-    - _Color: {r: 0.21323532, g: 0.21323532, b: 0.21323532, a: 1}
-    - _EmissionColor: {r: 0.13235293, g: 0.2645538, b: 0.375, a: 1}
+    - _Color: {r: 0.27450982, g: 0.50980395, b: 0.44459674, a: 1}
+    - _EmissionColor: {r: 0.3764706, g: 0.13333334, b: 0.15935665, a: 1}
     - _SpecColor: {r: 0, g: 0, b: 0, a: 1}
     - _TintColor: {r: 1, g: 1, b: 1, a: 0.5}
