@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class NotificationController : MonoBehaviour
 {
     public Canvas notificationCanvas;
+    public GameObject WellDoneCanvas;
     public Image backgroundImage; 
     public Text notificationText;
 
@@ -16,7 +17,7 @@ public class NotificationController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        WellDoneCanvas.SetActive(false);
     }
 
     // Update is called once per frame
