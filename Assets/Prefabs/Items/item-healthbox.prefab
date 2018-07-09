@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 23027295142777838}
   - component: {fileID: 135030702310526282}
   - component: {fileID: 54715491625037114}
+  - component: {fileID: 114568595313203436}
   m_Layer: 0
   m_Name: item-healthbox
   m_TagString: ItemHealthBox
@@ -186,6 +187,38 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.30084234, y: 0.089999996, z: 0.15219232}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114568595313203436
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1935851681724926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 7
+    i1: 79
+    i2: 69
+    i3: 132
+    i4: 82
+    i5: 202
+    i6: 106
+    i7: 212
+    i8: 40
+    i9: 88
+    i10: 35
+    i11: 242
+    i12: 92
+    i13: 224
+    i14: 39
+    i15: 133
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!135 &135030702310526282
 SphereCollider:
   m_ObjectHideFlags: 1

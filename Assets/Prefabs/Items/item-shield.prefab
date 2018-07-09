@@ -192,6 +192,7 @@ GameObject:
   - component: {fileID: 23439536086715912}
   - component: {fileID: 135596507535678476}
   - component: {fileID: 54691378488201064}
+  - component: {fileID: 114496166011602308}
   m_Layer: 0
   m_Name: item-shield
   m_TagString: ItemShield
@@ -951,6 +952,38 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114496166011602308
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1856920629422604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 116
+    i1: 204
+    i2: 168
+    i3: 80
+    i4: 211
+    i5: 252
+    i6: 12
+    i7: 180
+    i8: 233
+    i9: 128
+    i10: 19
+    i11: 238
+    i12: 212
+    i13: 88
+    i14: 40
+    i15: 175
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!135 &135596507535678476
 SphereCollider:
   m_ObjectHideFlags: 1

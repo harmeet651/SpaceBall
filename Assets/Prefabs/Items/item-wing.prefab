@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 23082893234789294}
   - component: {fileID: 135029769005858002}
   - component: {fileID: 54574200663877224}
+  - component: {fileID: 114716503610832296}
   m_Layer: 0
   m_Name: item-wing
   m_TagString: ItemWing
@@ -192,6 +193,38 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114716503610832296
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1815137030208146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 212
+    i1: 101
+    i2: 191
+    i3: 188
+    i4: 135
+    i5: 219
+    i6: 234
+    i7: 244
+    i8: 170
+    i9: 143
+    i10: 33
+    i11: 171
+    i12: 163
+    i13: 104
+    i14: 176
+    i15: 249
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!135 &135029769005858002
 SphereCollider:
   m_ObjectHideFlags: 1

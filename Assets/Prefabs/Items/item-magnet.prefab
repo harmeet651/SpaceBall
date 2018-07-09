@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 23733821286371284}
   - component: {fileID: 135485157829357074}
   - component: {fileID: 54331850311248448}
+  - component: {fileID: 114656550225282206}
   m_Layer: 0
   m_Name: item-magnet
   m_TagString: ItemMagnet
@@ -193,6 +194,38 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114656550225282206
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1485398841062074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 225
+    i1: 116
+    i2: 90
+    i3: 196
+    i4: 136
+    i5: 202
+    i6: 186
+    i7: 212
+    i8: 187
+    i9: 28
+    i10: 116
+    i11: 255
+    i12: 17
+    i13: 217
+    i14: 151
+    i15: 3
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!135 &135485157829357074
 SphereCollider:
   m_ObjectHideFlags: 1

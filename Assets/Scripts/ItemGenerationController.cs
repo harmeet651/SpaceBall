@@ -1,23 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class ItemGenerationController : MonoBehaviour {
+
+public class ItemGenerationController : NetworkBehaviour {
     public GameObject coinPrefab;
     public GameObject itemHealthBoxPrefab;
     public GameObject itemMagnetPrefab;
     public GameObject itemShieldPrefab;
     public GameObject itemWingPrefab;
     
-    private PlayerController playerController;
+    //private PlayerController playerController;
 
     private float lastGeneratedPlayerZPos = 0; 
 
     // Use this for initialization
     void Start() {
-        playerController = GetComponent<PlayerController>(); 
-
-        StartCoroutine(GenerateContinuously());
+        //playerController = GetComponent<PlayerController>(); 
+        if(isServer)
+            StartCoroutine(GenerateContinuously());
     }
     
     void LateUpdate()
@@ -27,11 +29,14 @@ public class ItemGenerationController : MonoBehaviour {
 
     void Generate(GameObject prefab)
     {
-        GameObject newRewardObj = Instantiate(prefab) as GameObject;
+        if(isServer){
+            GameObject newRewardObj = Instantiate(prefab) as GameObject;
 
-        float spawnZPos = transform.position.z + playerController.GetSpeed() * 4;
-
-        newRewardObj.transform.position = new Vector3(Mathf.Round(Random.Range(-2.0f, 2.0f)), 5, spawnZPos);
+            float spawnZPos = transform.position.z + 10 * 4;
+            newRewardObj.transform.position = new Vector3(Mathf.Round(Random.Range(-2.0f, 2.0f)), 5, spawnZPos);
+            NetworkServer.Spawn(newRewardObj);
+            
+        }
     }
 
     IEnumerator GenerateContinuously()

@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
     private GameObject player;
     private PlayerController playerController;
     private NotificationController notificationController;
+    public static float currentMaxPosition = 0;
 
     // number of lanes
     public int numLanes = 5;                   
@@ -51,18 +52,37 @@ public class GameController : MonoBehaviour
     void Update()
     {
     	//Attaching gamecontroller to the player only after it spawns.
-    	if(GameObject.Find("Player(Clone)") != null && !spawned)
-    	{
-    		player = GameObject.Find("Player(Clone)");
-    		//player.name = "a";
-    		player.name = "player" + numberOfPlayers;
-    		playerController = player.GetComponent<PlayerController>();
+        if(GameObject.FindWithTag("Player") != null && !spawned)
+            spawned = true;
 
-    		//Its just a flag, dont worry about it...
-    		spawned = true;
+        if(spawned){
+            foreach(GameObject player in GameObject.FindGameObjectsWithTag("Player")){
+                if(player.transform.position.z > currentMaxPosition)
+                    currentMaxPosition = player.transform.position.z;
+                
+            }
+            //Debug.Log("currentMaxPosition is " + currentMaxPosition );
+        }
 
-    		Debug.Log("Attached game controller to player");
-    	}
+
+
+
+
+
+    	// if(GameObject.Find("Player(Clone)") != null && !spawned)
+    	// {
+    	// 	player = GameObject.Find("Player(Clone)");
+    	// 	//player.name = "a";
+    	// 	player.name = "player" + numberOfPlayers;
+    	// 	playerController = player.GetComponent<PlayerController>();
+
+    	// 	//Its just a flag, dont worry about it...
+    	// 	spawned = true;
+
+    	// 	Debug.Log("Attached game controller to player");
+    	// }
+
+
 
     	// if(spawned){
     	// 	// if (Input.GetKeyDown(moveL))

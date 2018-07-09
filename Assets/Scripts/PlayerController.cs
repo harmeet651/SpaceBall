@@ -270,20 +270,20 @@ public class PlayerController : NetworkBehaviour
             SetHealth(GetHealth() + damageAmount);
 
             notificationController.NotifyHealthChange(damageAmount);
-            Handheld.Vibrate();
+            //Handheld.Vibrate();
         }
 
         // If player runs into a health box item
         else if (col.gameObject.tag == "ItemHealthBox")
         {
-            Handheld.Vibrate();
+            //Handheld.Vibrate();
             Destroy(col.gameObject);
             AddHealth(2);
         }
 
         else if (col.gameObject.tag == "ItemMagnet")
         {
-            Handheld.Vibrate();
+            //Handheld.Vibrate();
             Destroy(col.gameObject);
             EnableMagneticField();
         }
@@ -291,7 +291,7 @@ public class PlayerController : NetworkBehaviour
         // If player runs into a 
         else if (col.gameObject.tag == "ItemWing")
         {
-            Handheld.Vibrate();
+            //Handheld.Vibrate();
             Destroy(col.gameObject);
             Fly();
         }
@@ -299,7 +299,7 @@ public class PlayerController : NetworkBehaviour
         // If player runs into a shield item
         else if (col.gameObject.tag == "ItemShield")
         {
-            Handheld.Vibrate();
+            //Handheld.Vibrate();
             rb.GetComponent<MeshRenderer>().material = playerShieldMaterial;
             StartCoroutine(RecoverOriginalPlayerMaterial());
             Destroy(col.gameObject);
