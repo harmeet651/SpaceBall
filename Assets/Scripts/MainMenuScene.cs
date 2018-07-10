@@ -10,7 +10,12 @@ public class MainMenuScene : MonoBehaviour {
 		SceneManager.LoadScene("Scenes/GameScene");
 	}
 
-	public void QuitGame ()
+    public void ChooseAvatar()
+    {
+        Debug.Log("in avatar");
+        SceneManager.LoadScene("Scenes/Selector");
+    }
+    public void QuitGame ()
 	{
 		Debug.Log("QUIT!");
 		Application.Quit();

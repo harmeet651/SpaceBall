@@ -55,6 +55,11 @@ public class PlayerController : MonoBehaviour
         notificationController = GameObject.FindWithTag("GameController").GetComponent<NotificationController>();
         scoreManager = GetComponent<ScoreManager>();
 
+        if(MaterialSender.selectedMaterial!= null)
+            playerOriginalMaterial = MaterialSender.selectedMaterial;
+
+        GetComponent<MeshRenderer>().material = playerOriginalMaterial;
+
         health = maxHealth;
         healthSlider.maxValue = maxHealth;
 

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
+
 
 public class Scroll : MonoBehaviour 
 {
@@ -26,7 +28,10 @@ public class Scroll : MonoBehaviour
     public Text characterName;
     private float smoothedX, smoothedScale;
     private Vector3[] defaultScale, bigScale;
-    
+    private int selected;
+  
+    GameObject playerTemp;
+
     void Start()
     {
         instatiatedObj = new GameObject[amount];
@@ -56,16 +61,21 @@ public class Scroll : MonoBehaviour
         {
             for(int i = 0; i < amount; i++)
             {
-               instatiatedObj[i].transform.Rotate(0, 1, 0); 
-               if(parentScroll.transform.position.x < points[i].x && parentScroll.transform.position.x > points[i+1].x)
-               {
-                   smoothedX = Mathf.SmoothStep(parentScroll.transform.position.x, points[i].x - distance / 2, smoothSpeed);
-                   smoothedScale = Mathf.SmoothStep(bigScale[i].x, defaultScale[i].x, smoothSpeed);
-                   characterName.text = names[i];
-               }
-               else smoothedScale = Mathf.SmoothStep(defaultScale[i].x, bigScale[i].x, smoothSpeed);
+               instatiatedObj[i].transform.Rotate(0, 1, 0);
+                if (parentScroll.transform.position.x < points[i].x && parentScroll.transform.position.x > points[i + 1].x)
+                {
+                    selected = i;
+
+                    smoothedX = Mathf.SmoothStep(parentScroll.transform.position.x, points[i].x - distance / 2, smoothSpeed);
+                    smoothedScale = Mathf.SmoothStep(bigScale[i].x, defaultScale[i].x, smoothSpeed);
+                    characterName.text = names[i];
+                }
+                else {
+                    smoothedScale = Mathf.SmoothStep(defaultScale[i].x, bigScale[i].x, smoothSpeed);
+                }
                instatiatedObj[i].transform.localScale = new Vector3(smoothedScale, smoothedScale, smoothedScale);
             }
+            Debug.Log(selected);
         }
         catch
         {
@@ -76,13 +86,20 @@ public class Scroll : MonoBehaviour
     {
         if(EventSystem.current.currentSelectedGameObject.name == "Buy") // CODE FOR "BUY" BUTTON
         {
-            print("buy");
-            // WRITE HERE
+           
+            //material fetching  WRITE HERE
         }
         if(EventSystem.current.currentSelectedGameObject.name == "Select") // CODE FOR "SELECT" BUTTON
         {
+            //material fetching  WRITE HERE
+
             print("select");
-            // WRITE HERE
+            MaterialSender.selectedMaterial = instatiatedObj[selected].GetComponent<MeshRenderer>().material;
+          
+            //Debug.Log(MaterialSender.selectedMaterial);
+            
+            SceneManager.LoadScene("Scenes/MenuScene");
+            
         }
     }
 }
