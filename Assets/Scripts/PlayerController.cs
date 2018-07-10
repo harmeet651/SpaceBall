@@ -26,7 +26,7 @@ public class PlayerController : NetworkBehaviour
     public KeyCode moveSlow;
     private float horizSpeed = 9.0f;
     private float horizVelocity = 0;
-    private float forwardSpeed = 10.0f, forwardSpeedBackup;
+    private float forwardSpeed = 10.0f, forwardSpeedBackup, forwardFastSpeed = 10;
     private float forwardSlowSpeed = 0.2f;
     public float verticalVelocity = 0.0f;
     public bool isFlying = false;
@@ -120,7 +120,7 @@ public class PlayerController : NetworkBehaviour
         rb.GetComponent<MeshRenderer>().material = playerOriginalMaterial;
     }
 
-    void Update()
+    void LateUpdate()
     {
 
          if( hasAuthority == false )
@@ -229,15 +229,18 @@ public class PlayerController : NetworkBehaviour
         if (isFlying)
         {
             rb.velocity = new Vector3(horizVelocity, verticalVelocity, forwardSpeed * 3);
+            // rb.transform.Translate((new Vector3(horizVelocity, verticalVelocity, forwardSpeed * 3)) * Time.deltaTime);
         }
 
         else if(!AllConnected)
         {
             rb.velocity = new Vector3(horizVelocity, verticalVelocity, 0);
+            // rb.transform.Translate((new Vector3(horizVelocity, verticalVelocity, 0)) * Time.deltaTime);
         }
         else{
 
             rb.velocity = new Vector3(horizVelocity, verticalVelocity, forwardSpeed);
+            // rb.transform.Translate((new Vector3(horizVelocity, verticalVelocity, forwardSpeed)) * Time.deltaTime);
         }
 
         if(rb.transform.position.y<-1.0f){
@@ -249,16 +252,17 @@ public class PlayerController : NetworkBehaviour
 
             SetHealth(GetHealth() - 1);
         }
-    }
-
-    void LateUpdate()
-    {
         if (transform.position.y <= -10.0f)
         {
             gameController.GameOver("y pos too low");
             Debug.Log("Xpos: " +transform.position.x + " Ypos: " +transform.position.y+ " Zpos: " + transform.position.z);
         }
     }
+
+    // void LateUpdate()
+    // {
+        
+    // }
 
     private void OnCollisionEnter(Collision col)
     {
@@ -384,7 +388,7 @@ public class PlayerController : NetworkBehaviour
 
     public void MoveSlow()
     {
-        forwardSpeedBackup = forwardSpeed;
+        //forwardSpeedBackup = forwardSpeed;
         forwardSpeed = 0.2f;
         //Debug.Log("Setting speed as slow");
         scoreManager.MoveSlow();
@@ -392,9 +396,9 @@ public class PlayerController : NetworkBehaviour
 
     public void MoveSlowStop()
     {   
-        if(forwardSpeed == 0.2f)
-            forwardSpeed = forwardSpeedBackup;
-        Debug.Log("Setting fast speed: " + forwardSpeed);
+        //if(forwardSpeed == 0.2f)
+            forwardSpeed = forwardFastSpeed;
+        //Debug.Log("Setting fast speed: " + forwardSpeed);
     }
 
     public void EnableLaneLock()
@@ -465,12 +469,12 @@ public class PlayerController : NetworkBehaviour
 
     public void AddSpeed(float modifier)
     {
-        forwardSpeed = forwardSpeed + modifier;
+        forwardFastSpeed = forwardFastSpeed + modifier;
     }
 
     public float GetSpeed()
     {
-        return forwardSpeed;
+        return forwardFastSpeed;
     }
 
     // Start flying
@@ -496,5 +500,8 @@ public class PlayerController : NetworkBehaviour
     public void SetHealth(int x)
     {
         health = x;
+    }
+    public bool getisClient(){
+        return isClient;
     }
 }

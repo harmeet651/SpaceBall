@@ -19,7 +19,12 @@ public class RewardController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        player = GameObject.FindWithTag("Player");
+        foreach(GameObject plr in GameObject.FindGameObjectsWithTag("Player")){
+            if(plr.GetComponent<PlayerController>().getisClient()){
+                player = plr;
+            }
+        }
+        //player = GameObject.FindWithTag("Player");
         scoreManager = player.GetComponent<ScoreManager>();
 
         audSource = GetComponent<AudioSource>();
@@ -41,6 +46,10 @@ public class RewardController : MonoBehaviour
             float speed = player.GetComponent<Rigidbody>().velocity.z * 2;
             float step = speed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, player.transform.position, step);
+        }
+        if(transform.position.y < -10 ){
+
+            Destroy(gameObject); 
         }
     }
 
@@ -76,7 +85,7 @@ public class RewardController : MonoBehaviour
     // Destroyer
     void OnBecameInvisible()
     {
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 
     void OnTriggerEnter(Collider col)

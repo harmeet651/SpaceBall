@@ -13,17 +13,10 @@ public class GameController : MonoBehaviour
     private GameObject player;
     private PlayerController playerController;
     private NotificationController notificationController;
-    public static float currentMaxPosition = 0;
+    public static float currentMaxPosition = 0, currentMinPosition = 0;
 
     // number of lanes
     public int numLanes = 5;                   
-
-    //Swipe manager variables.
-    // private bool isTouchInHold = false;
-    // private float touchDuration = 0f, scrMid, TouchStart, wid, hig;
-    // public float tapDuration;
-
-    // public Button leftSlowButton, rightSlowButton;
 
     private bool spawned = false, slow = false;
 
@@ -59,7 +52,8 @@ public class GameController : MonoBehaviour
             foreach(GameObject player in GameObject.FindGameObjectsWithTag("Player")){
                 if(player.transform.position.z > currentMaxPosition)
                     currentMaxPosition = player.transform.position.z;
-                
+                if(player.transform.position.z < currentMinPosition)
+                    currentMinPosition = player.transform.position.z;                    
             }
             //Debug.Log("currentMaxPosition is " + currentMaxPosition );
         }

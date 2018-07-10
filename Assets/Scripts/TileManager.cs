@@ -101,12 +101,17 @@ public class TileManager : NetworkBehaviour
             initialTilesSpawned = true;
         }
         if(spawned){
-            if (playerTransform.position.z - safeToDelete > (spawnZ - amnTilesOnScreen * tileLength))
+            if (GameController.currentMaxPosition - safeToDelete > (spawnZ - amnTilesOnScreen * tileLength))
             {
                 SpawnTile();
+                
+            }
+            if (GameController.currentMinPosition - safeToDelete > (spawnZ - amnTilesOnScreen * tileLength))
+            {
+                
                 DeleteTile();
             }   
-            Debug.Log("TM : " + playerTransform.position.z) ;
+            //Debug.Log("TM : " + playerTransform.position.z) ;
         }
         
     }
@@ -149,11 +154,11 @@ public class TileManager : NetworkBehaviour
         //update the length of the generated tiles
         spawnZ += tileLength;
 
-        if (locFlag == 1)
-        {
-            locFlag = 0;
-            setSpawnPos(Obj);
-        }
+        // if (locFlag == 1)
+        // {
+        //     locFlag = 0;
+        //     setSpawnPos(Obj);
+        // }
 
         //add tile to list of active tiles
         activeTiles.Add(Obj);
@@ -161,15 +166,15 @@ public class TileManager : NetworkBehaviour
         Debug.Log("numberOfPrefabsSpawnedByCurrentPlayer is: " + numberOfPrefabsSpawnedByCurrentPlayer);
     }
 
-     float getSpawnPos()
-    {
-        return (positionForRespawn + 21);
-    }
+    //  float getSpawnPos()
+    // {
+    //     return (positionForRespawn + 21);
+    // }
 
-    public void setSpawnPos(GameObject Obj)
-    {
-        positionForRespawn = Obj.transform.position.z;
-    }
+    // public void setSpawnPos(GameObject Obj)
+    // {
+    //     positionForRespawn = Obj.transform.position.z;
+    // }
     //method to destroy a tile
     private void DeleteTile()
     {
@@ -238,7 +243,6 @@ public class TileManager : NetworkBehaviour
 
         Debug.Log("Current Level prefabs count : "+currentLevelPrefabs.Count);
         if(prefabIndices.Count > 0){
-            //Debug.Log("prefabIndices.Count is: " + prefabIndices.Count + "numberOfPrefabsSpawnedByCurrentPlayer is : " + numberOfPrefabsSpawnedByCurrentPlayer);
             randIndex = Random.Range(0, currentLevelPrefabs.Count);
             
             Debug.Log("Random index from currentLevelPrefabs : " + randIndex);

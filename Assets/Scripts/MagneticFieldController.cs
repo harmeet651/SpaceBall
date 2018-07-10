@@ -9,7 +9,11 @@ public class MagneticFieldController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        player = GameObject.FindWithTag("Player");
+        foreach(GameObject plr in GameObject.FindGameObjectsWithTag("Player")){
+            if(plr.GetComponent<PlayerController>().getisClient()){
+                player = plr;
+            }
+        }
     }
 
     // Update is called once per frame
