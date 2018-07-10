@@ -9,10 +9,12 @@ public class ScoreManager : MonoBehaviour
     private float score = 0.0f;
 
     //var to send score to unity
-    public Text scoreText;
+    private Text scoreText;
 
     //var to send high score and keep a count
-    public Text highscoreText;
+    private Text highscoreText;
+
+
     public float highscoreCount = 0.0f;
 
     //initial difficulty level
@@ -31,11 +33,20 @@ public class ScoreManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+
+        foreach(GameObject plr in GameObject.FindGameObjectsWithTag("Player")){
+            if(plr.GetComponent<PlayerController>().getisClient()){
+                playerController = plr.GetComponent<PlayerController>();
+            }
+        }
+
+        scoreText = GameObject.FindWithTag("score").GetComponent<Text>();
+        highscoreText = GameObject.FindWithTag("highscore").GetComponent<Text>();
         
-        if (PlayerPrefs.HasKey("HighScore"))
+        
+        if (PlayerPrefs.HasKey("MPHighScore"))
         {
-            highscoreCount = PlayerPrefs.GetFloat("HighScore");
+            highscoreCount = PlayerPrefs.GetFloat("MPHighScore");
         }
 
         isInSlowMode = false;
@@ -65,14 +76,14 @@ public class ScoreManager : MonoBehaviour
         if (score > highscoreCount)
         {
             highscoreCount = score;
-            PlayerPrefs.SetFloat("HighScore", highscoreCount);
+            PlayerPrefs.SetFloat("MPHighScore", highscoreCount);
         }
 
         //truncate score to integer and convert to string to pass to 'Score-Canvas' component in Unity
         scoreText.text = "Score " + ((int)score).ToString();
 
         highscoreText.text = "High Score " + ((int)highscoreCount).ToString();
-        isInSlowMode = false;
+        
     }
 
     // Update score by passed amount
@@ -103,5 +114,9 @@ public class ScoreManager : MonoBehaviour
     public void MoveSlow()
     {
         isInSlowMode = true;
+    }
+    public void MoveSlowStop()
+    {
+        isInSlowMode = false;
     }
 }

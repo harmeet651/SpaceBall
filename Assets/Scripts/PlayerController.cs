@@ -18,7 +18,7 @@ public class PlayerController : NetworkBehaviour
 
     //public TileManager tile;
     public int maxHealth;
-    public Slider healthSlider;
+    private Slider healthSlider;
     private Image healthFillImage;
 
     public KeyCode moveL;
@@ -35,6 +35,8 @@ public class PlayerController : NetworkBehaviour
 
     private int numLanes;
 
+    private Text rank;
+
     private Rigidbody rb;
     private HorizontalMovement horizontalMoveStatus = HorizontalMovement.None;
     private bool isLaneLockEnabled = true;
@@ -49,7 +51,7 @@ public class PlayerController : NetworkBehaviour
     public Transform explodeObj;    //effect after collision with trap
     public Material playerOriginalMaterial, playerMagnetMaterial, playerHealthMaterial, playerShieldMaterial;
 
-    private bool AllConnected = false, attachedTileManager = false;
+    private bool AllConnected = false, attachedTileManager = false, attachedPowerUps = false, attachedSlider = false;
     private int playerNumber;
     private float scrMid;
 
@@ -65,8 +67,7 @@ public class PlayerController : NetworkBehaviour
 
         scoreManager = GetComponent<ScoreManager>();
 
-        health = maxHealth;
-        healthSlider.maxValue = maxHealth;
+        
 
         // Save a reference to the rigidbody object
         rb = GetComponent<Rigidbody>();
@@ -79,14 +80,14 @@ public class PlayerController : NetworkBehaviour
 
         // targetLane is used to mark which lane the ball is moving towards while moving horizontally
         targetLane = currentLane;
-        healthFillImage = healthSlider.transform.Find("Fill Area/Fill").GetComponent<Image>();
-        healthFillImage.color = Color.green;
+        
 
         // Enable lane lock by default (always keep the ball at the center of the lane)
         EnableLaneLock(); 
         //gameController.numberOfPlayers++;
         playerNumber= gameController.incgetnop();
         Debug.Log("Player" + playerNumber);
+        rank = GameObject.FindWithTag("rank").GetComponent<Text>();
         // if(playerNumber == 2){
         //     AllConnected = true;
         // } 
@@ -120,14 +121,34 @@ public class PlayerController : NetworkBehaviour
         rb.GetComponent<MeshRenderer>().material = playerOriginalMaterial;
     }
 
-    void LateUpdate()
+    void Update()
     {
 
-         if( hasAuthority == false )
+        if( hasAuthority == false )
         {
-            
-
             return;
+        }
+
+        if(transform.position.z >= GameController.currentMaxPosition){
+            rank.text = "Rank 1";
+            //Debug.Log("Rank 1!");
+        }else{
+            rank.text = "Rank 2";
+            //Debug.Log("Rank 2!");
+        }
+
+        if(!attachedSlider){
+            healthSlider = GameObject.FindWithTag("slider").GetComponent<Slider>();
+            health = maxHealth;
+            healthSlider.maxValue = maxHealth;
+            healthFillImage = healthSlider.transform.Find("Fill Area/Fill").GetComponent<Image>();
+            healthFillImage.color = Color.green;
+            attachedSlider = true;
+        }
+        if(!attachedPowerUps){
+            shield = Instantiate(shield);
+            magneticField = Instantiate(magneticField);
+            attachedPowerUps = true;
         }
         if(!attachedTileManager){
             tileManager = GameObject.FindWithTag("TileManager").GetComponent<TileManager>();
@@ -139,7 +160,7 @@ public class PlayerController : NetworkBehaviour
         healthSlider.value = health;
         healthFillImage.color = Color.Lerp(Color.red, Color.green, (float)health / maxHealth);
 
-        if(gameController.getnop() == 1){
+        if(gameController.getnop() == 2){
             AllConnected = true;
         }
 
@@ -161,7 +182,8 @@ public class PlayerController : NetworkBehaviour
         {
             MoveSlowStop();
         }
-
+        //Debug.Log(GameController.currentMaxPosition);
+        
         //Touch Controls.
         if (Input.touchCount > 0)
         {
@@ -267,7 +289,18 @@ public class PlayerController : NetworkBehaviour
     private void OnCollisionEnter(Collision col)
     {
 
-        if (col.gameObject.tag == "death" && !isFlying)
+        if (col.gameObject.tag == "ItemWing")
+        {
+            //Handheld.Vibrate();
+            Destroy(col.gameObject);
+            Fly();
+        }
+        else if( hasAuthority == false )
+        {
+            return;
+        }
+        
+        else if (col.gameObject.tag == "death" && !isFlying)
         {
             int damageAmount = -1;
 
@@ -293,12 +326,6 @@ public class PlayerController : NetworkBehaviour
         }
 
         // If player runs into a 
-        else if (col.gameObject.tag == "ItemWing")
-        {
-            //Handheld.Vibrate();
-            Destroy(col.gameObject);
-            Fly();
-        }
 
         // If player runs into a shield item
         else if (col.gameObject.tag == "ItemShield")
@@ -399,6 +426,7 @@ public class PlayerController : NetworkBehaviour
         //if(forwardSpeed == 0.2f)
             forwardSpeed = forwardFastSpeed;
         //Debug.Log("Setting fast speed: " + forwardSpeed);
+            scoreManager.MoveSlowStop();
     }
 
     public void EnableLaneLock()

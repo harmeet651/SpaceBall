@@ -9,7 +9,7 @@ public class RewardController : MonoBehaviour
     private ScoreManager scoreManager;
 
     public bool isSpinning;
-    public int rewards;
+    public int rewards = 1;
 
     private bool isInMagneticField = false;
 
@@ -24,7 +24,7 @@ public class RewardController : MonoBehaviour
                 player = plr;
             }
         }
-        //player = GameObject.FindWithTag("Player");
+
         scoreManager = player.GetComponent<ScoreManager>();
 
         audSource = GetComponent<AudioSource>();

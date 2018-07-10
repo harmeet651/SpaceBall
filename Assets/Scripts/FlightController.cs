@@ -21,6 +21,7 @@ public class FlightController : MonoBehaviour
     private float flightLength = 100.0f;
     private FlightStatus flightStatus = FlightStatus.None;
     private float flightBeginZPos;
+    private bool createdWings = false;
 
     private PlayerController playerController;
 
@@ -28,7 +29,11 @@ public class FlightController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        playerController = GetComponent<PlayerController>();
+        foreach(GameObject plr in GameObject.FindGameObjectsWithTag("Player")){
+            if(plr.GetComponent<PlayerController>().getisClient()){
+                playerController = plr.GetComponent<PlayerController>();
+            }
+        }
 
         wingOffset = wing.transform.position - transform.position;
     }
@@ -36,6 +41,11 @@ public class FlightController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!createdWings){
+            wing = Instantiate(wing);
+            createdWings = true;
+        }
+
         wing.transform.position = transform.position + wingOffset;
 
         if (flightStatus == FlightStatus.Launching)

@@ -14,7 +14,12 @@ public class ShieldController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        player = GameObject.FindWithTag("Player");
+        foreach(GameObject plr in GameObject.FindGameObjectsWithTag("Player")){
+            if(plr.GetComponent<PlayerController>().getisClient()){
+                player = plr;
+                //Debug.Log("Selected Player for shield conroller");
+            }
+        }
 
         Renderer rend = GetComponent<Renderer>();
         mat = rend.material;
@@ -27,6 +32,7 @@ public class ShieldController : MonoBehaviour
     {
         // Move with player object
         transform.position = player.transform.position;
+        Debug.Log("Shield position is: " + transform.position.z);
 
         Color currentColor = originalColor;
         currentColor.a = (Mathf.PingPong(Time.time * opacityPingPongSpeed, 4) / 30);
