@@ -24,8 +24,21 @@ public class MoveLightTutorial : MonoBehaviour {
             Time.timeScale = 1;
 
         }
+        if (Input.touchCount > 0)
+        {
+            //Get touch event by the first finger.
+            Touch myTouch = Input.GetTouch(0);
+            //Check If touch is just starting
+            if (myTouch.phase == TouchPhase.Began)
+            { 
+                if (myTouch.position.x < (Screen.width/2)) {
+                    Time.timeScale = 1;
+                }
+               
+            }
+        }
 
-        if (Time.time - initialTime > 2)
+        if (Time.time - initialTime > 4)
         {
             Debug.Log("check ");
             Application.LoadLevel("TutorialScene3");

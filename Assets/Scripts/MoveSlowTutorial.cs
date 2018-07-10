@@ -33,5 +33,10 @@ public class MoveSlowTutorial : MonoBehaviour {
         }
 
 
+
+    }
+
+    public void slowPressed(){
+        Time.timeScale = 1;
     }
 }
