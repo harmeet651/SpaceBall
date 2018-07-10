@@ -48,22 +48,22 @@ public class ItemGenerationController : MonoBehaviour {
                     Generate(itemWingPrefab);
                 }
 
-                else if (randVal < 4)
+                else if (randVal < 5)
                 {
                     Generate(itemMagnetPrefab);
                 }
 
-                else if (randVal < 6)
+                else if (randVal < 8)
                 {
                     Generate(itemShieldPrefab); 
                 }
 
-                else if (randVal < 8)
+                else if (randVal < 11)
                 {
                     Generate(itemHealthBoxPrefab); 
                 }
 
-                else if (randVal < 11)
+                else if (randVal < 15)
                 {
                     Generate(itemMissilePrefab); 
                 }
