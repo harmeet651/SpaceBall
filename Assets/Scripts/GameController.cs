@@ -7,11 +7,9 @@ using UnityEngine.UI;
 // GameController controls the overall aspect of the game
 // For example, generating tiles, obstacles should be handled here
 // Game over, restart actions should also be defined here
-namespace S3
-{
+
     public class GameController : MonoBehaviour
     {
-        public GameObject gameOver;
 
         public KeyCode moveL;
         public KeyCode moveR;
@@ -169,10 +167,4 @@ namespace S3
             slow = 0;
             //Debug.Log("Slow button pressed!");
         }
-        private void OnEnable()
-        {
-            //SetInitialReferences();
-
-        }
     }
-}
