@@ -2434,7 +2434,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   notificationCanvas: {fileID: 1454016081}
-  WellDoneCanvas: {fileID: 0}
+  WellDoneCanvas: {fileID: 144415727}
   backgroundImage: {fileID: 1670139435}
   notificationText: {fileID: 972886774}
 --- !u!4 &974288656
@@ -3310,48 +3310,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1001 &1491897735
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4129498892489400, guid: 741b30511f08d4d43a5bb2b662e10919, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 479.52676
-      objectReference: {fileID: 0}
-    - target: {fileID: 4129498892489400, guid: 741b30511f08d4d43a5bb2b662e10919, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 393.05133
-      objectReference: {fileID: 0}
-    - target: {fileID: 4129498892489400, guid: 741b30511f08d4d43a5bb2b662e10919, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 5.8028474
-      objectReference: {fileID: 0}
-    - target: {fileID: 4129498892489400, guid: 741b30511f08d4d43a5bb2b662e10919, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4129498892489400, guid: 741b30511f08d4d43a5bb2b662e10919, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4129498892489400, guid: 741b30511f08d4d43a5bb2b662e10919, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4129498892489400, guid: 741b30511f08d4d43a5bb2b662e10919, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4129498892489400, guid: 741b30511f08d4d43a5bb2b662e10919, type: 2}
-      propertyPath: m_RootOrder
-      value: 24
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 741b30511f08d4d43a5bb2b662e10919, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1001 &1516105736
 Prefab:
   m_ObjectHideFlags: 0
@@ -4618,9 +4576,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cab05572c7906fb4a95a4c797371e4d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  temper: 0
   originalScale: {x: 0, y: 0, z: 0}
-  Expl1: {fileID: 0}
 --- !u!135 &2070824425
 SphereCollider:
   m_ObjectHideFlags: 0
