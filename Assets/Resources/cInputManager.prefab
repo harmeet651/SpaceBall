@@ -1,0 +1,142 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &100000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 400000}
+  - component: {fileID: 11400000}
+  m_Layer: 0
+  m_Name: cInputManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &400000
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 114.75654, y: 1.6424179, z: 74.25657}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8581a8b7df53b04eac1e563b2f5401b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Inputs:
+  - Name: Horizontal
+    Type: 1
+    PositiveButtonName: Strafe Right
+    NegativeButtonName: Strafe Left
+    PositiveButton: E
+    NegativeButton: Q
+    AltPositiveButton: RightArrow
+    AltNegativeButton: LeftArrow
+    Gravity: 5
+    Sensitivity: 5
+    Lock: 0
+  - Name: Vertical
+    Type: 1
+    PositiveButtonName: Walk Forwards
+    NegativeButtonName: Walk Backwards
+    PositiveButton: W
+    NegativeButton: S
+    AltPositiveButton: UpArrow
+    AltNegativeButton: DownArrow
+    Gravity: 5
+    Sensitivity: 5
+    Lock: 0
+  - Name: Turn
+    Type: 1
+    PositiveButtonName: Turn Right
+    NegativeButtonName: Turn Left
+    PositiveButton: D
+    NegativeButton: A
+    AltPositiveButton: 
+    AltNegativeButton: 
+    Gravity: 10
+    Sensitivity: 10
+    Lock: 0
+  - Name: Jump
+    Type: 0
+    PositiveButtonName: Jump
+    NegativeButtonName: 
+    PositiveButton: Space
+    NegativeButton: 
+    AltPositiveButton: 
+    AltNegativeButton: 
+    Gravity: 0
+    Sensitivity: 0
+    Lock: 0
+  - Name: Use
+    Type: 0
+    PositiveButtonName: Use
+    NegativeButtonName: 
+    PositiveButton: F
+    NegativeButton: 
+    AltPositiveButton: 
+    AltNegativeButton: 
+    Gravity: 0
+    Sensitivity: 0
+    Lock: 0
+  - Name: Menu
+    Type: 0
+    PositiveButtonName: Menu
+    NegativeButtonName: 
+    PositiveButton: Escape
+    NegativeButton: 
+    AltPositiveButton: 
+    AltNegativeButton: 
+    Gravity: 0
+    Sensitivity: 0
+    Lock: 1
+  - Name: HorizontalRun
+    Type: 1
+    PositiveButtonName: Run Right
+    NegativeButtonName: Run Left
+    PositiveButton: LeftShift+E
+    NegativeButton: LeftShift+Q
+    AltPositiveButton: LeftShift+RightArrow
+    AltNegativeButton: LeftShift+LeftArrow
+    Gravity: 5
+    Sensitivity: 5
+    Lock: 0
+  - Name: VerticalRun
+    Type: 1
+    PositiveButtonName: Run Forwards
+    NegativeButtonName: Run Backwards
+    PositiveButton: LeftShift+W
+    NegativeButton: LeftShift+S
+    AltPositiveButton: LeftShift+UpArrow
+    AltNegativeButton: LeftShift+DownArrow
+    Gravity: 5
+    Sensitivity: 5
+    Lock: 0
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 100000}
+  m_IsPrefabParent: 1
