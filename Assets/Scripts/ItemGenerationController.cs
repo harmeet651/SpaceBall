@@ -8,6 +8,7 @@ public class ItemGenerationController : MonoBehaviour {
     public GameObject itemMagnetPrefab;
     public GameObject itemShieldPrefab;
     public GameObject itemWingPrefab;
+    public GameObject itemMissilePrefab; 
     
     private PlayerController playerController;
 
@@ -42,24 +43,29 @@ public class ItemGenerationController : MonoBehaviour {
             {
                 float randVal = Random.Range(0, 100);
 
-                if (randVal < 3)
+                if (randVal < 2)
                 {
                     Generate(itemWingPrefab);
                 }
 
-                else if (randVal < 6)
+                else if (randVal < 4)
                 {
                     Generate(itemMagnetPrefab);
                 }
 
-                else if (randVal < 9)
+                else if (randVal < 6)
                 {
                     Generate(itemShieldPrefab); 
                 }
 
-                else if (randVal < 12)
+                else if (randVal < 8)
                 {
                     Generate(itemHealthBoxPrefab); 
+                }
+
+                else if (randVal < 11)
+                {
+                    Generate(itemMissilePrefab); 
                 }
 
                 else

@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour
 
     public GameObject magneticField;
     public GameObject shield;
+    public GameObject missilePrefab;
 
     public Transform explodeObj;    //effect after collision with trap
     public Material playerOriginalMaterial, playerMagnetMaterial, playerHealthMaterial, playerShieldMaterial;
@@ -206,6 +207,13 @@ public class PlayerController : MonoBehaviour
             EnableShield();
         }
 
+        // If player runs into a missile
+        else if (col.gameObject.tag == "ItemMissile")
+        {
+            Destroy(col.gameObject);
+            ShootMissile();
+        }
+
         else if (col.gameObject.tag == "speedAddRampToBall")
         {
             forwardSlowSpeed = 1.2f;
@@ -352,6 +360,13 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(10);
         DisableShield();
+    }
+
+    public void ShootMissile()
+    {
+        GameObject newMissileObj = Instantiate(missilePrefab) as GameObject;
+
+        newMissileObj.transform.position = new Vector3(transform.position.x, 1.0f, transform.position.z + 1.0f);
     }
 
     public void AddSpeed(float modifier)
