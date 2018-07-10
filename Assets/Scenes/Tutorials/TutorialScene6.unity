@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45140034, g: 0.50089264, b: 0.5723172, a: 1}
+  m_IndirectSpecularColor: {r: 0.45140117, g: 0.5008937, b: 0.5723182, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -621,6 +621,52 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 542b726674cc1c441930db0a15d75689, type: 2}
   m_IsPrefabParent: 0
+--- !u!1001 &333170482
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4011384365071686, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -1.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011384365071686, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011384365071686, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 7.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011384365071686, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011384365071686, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011384365071686, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011384365071686, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011384365071686, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_RootOrder
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 1485398841062074, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_Name
+      value: item-magnet (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &351452780
 GameObject:
   m_ObjectHideFlags: 0
@@ -1131,6 +1177,7 @@ MonoBehaviour:
     type: 2}
   itemWingPrefab: {fileID: 1815137030208146, guid: d465bfbc87dbeaf4aa8f21aba368b0f9,
     type: 2}
+  itemMissilePrefab: {fileID: 0}
 --- !u!114 &474912861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1182,6 +1229,7 @@ MonoBehaviour:
   isShieldOn: 0
   magneticField: {fileID: 894249954}
   shield: {fileID: 2070824421}
+  missilePrefab: {fileID: 0}
   explodeObj: {fileID: 4189830235195804, guid: 41d1c067a2cf84d2dbc6e0f8abb274e8, type: 2}
   playerOriginalMaterial: {fileID: 2100000, guid: 6a15b1f15432b6f4b9a8066e1e6ca4df,
     type: 2}
@@ -1405,6 +1453,52 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 30, y: -30, z: 0}
+--- !u!1001 &673711422
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4011384365071686, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 1.79
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011384365071686, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011384365071686, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 11.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011384365071686, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011384365071686, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011384365071686, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011384365071686, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011384365071686, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_RootOrder
+      value: 29
+      objectReference: {fileID: 0}
+    - target: {fileID: 1485398841062074, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_Name
+      value: item-magnet (4)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &710657846
 Prefab:
   m_ObjectHideFlags: 0
@@ -3194,6 +3288,52 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1295180749
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4011384365071686, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 1.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011384365071686, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011384365071686, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 7.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011384365071686, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011384365071686, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011384365071686, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011384365071686, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011384365071686, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_RootOrder
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 1485398841062074, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_Name
+      value: item-magnet (3)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &1443543969
 Prefab:
   m_ObjectHideFlags: 0
@@ -4492,6 +4632,52 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1928723306}
+--- !u!1001 &2021140652
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4011384365071686, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011384365071686, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011384365071686, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 11.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011384365071686, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011384365071686, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011384365071686, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011384365071686, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011384365071686, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_RootOrder
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 1485398841062074, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+      propertyPath: m_Name
+      value: item-magnet (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: e1745ac488cabad4bb1c74ff11d99703, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &2045790964
 GameObject:
   m_ObjectHideFlags: 0

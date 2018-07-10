@@ -20,7 +20,7 @@ public class FlightTutorial : MonoBehaviour {
     void Update()
     {
 
-        if ((Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.A)) && Time.timeScale == 0)
+        if ((Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.A) || Input.touchCount > 0) && Time.timeScale == 0)
         {
             Debug.Log("high");
             Time.timeScale = 1;

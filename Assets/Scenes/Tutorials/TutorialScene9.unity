@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45140034, g: 0.50089264, b: 0.5723172, a: 1}
+  m_IndirectSpecularColor: {r: 0.45140117, g: 0.5008937, b: 0.5723182, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1525,6 +1525,7 @@ MonoBehaviour:
     type: 2}
   itemWingPrefab: {fileID: 1815137030208146, guid: d465bfbc87dbeaf4aa8f21aba368b0f9,
     type: 2}
+  itemMissilePrefab: {fileID: 0}
 --- !u!114 &474912861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1576,6 +1577,7 @@ MonoBehaviour:
   isShieldOn: 0
   magneticField: {fileID: 894249954}
   shield: {fileID: 2070824421}
+  missilePrefab: {fileID: 0}
   explodeObj: {fileID: 4189830235195804, guid: 41d1c067a2cf84d2dbc6e0f8abb274e8, type: 2}
   playerOriginalMaterial: {fileID: 2100000, guid: 6a15b1f15432b6f4b9a8066e1e6ca4df,
     type: 2}
@@ -1734,7 +1736,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1876336292015098, guid: 57eb5dc024aa9451b96bc8d5f1363af7, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 65863157849686224, guid: 57eb5dc024aa9451b96bc8d5f1363af7, type: 2}
@@ -5437,7 +5439,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cab05572c7906fb4a95a4c797371e4d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  temper: 0
   originalScale: {x: 0, y: 0, z: 0}
+  Expl1: {fileID: 0}
 --- !u!135 &2070824425
 SphereCollider:
   m_ObjectHideFlags: 0
