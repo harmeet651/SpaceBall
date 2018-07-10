@@ -15,12 +15,14 @@ public class GameController : MonoBehaviour
     private NotificationController notificationController;
     public static float currentMaxPosition = 0, currentMinPosition = 0;
 
+    public static bool gOver = false;
+
     // number of lanes
     public int numLanes = 5;                   
 
-    private bool spawned = false, slow = false;
+    private bool spawned = false, slow = false, gameStarted = false;
 
-    private int numberOfPlayers;
+    public static int numberOfPlayers;
 
 
     public int incgetnop(){
@@ -56,74 +58,18 @@ public class GameController : MonoBehaviour
                     currentMinPosition = player.transform.position.z;                    
             }
             //Debug.Log("currentMaxPosition is " + currentMaxPosition );
+             if((GameObject.FindGameObjectsWithTag("Player")).Length == 2){
+                gameStarted = true;
+            }
+            if((GameObject.FindGameObjectsWithTag("Player")).Length < 2 && gameStarted){
+                Debug.Log("Game Over");
+                //(GameObject.FindGameObjectWithTag("GameOverCanvas")).SetActive(true);
+                SceneManager.LoadScene("Scenes/MenuScene");
+
+            }
         }
-
-
-
-
-
-
-    	// if(GameObject.Find("Player(Clone)") != null && !spawned)
-    	// {
-    	// 	player = GameObject.Find("Player(Clone)");
-    	// 	//player.name = "a";
-    	// 	player.name = "player" + numberOfPlayers;
-    	// 	playerController = player.GetComponent<PlayerController>();
-
-    	// 	//Its just a flag, dont worry about it...
-    	// 	spawned = true;
-
-    	// 	Debug.Log("Attached game controller to player");
-    	// }
-
-
-
-    	// if(spawned){
-    	// 	// if (Input.GetKeyDown(moveL))
-    	// 	// {
-    	// 	//     playerController.MoveLeft();
-    	// 	// }
-    	// 	// if (Input.GetKeyDown(moveR))
-    	// 	// {
-    	// 	//     playerController.MoveRight();
-    	// 	// }
-    	// 	// if (Input.GetKey(moveSlow))
-    	// 	// {
-    	// 	//     playerController.MoveSlow();
-    	// 	// }
-
-    	// 	//Touch manager.
-    	// 	// if (Input.touchCount > 0)
-    	// 	// {
-    	// 	//     //Get touch event by the first finger.
-    	// 	//     Touch myTouch = Input.GetTouch(0);
-    	// 	//     //Check If touch is just starting
-    	// 	//     if (myTouch.phase == TouchPhase.Began)
-    	// 	//     {
-    	// 	//         //Reset all related variables
-    	// 	//         touchDuration = 0;
-    	// 	//         isTouchInHold = false;
-    	// 	//         TouchStart = Time.time;
-
-    	// 	//         if(slow != 1){
-    	// 	//         	if(myTouch.position.x > scrMid){
-    	// 	//         		playerController.MoveRight();
-    	// 	//         	}
-    	// 	//         	else{
-    	// 	//         		playerController.MoveLeft();
-    	// 	//         	}
-    	// 	//         }
-    	// 	//     }
-
-    		    
-
-    	// 	// } //End of Touch Manager.
-
-    		
-    	// }
-        
+  
     }
-
 
    
     public float GetLaneCenterXPos(int laneNum)
@@ -133,15 +79,17 @@ public class GameController : MonoBehaviour
 
     public void GameOver(string x)
     {
+        gOver = true;
     	Debug.Log("Game Over called bcos: " + x);
         StartCoroutine(GameOverCoroutine());
     }
 
     IEnumerator GameOverCoroutine()
     {
-        notificationController.NotifyText("Game Over");
+        //notificationController.NotifyText("Game Over");
         yield return new WaitForSeconds(0.1f);
         SceneManager.LoadScene("Scenes/MenuScene");
+        //(GameObject.FindGameObjectWithTag("GameOverCanvas")).SetActive(true);
     }
 
     public void slowModeOn(){

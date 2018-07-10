@@ -270,14 +270,14 @@ public class PlayerController : NetworkBehaviour
             Debug.Log("Prev Lane: " +currentLane +"Current Lane: " + ((numLanes / 2) + 1));
             rb.transform.position = new Vector3(0f ,0.75f,rb.transform.position.z- (rb.transform.position.z % 20) - 2.5f );  
             currentLane = (numLanes / 2) + 1;
-            targetLane = currentLane; 
-
+            targetLane = currentLane;
             SetHealth(GetHealth() - 1);
         }
+
         if (transform.position.y <= -10.0f)
         {
             gameController.GameOver("y pos too low");
-            Debug.Log("Xpos: " +transform.position.x + " Ypos: " +transform.position.y+ " Zpos: " + transform.position.z);
+            //Debug.Log("Xpos: " +transform.position.x + " Ypos: " +transform.position.y+ " Zpos: " + transform.position.z);
         }
     }
 

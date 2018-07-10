@@ -63,14 +63,17 @@ public class ScoreManager : MonoBehaviour
 
         //update the score with game time
 
-        if (isInSlowMode == false)
-        {
-            score += Time.deltaTime;
+        if(GameController.numberOfPlayers == 2){
+            if (isInSlowMode == false)
+            {
+                score += Time.deltaTime;
+            }
+            else
+            {
+                score += Time.deltaTime * 0.2f;
+            }
         }
-        else
-        {
-            score += Time.deltaTime * 0.2f;
-        }
+        
 
         //to calculate and display high Score
         if (score > highscoreCount)
