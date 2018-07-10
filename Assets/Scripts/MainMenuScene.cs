@@ -20,8 +20,18 @@ public class MainMenuScene : MonoBehaviour {
 		Debug.Log("QUIT!");
 		Application.Quit();
 	}
+    public void LoadMenu()
+    {
+        SceneManager.LoadScene("Scenes/MenuScene");
 
-	public void TutorialGame ()
+    }
+    public void LoadMultiPlayer()
+    {
+        SceneManager.LoadScene("Scenes/MultiplayerSetupScene");
+
+    }
+
+    public void TutorialGame ()
 	{
 		SceneManager.LoadScene("Scenes/TutorialScene");
 	}
