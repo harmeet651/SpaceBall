@@ -14,18 +14,12 @@ public class RewardController : MonoBehaviour
     private bool isInMagneticField = false;
 
     public AudioClip clip;
-    private AudioSource audSource;
 
     // Use this for initialization
     void Start()
     {
         player = GameObject.FindWithTag("Player");
         scoreManager = player.GetComponent<ScoreManager>();
-
-      //  audSource = GetComponent<AudioSource>();
-        //audSource.clip = clip;
-        //audSource.loop = false;
-        //audSource.volume = 1F;
     }
 
     // Update is called once per frame

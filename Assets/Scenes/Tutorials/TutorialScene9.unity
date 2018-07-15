@@ -2811,34 +2811,44 @@ Prefab:
     - target: {fileID: 114896230120582664, guid: 2650751c52bca6148bf76f3b03c9ab17,
         type: 2}
       propertyPath: m_Text
-      value: Tutorials are now Complete
+      value: YOU HAVE COMPLETED THE TUTORIALS!
       objectReference: {fileID: 0}
     - target: {fileID: 114896230120582664, guid: 2650751c52bca6148bf76f3b03c9ab17,
         type: 2}
       propertyPath: m_FontData.m_Font
       value: 
-      objectReference: {fileID: 12800000, guid: e9ef92f4ebdbbb5469c8bb32a728d06a,
+      objectReference: {fileID: 12800000, guid: 197f2a175262d3d43900b7b04111e890,
         type: 3}
     - target: {fileID: 114896230120582664, guid: 2650751c52bca6148bf76f3b03c9ab17,
         type: 2}
       propertyPath: m_FontData.m_FontSize
-      value: 85
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 114896230120582664, guid: 2650751c52bca6148bf76f3b03c9ab17,
         type: 2}
       propertyPath: m_Color.r
-      value: 0.38039216
+      value: 0.26415092
       objectReference: {fileID: 0}
     - target: {fileID: 114896230120582664, guid: 2650751c52bca6148bf76f3b03c9ab17,
         type: 2}
       propertyPath: m_Color.g
-      value: 0.38039216
+      value: 0.26415092
       objectReference: {fileID: 0}
     - target: {fileID: 114896230120582664, guid: 2650751c52bca6148bf76f3b03c9ab17,
         type: 2}
       propertyPath: m_Color.b
-      value: 0.38039216
+      value: 0.26415092
       objectReference: {fileID: 0}
+    - target: {fileID: 114334256746040772, guid: 2650751c52bca6148bf76f3b03c9ab17,
+        type: 2}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114521446544455838, guid: 2650751c52bca6148bf76f3b03c9ab17,
+        type: 2}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: cb3a436751f837246b07c96008ef6a36, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2650751c52bca6148bf76f3b03c9ab17, type: 2}
   m_IsPrefabParent: 0
@@ -4872,11 +4882,11 @@ RectTransform:
   m_Father: {fileID: 1042375700}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -158.05249, y: -76.649994}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 26}
   m_SizeDelta: {x: 100, y: 40}
-  m_Pivot: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1841626783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5349,7 +5359,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.38039216, g: 0.38039216, b: 0.38039216, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -5357,8 +5367,8 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: e9ef92f4ebdbbb5469c8bb32a728d06a, type: 3}
-    m_FontSize: 19
+    m_Font: {fileID: 12800000, guid: 197f2a175262d3d43900b7b04111e890, type: 3}
+    m_FontSize: 15
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1

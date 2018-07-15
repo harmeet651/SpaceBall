@@ -34,9 +34,11 @@ public class PlayerController : MonoBehaviour
 
     private int numLanes;
 
+    public GameObject explosion;
+
     private Rigidbody rb;
     private HorizontalMovement horizontalMoveStatus = HorizontalMovement.None;
-    private bool isLaneLockEnabled = true;
+    private bool isLaneLockEnabled = true, beingRespawned = false;
 
     private int currentLane;    // current lane
     private int targetLane;     // target lane of horizontal move
@@ -45,9 +47,14 @@ public class PlayerController : MonoBehaviour
     public GameObject magneticField;
     public GameObject shield;
     public GameObject missilePrefab;
+    private GameObject currentDeathEffect;
 
     public Transform explodeObj;    //effect after collision with trap
     public Material playerOriginalMaterial, playerMagnetMaterial, playerHealthMaterial, playerShieldMaterial;
+
+    private Vector3 currentPos;
+
+    public AudioClip clip;
 
     void Start()
     {
@@ -80,6 +87,8 @@ public class PlayerController : MonoBehaviour
 
         // Enable lane lock by default (always keep the ball at the center of the lane)
         EnableLaneLock(); 
+
+
     }
 
     public void AddHealth(int x)
@@ -146,20 +155,24 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = new Vector3(horizVelocity, verticalVelocity, forwardSpeed * 3);
         }
-
+        else if(beingRespawned){
+            rb.transform.position = currentPos;
+        }
         else
         {
             rb.velocity = new Vector3(horizVelocity, verticalVelocity, forwardSpeed);
         }
 
-        if(rb.transform.position.y<-1.0f){
-            Debug.Log("Prev Position: " +rb.transform.position.z +"Current Position: " + (rb.transform.position.z- (rb.transform.position.z % 20) - 3.5f));
-            Debug.Log("Prev Lane: " +currentLane +"Current Lane: " + ((numLanes / 2) + 1));
-            rb.transform.position = new Vector3(0f ,0.75f,rb.transform.position.z- (rb.transform.position.z % 20) - 2.5f );  
-            currentLane = (numLanes / 2) + 1;
-            targetLane = currentLane; 
-
-            SetHealth(GetHealth() - 1);
+        if(rb.transform.position.y<-1f && !beingRespawned){
+            AudioSource.PlayClipAtPoint(clip,gameObject.transform.position);
+            currentDeathEffect = Instantiate(explosion, rb.transform.position, Quaternion.identity);
+            rb.transform.localScale = new Vector3(0,0,0);  
+            StartCoroutine (WaitForRespawn());
+            currentPos = rb.transform.position;
+            beingRespawned = true;
+            //Debug.Log("Prev Position: " +rb.transform.position.z +"Current Position: " + (rb.transform.position.z- (rb.transform.position.z % 20) - 3.5f));
+            //Debug.Log("Prev Lane: " +currentLane +"Current Lane: " + ((numLanes / 2) + 1));
+            
         }
     }
 
@@ -169,6 +182,21 @@ public class PlayerController : MonoBehaviour
         {
             gameController.GameOver();
         }
+    }
+
+    IEnumerator WaitForRespawn()
+    {
+        
+        yield return new WaitForSeconds(1.25f);
+        currentLane = (numLanes / 2) + 1;
+        targetLane = currentLane; 
+        rb.transform.position = new Vector3(0f ,0.75f,rb.transform.position.z- (rb.transform.position.z % 20) - 2.5f );  
+        SetHealth(GetHealth() - 1);
+        beingRespawned = false;
+        rb.transform.localScale = new Vector3(0.5f,0.5f,0.5f);  
+        Destroy(currentDeathEffect);
+        DelayedStartScript.perform = true;
+        
     }
 
     private void OnCollisionEnter(Collision col)

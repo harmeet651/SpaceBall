@@ -5,20 +5,25 @@ using UnityEngine;
 public class DelayedStartScript : MonoBehaviour {
 
 	public GameObject countDown;
+	public static bool perform = true;
 
 	// Use this for initialization
 	void Start () {
-		StartCoroutine ("StartDelay");
+	
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if(perform)
+			StartCoroutine ("StartDelay");
 	}
 
 	IEnumerator StartDelay(){
+		perform = false;
+		countDown.gameObject.SetActive (true);
+		cDown.state = 0;
 		Time.timeScale = 0;
-		float pauseTime = Time.realtimeSinceStartup + 3f;
+		float pauseTime = Time.realtimeSinceStartup + 1.8f;
 		while (Time.realtimeSinceStartup < pauseTime)
 			yield return 0;
 		countDown.gameObject.SetActive (false);
